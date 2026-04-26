@@ -1,0 +1,2045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SP FoodHitch</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,Helvetica,sans-serif}
+    body{background:#eef6f1;color:#0f172a}.hidden{display:none!important}
+    #appPage{min-height:100vh;background:radial-gradient(circle at top left,rgba(34,197,94,.12),transparent 28%),radial-gradient(circle at top right,rgba(250,204,21,.12),transparent 25%),linear-gradient(180deg,#f8fafc,#eef6f1)}
+    .login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:34px;background:radial-gradient(circle at 8% 12%,rgba(34,197,94,.32),transparent 26%),radial-gradient(circle at 92% 10%,rgba(245,158,11,.24),transparent 24%),radial-gradient(circle at 78% 82%,rgba(59,130,246,.16),transparent 26%),linear-gradient(135deg,#ecfdf5 0%,#ffffff 46%,#fff7ed 100%);position:relative;overflow:auto}.login:before,.login:after{content:"";position:absolute;border-radius:999px;background:rgba(255,255,255,.58);filter:blur(1px);pointer-events:none}.login:before{width:300px;height:300px;left:-90px;bottom:-110px}.login:after{width:240px;height:240px;right:-80px;top:-90px}.login-wrap{width:100%;max-width:1280px;display:grid;grid-template-columns:1.2fr .8fr;gap:34px;align-items:center;position:relative;z-index:1}
+    .box,.panel,.card{background:rgba(255,255,255,.96);border:1px solid rgba(226,232,240,.95);border-radius:26px;padding:22px;box-shadow:0 14px 38px rgba(15,23,42,.08);backdrop-filter:blur(10px)}.panel{padding:24px}.card{border-radius:20px;transition:.2s}.card:hover{transform:translateY(-2px);box-shadow:0 16px 35px rgba(15,23,42,.11)}.login-card{padding:32px;border-radius:32px;box-shadow:0 28px 80px rgba(15,23,42,.18);border:1px solid rgba(226,232,240,.95);background:rgba(255,255,255,.93);backdrop-filter:blur(14px);position:relative;overflow:hidden}.login-card:before{content:"";position:absolute;inset:0 0 auto;height:6px;background:linear-gradient(90deg,#15803d,#22c55e,#f59e0b)}.login-card h2{font-size:34px;letter-spacing:-.8px}.login-card input{padding:15px 15px}.login-card .green.full{padding:15px;font-size:16px;box-shadow:0 14px 30px rgba(21,128,61,.26)}.login-mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}.login-mini{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:12px;font-size:12px;color:#64748b}.login-mini b{display:block;color:#0f172a;margin-bottom:4px}.admin-note{background:linear-gradient(135deg,#f8fafc,#f0fdf4);border:1px solid #bbf7d0;border-radius:18px;padding:14px;margin:16px 0;color:#475569;line-height:1.55}.admin-note strong{color:#14532d}.signup-row{display:grid;grid-template-columns:1fr;gap:8px;margin-top:10px}.signup-row .white{background:#f8fafc}
+    .brand,.nav-left,.nav-right,.top,.actions,.tabs{display:flex;align-items:center;gap:12px}.nav-right{flex-wrap:wrap;justify-content:flex-end}.brand{margin-bottom:22px}.top{justify-content:space-between;align-items:flex-start}.actions,.tabs{flex-wrap:wrap}
+    .logo{width:52px;height:52px;background:linear-gradient(135deg,#15803d,#22c55e);color:#fff;border-radius:18px;display:grid;place-items:center;font-size:26px;box-shadow:0 12px 28px rgba(21,128,61,.26)}
+    h1{font-size:52px;line-height:1.03;margin-bottom:18px;letter-spacing:-1.8px}h2{font-size:30px;margin-bottom:8px}h3{margin-bottom:12px}.muted{color:#64748b;line-height:1.6}.small{font-size:13px}
+    .login-hero{position:relative}.hero-badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #bbf7d0;color:#166534;border-radius:999px;padding:8px 12px;font-weight:900;font-size:13px;margin-bottom:18px;box-shadow:0 8px 18px rgba(15,23,42,.06)}.hero-highlight{color:#15803d}.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:24px}.hero-stat{background:rgba(255,255,255,.82);border:1px solid #e2e8f0;border-radius:20px;padding:15px;box-shadow:0 10px 25px rgba(15,23,42,.06)}.hero-stat b{font-size:22px;display:block}.hero-stat span{font-size:12px;color:#64748b}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}.feature{background:rgba(255,255,255,.82);border:1px solid #e2e8f0;border-radius:20px;padding:17px;transition:.2s}.feature:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(15,23,42,.1)}.feature b{display:block;margin:8px 0}.login-preview{margin-top:22px;background:rgba(15,23,42,.94);color:#fff;border-radius:28px;padding:20px;box-shadow:0 22px 55px rgba(15,23,42,.22);border:1px solid rgba(255,255,255,.12)}.preview-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:16px}.preview-pill{background:rgba(34,197,94,.18);border:1px solid rgba(187,247,208,.35);color:#bbf7d0;border-radius:999px;padding:7px 11px;font-size:12px;font-weight:900}.preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.preview-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:14px}.preview-card b{display:block;margin-bottom:5px}.preview-card span{font-size:12px;color:#cbd5e1;line-height:1.45}.feature-showcase{margin-top:18px;background:rgba(255,255,255,.88);border:1px solid #dbeafe;border-radius:26px;padding:20px;box-shadow:0 12px 30px rgba(15,23,42,.07)}.feature-showcase h3{margin-bottom:6px}.feature-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}.feature-pill{display:flex;gap:10px;align-items:flex-start;background:#f8fafc;border:1px solid #e2e8f0;border-radius:17px;padding:12px 13px;font-size:13px;line-height:1.4}.feature-pill span{font-size:18px}.feature-pill b{display:block;color:#0f172a;margin-bottom:2px}.feature-pill p{color:#64748b}
+    label{display:block;font-weight:700;margin:14px 0 7px}input,select,textarea{width:100%;padding:13px;border:1px solid #e2e8f0;border-radius:14px;font-size:15px}input:focus,select:focus,textarea:focus{outline:2px solid #bbf7d0}
+    button{border:0;border-radius:14px;padding:11px 14px;font-weight:800;cursor:pointer;transition:.2s}button:hover{transform:translateY(-1px)}.green{background:#15803d;color:#fff}.green:hover{background:#166534}.white{background:#fff;border:1px solid #e2e8f0}.red{background:#fee2e2;color:#b91c1c}.blue{background:#dbeafe;color:#1d4ed8}.purple{background:#ede9fe;color:#5b21b6}.yellow{background:#fef9c3;color:#854d0e}.active{outline:3px solid #86efac}.full{width:100%;margin-top:18px}
+    .tabs .white{flex:1;background:#f8fafc}.tabs .active{background:#dcfce7;border-color:#86efac;color:#166534;outline:0;box-shadow:0 0 0 3px rgba(34,197,94,.18)}.checks label{display:flex;align-items:center;gap:10px;margin:10px 0}.checks input{width:auto}.note{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:14px;margin:16px 0;color:#64748b;line-height:1.6}.note strong{color:#0f172a}
+    nav{background:rgba(255,255,255,.86);border-bottom:1px solid rgba(226,232,240,.9);position:sticky;top:0;z-index:10;backdrop-filter:blur(18px)}.nav{max-width:1180px;margin:auto;padding:18px 24px;display:flex;justify-content:space-between;align-items:center}.user{text-align:right}.nav-right button{white-space:nowrap}.driver-rating-pill{display:flex;align-items:center;gap:6px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:999px;padding:8px 12px;font-size:13px;font-weight:900;white-space:nowrap}.driver-rating-pill span{color:#64748b;font-weight:700}.action-btn{display:flex;align-items:center;gap:8px;justify-content:center}.btn-svg{width:17px;height:17px;display:inline-block;flex-shrink:0}.icon-completed{color:#15803d}.icon-logout{color:#dc2626}.action-btn svg{stroke:currentColor}.reset-wrap,.bell-wrap{position:relative}.reset-menu,.notif-menu{position:absolute;right:0;top:46px;background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:8px;box-shadow:0 12px 30px rgba(15,23,42,.15);min-width:190px;z-index:9999}.reset-menu button{display:block;width:100%;text-align:left;margin:4px 0}.bell{background:#fff;border:1px solid #e2e8f0;border-radius:14px;min-width:48px;position:relative}.badge{position:absolute;right:-6px;top:-7px;background:#ef4444;color:#fff;border-radius:999px;font-size:11px;font-weight:900;min-width:20px;height:20px;display:grid;place-items:center;padding:0 5px}.notif-menu{width:320px;max-height:360px;overflow:auto;z-index:10000}.bell-wrap{z-index:10001}.leaflet-pane,.leaflet-top,.leaflet-bottom{z-index:1!important}.notif-item{padding:12px;border-radius:12px;border:1px solid #e2e8f0;margin:6px 0;background:#f8fafc}.notif-item b{display:block;margin-bottom:4px}.notif-time{font-size:12px;color:#64748b;margin-top:4px}
+    main{max-width:1180px;margin:auto;padding:30px 24px 60px}.head{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:22px;background:linear-gradient(135deg,#ffffff,#f0fdf4);border:1px solid rgba(187,247,208,.9);border-radius:30px;padding:24px 26px;box-shadow:0 18px 45px rgba(15,23,42,.08)}.head h2{font-size:34px;letter-spacing:-.8px}.head .tag{align-self:flex-start}.tag{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:7px 12px;font-size:12px;font-weight:900;white-space:nowrap;letter-spacing:.1px}
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:20px}.admin-order-filters{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 16px}.admin-order-filters button.active-filter{background:#15803d;color:#fff;border-color:#15803d}.admin-overview-list{max-height:520px;overflow-y:auto;padding-right:6px}.admin-grid .panel:has(#adminOrderList){max-height:720px;overflow:hidden}.admin-grid .panel:has(#adminOrderList) #adminOrderList{max-height:520px;overflow-y:auto;padding-right:6px}.admin-grid .panel:has(#adminOrderList) #adminOrderList::-webkit-scrollbar{width:8px}.admin-grid .panel:has(#adminOrderList) #adminOrderList::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:999px}.account-filter-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 14px}.account-filter-row button.active-filter{background:#15803d;color:#fff;border-color:#15803d}.account-list-scroll{max-height:520px;overflow-y:auto;padding-right:6px}.account-list-scroll::-webkit-scrollbar{width:8px}.account-list-scroll::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:999px}.stat h2{margin:5px 0 0}.scroll-list{max-height:420px;overflow-y:auto;padding-right:6px}.food-search-row{display:flex;align-items:center;gap:14px;margin:10px 0 14px;width:100%}.food-search-wrap{flex:1;max-width:none}.food-search-wrap input{margin:0!important;width:100%}.view-all-btn{white-space:nowrap;background:#ecfdf5;color:#166534;border:1px solid #bbf7d0;margin-left:auto;padding-left:22px;padding-right:22px}.store-modal-list{max-height:460px;overflow-y:auto;display:grid;gap:10px;margin-top:14px;padding-right:6px}.store-modal-list .card{box-shadow:none}.store-modal-controls{display:grid;grid-template-columns:1fr 220px;gap:12px;margin-top:12px}.store-modal-search{margin-top:0}@media(max-width:700px){.store-modal-controls{grid-template-columns:1fr}}.login-shell{width:100%;max-width:1220px;display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:stretch;position:relative;z-index:1}.login-left-panel{background:rgba(255,255,255,.58);border:1px solid rgba(255,255,255,.82);border-radius:34px;padding:34px;box-shadow:0 26px 75px rgba(15,23,42,.13);backdrop-filter:blur(14px)}.login-brand{margin-bottom:18px}.login-status-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}.login-status-row span{background:#fff;border:1px solid #bbf7d0;color:#166534;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:900}.login-lead{font-size:16px;max-width:760px}.login-feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:24px}.login-feature-card{background:rgba(255,255,255,.9);border:1px solid #e2e8f0;border-radius:20px;padding:15px;box-shadow:0 10px 24px rgba(15,23,42,.06)}.login-feature-card b{display:block;margin-bottom:6px;color:#0f172a}.login-feature-card span{display:block;color:#64748b;font-size:13px;line-height:1.45}.modern-login-card{align-self:center;max-width:460px;width:100%;justify-self:end}.login-card-top{text-align:left;margin-bottom:18px}.login-role-tabs{margin:18px 0 14px}.login-info-strip{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.login-info-strip div{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:12px}.login-info-strip b{display:block;color:#0f172a;margin-bottom:4px}.login-info-strip span{font-size:12px;color:#64748b;line-height:1.4}.compact-admin-note{margin:14px 0}.login-approval-note{text-align:center;margin-top:10px}
+    @media(max-width:900px){.food-search-row{flex-direction:column;align-items:stretch}.food-search-wrap{max-width:100%}}.scroll-list::-webkit-scrollbar{width:8px}.scroll-list::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:999px}.grid{display:grid;grid-template-columns:1.25fr .75fr;gap:20px;align-items:start}.admin-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:18px}.list{display:grid;gap:12px}.row{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid #e2e8f0;padding:11px 0}.total{font-size:22px;font-weight:900}.section-gap{margin-top:22px}
+    .success{background:#dcfce7;color:#166534;padding:14px;border-radius:16px;margin-top:14px;font-weight:800;border:1px solid #bbf7d0}.status-declined{background:#fee2e2!important;border-color:#fecaca!important}.status-ongoing{background:#fef9c3!important;border-color:#fde68a!important}.status-accepted{background:#ffedd5!important;border-color:#fdba74!important}.status-completed{background:#dcfce7!important;border-color:#bbf7d0!important}.status-declined .muted,.status-ongoing .muted,.status-accepted .muted,.status-completed .muted{color:#334155}.empty{border:1px dashed #cbd5e1;border-radius:18px;padding:22px;text-align:center;color:#64748b;background:linear-gradient(135deg,#ffffff,#f8fafc)}.empty:before{content:"✨";display:block;font-size:22px;margin-bottom:6px}
+    .sg-clock{position:fixed;left:18px;bottom:18px;background:linear-gradient(135deg,#0f172a,#1e293b);color:#fff;border-radius:18px;padding:13px 16px;box-shadow:0 18px 38px rgba(0,0,0,.25);z-index:98;font-weight:900;font-size:14px;border:1px solid rgba(255,255,255,.12)}.support-chat{position:fixed;right:18px;bottom:18px;z-index:11000}.support-chat-btn{display:flex;align-items:center;gap:9px;background:linear-gradient(135deg,#15803d,#22c55e);color:#fff;border-radius:999px;padding:14px 18px;box-shadow:0 18px 38px rgba(21,128,61,.32);border:1px solid rgba(255,255,255,.25)}.support-chat-btn svg{width:20px;height:20px;stroke:currentColor}.support-chat-panel{position:absolute;right:0;bottom:62px;width:340px;background:#fff;border:1px solid #e2e8f0;border-radius:24px;box-shadow:0 24px 70px rgba(15,23,42,.24);overflow:hidden}.support-head{background:linear-gradient(135deg,#15803d,#22c55e);color:#fff;padding:16px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.support-head h3{margin:0;font-size:17px}.support-head p{font-size:12px;opacity:.9;line-height:1.4}.support-head button{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.28);padding:6px 9px}.support-messages{padding:14px;display:grid;gap:10px;max-height:260px;overflow-y:auto;background:#f8fafc}.support-msg{padding:10px 12px;border-radius:14px;font-size:13px;line-height:1.45}.support-msg.bot{background:#dcfce7;color:#14532d;border:1px solid #bbf7d0;justify-self:start;max-width:55%}.support-msg.warning{background:#fef9c3;color:#854d0e;border:1px solid #fde68a;justify-self:start;max-width:55%}.support-msg.user{background:#fff;color:#0f172a;border:1px solid #e2e8f0;justify-self:end;max-width:55%}@media(max-width:560px){.support-msg.bot,.support-msg.warning,.support-msg.user{max-width:82%}}.support-input-row{display:flex;gap:8px;padding:12px;border-top:1px solid #e2e8f0;background:#fff}.support-input-row input{padding:11px;border-radius:12px}.support-input-row button{padding:11px 13px}.support-inbox-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:18px}.support-thread-list{max-height:540px;overflow-y:auto;padding-right:6px}.support-thread-card{cursor:pointer}.support-thread-card.active-thread{outline:3px solid #86efac}.support-admin-chat{background:#f8fafc;border:1px solid #e2e8f0;border-radius:18px;padding:14px;min-height:320px;max-height:460px;overflow-y:auto;display:grid;gap:10px}.support-admin-reply{display:flex;gap:10px;margin-top:12px}.support-admin-reply input{flex:1}.signup-note{font-size:13px;background:#f0fdf4;border:1px solid #bbf7d0;color:#166534;border-radius:14px;padding:12px;margin-top:12px;line-height:1.5}.approval-list{max-height:620px;overflow-y:auto;padding-right:6px}.approval-card .muted b{color:#0f172a}.clickable-account{cursor:pointer}.clickable-account:hover{outline:3px solid #86efac}.account-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.detail-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:18px;padding:14px}.detail-box h4{margin-bottom:8px}.detail-section{margin-top:16px}.detail-section .list{max-height:320px;overflow-y:auto;padding-right:6px}.detail-order{box-shadow:none!important}.detail-order:hover{transform:none}.rating-box{margin-top:12px;background:#fff;border:1px solid #bbf7d0;border-radius:16px;padding:14px}.rating-box textarea{margin-top:7px}.star-rating{display:flex;gap:6px;margin:14px 0}.star-btn{background:#fff7ed;border:1px solid #fed7aa;color:#f59e0b;font-size:30px;line-height:1;border-radius:14px;padding:9px 11px}.star-btn:hover,.star-btn.active-star{background:#fef3c7;color:#d97706;transform:translateY(-2px)}.rating-modal-order{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:12px;margin:12px 0}.rating-summary{margin-top:10px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:14px;padding:12px;color:#166534}.rating-summary.low-rating{background:#fef9c3;border-color:#fde68a;color:#854d0e}.review-comment{margin-top:8px;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:10px;color:#334155}@media(max-width:800px){.account-detail-grid{grid-template-columns:1fr}}@media(max-width:900px){.support-inbox-grid{grid-template-columns:1fr}}.sg-clock span{display:block;font-size:12px;color:#cbd5e1;font-weight:500;margin-top:2px}.schedule-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:12px;margin-top:10px}.map{height:360px;border-radius:24px;overflow:hidden;border:1px solid #cbd5e1;background:#e2e8f0;margin:14px 0 16px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.4)}.map-help{font-size:13px;color:#64748b;margin-bottom:8px}.map-warning{font-size:13px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:14px;padding:12px;margin-bottom:12px;line-height:1.5}.modal-bg{position:fixed;inset:0;background:rgba(15,23,42,.55);display:flex;align-items:center;justify-content:center;padding:20px;z-index:200}.modal{background:#fff;border-radius:24px;padding:24px;max-width:420px;width:100%;box-shadow:0 25px 60px rgba(0,0,0,.3)}.modal h3{margin-bottom:8px}.modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}.modal input{margin-top:14px}#toast{position:fixed;right:20px;bottom:92px;background:#0f172a;color:#fff;padding:14px 16px;border-radius:16px;box-shadow:0 18px 38px rgba(0,0,0,.24);max-width:320px;z-index:99}
+    @media(max-width:900px){.login-wrap,.grid,.admin-grid{grid-template-columns:1fr}.features,.stats,.hero-stats,.feature-list{grid-template-columns:1fr 1fr}h1{font-size:40px}}
+    @media(max-width:560px){.features,.stats,.hero-stats,.feature-list{grid-template-columns:1fr}.nav,.head,.top{flex-direction:column;align-items:flex-start}.user{text-align:left}}
+  </style>
+</head>
+
+<body>
+  <section id="loginPage" class="login">
+    <div class="login-shell">
+      <div class="login-left-panel">
+        <div class="brand login-brand">
+          <div class="logo">🍱</div>
+          <div>
+            <h2>SP FoodHitch</h2>
+            <p class="muted">Singapore Polytechnic peer-to-peer food delivery</p>
+          </div>
+        </div>
+
+        <div class="login-status-row">
+          <span>Live Prototype</span>
+          <span>Student · Driver · Admin</span>
+          <span>$0.30 Platform Fee</span>
+        </div>
+
+        <h1>Order food from more places, hitched by students already heading to SP.</h1>
+        <p class="muted login-lead">Students can request food from nearby outlets, drivers can bid for convenient deliveries, and admins can manage accounts, support, revenue, bans, ratings, and orders in real time.</p>
+
+        <div class="login-feature-grid">
+          <div class="login-feature-card"><b>🗺️ Map & Store List</b><span>Choose outlets from SP Campus, Clementi Mall, Star Vista, and Holland Village.</span></div>
+          <div class="login-feature-card"><b>💸 Bidding System</b><span>Drivers can accept the starting offer or place a custom bid.</span></div>
+          <div class="login-feature-card"><b>⏱️ Schedule & ETA</b><span>Deliver now or schedule orders with estimated arrival timing.</span></div>
+          <div class="login-feature-card"><b>🔔 Live Updates</b><span>Orders, bids, chat, approvals, bans, and ratings update without refresh.</span></div>
+          <div class="login-feature-card"><b>⭐ Driver Ratings</b><span>Students rate completed orders using stars and comments.</span></div>
+          <div class="login-feature-card"><b>💬 Customer Support</b><span>Live support chat handled by admin accounts.</span></div>
+          <div class="login-feature-card"><b>🧾 Account Approval</b><span>New accounts must be approved before login access.</span></div>
+          <div class="login-feature-card"><b>🔐 Admin Controls</b><span>Manage accounts, orders, bans, support inbox, and platform revenue.</span></div>
+        </div>
+      </div>
+
+      <form id="loginForm" class="box login-card modern-login-card">
+        <div class="login-card-top">
+          <span class="tag green">Welcome Back</span>
+          <h2 id="loginTitle">Student Order Login</h2>
+          <p class="muted">Select your login mode and enter your account details.</p>
+        </div>
+
+        <div class="tabs login-role-tabs">
+          <button type="button" class="white active" data-login="order">🍔 Student Order</button>
+          <button type="button" class="white" data-login="delivery">🚗 Driver</button>
+        </div>
+
+        <div class="login-info-strip">
+          <div><b>Student</b><span>Post orders, accept bids, track ETA, rate drivers.</span></div>
+          <div><b>Driver</b><span>Bid for orders, complete deliveries, build rating.</span></div>
+        </div>
+
+        <div class="admin-note compact-admin-note"><strong>Admin Login</strong><br>Use either login mode.<br><span>Account ID: <b>SPAdmin</b> · Password: <b>Admin</b></span></div>
+
+        <label id="idLabel">Account ID / Student ID</label>
+        <input id="loginId" required placeholder="Example: P2412345 or SPAdmin">
+
+        <label>Password</label>
+        <input id="loginPassword" type="password" required placeholder="Enter password">
+
+        <button class="green full">Login to SP FoodHitch →</button>
+        <button id="openSignupBtn" type="button" class="white full">Create Account</button>
+        <p class="muted small login-approval-note">New student/driver accounts require admin approval before login.</p>
+      </form>
+    </div>
+  </section>
+
+  <section id="appPage" class="hidden">
+    <nav>
+      <div class="nav">
+        <div class="nav-left"><div class="logo">🍱</div><div><h2>SP FoodHitch</h2><p class="muted">Singapore Polytechnic peer-to-peer food delivery</p></div></div>
+        <div class="nav-right">
+          <div class="user"><b id="currentId">Account</b><p id="currentRole" class="muted">Role</p></div>
+          <div id="driverRatingHeader" class="driver-rating-pill hidden">⭐ <b id="driverRatingValue">No ratings yet</b></div>
+          <div id="bellWrap" class="bell-wrap">
+            <button id="bellBtn" type="button" class="bell">🔔<span id="notifCount" class="badge hidden">0</span></button>
+            <div id="notifMenu" class="notif-menu hidden"></div>
+          </div>
+          <div id="resetWrap" class="reset-wrap hidden">
+            <button id="resetToggle" type="button" class="red">Reset ▾</button>
+            <div id="resetMenu" class="reset-menu hidden">
+              <button type="button" class="white" data-reset="accounts">Reset all accounts</button>
+              <button type="button" class="white" data-reset="orders">Reset all orders</button>
+            </div>
+          </div>
+          <button id="allAccountsNavBtn" class="white hidden action-btn">
+            <svg class="btn-svg icon-completed" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+            <span>All Accounts</span>
+          </button>
+          <button id="approvalsNavBtn" class="white hidden action-btn">
+            <svg class="btn-svg icon-completed" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M16 11l2 2 4-4"></path>
+            </svg>
+            <span>Account Approvals</span>
+          </button>
+          <button id="supportAdminNavBtn" class="white hidden action-btn">
+            <svg class="btn-svg icon-completed" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path>
+              <path d="M8 9h8"></path>
+              <path d="M8 13h5"></path>
+            </svg>
+            <span>Support Inbox</span>
+          </button>
+          <button id="completedNavBtn" class="white hidden action-btn">
+            <svg class="btn-svg icon-completed" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 11l2 2 4-4"></path>
+              <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"></path>
+            </svg>
+            <span>Completed Orders</span>
+          </button>
+          <button id="logoutBtn" class="white action-btn">
+            <svg class="btn-svg icon-logout" viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M10 17l5-5-5-5"></path>
+              <path d="M15 12H3"></path>
+              <path d="M21 3v18"></path>
+            </svg>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section id="adminPage" class="hidden">
+        <div class="head"><div><h2>Admin Dashboard</h2><p class="muted">Manage accounts, orders, and bids.</p></div><span class="tag purple">Admin Mode</span></div>
+        <div class="note">All add, edit, and delete actions ask for confirmation before changes are saved.</div>
+        <div id="adminStats" class="stats"></div>
+
+        <div class="panel section-gap" style="margin-top:0;margin-bottom:18px">
+          <div class="top">
+            <div>
+              <h3>View All Orders</h3>
+              <p class="muted">View waiting for bidding, ongoing, and completed orders in one admin overview.</p>
+            </div>
+            <span class="tag purple">All Order Status</span>
+          </div>
+          <div id="adminViewFilters" class="admin-order-filters">
+            <button type="button" class="white active-filter" data-admin-order-view="all">All Orders</button>
+            <button type="button" class="white" data-admin-order-view="open">Waiting for Bidding</button>
+            <button type="button" class="white" data-admin-order-view="accepted">Ongoing</button>
+            <button type="button" class="white" data-admin-order-view="completed">Completed</button>
+          </div>
+          <div id="adminAllOrdersList" class="list admin-overview-list"></div>
+        </div>
+
+        <div class="admin-grid">
+          <div class="panel">
+            <h3 id="accountFormTitle">Add Account</h3>
+            <form id="accountForm">
+              <input type="hidden" id="editAccountId">
+              <label>Account ID / Student ID</label><input id="accountStudentId" required placeholder="Example: P2412345 or SPAdmin2">
+              <label>Full Name</label><input id="accountFullName" required placeholder="Example: Tan Kai Jun">
+              <label>Password</label><input id="accountPassword" required placeholder="Example: password123">
+              <label>School</label>
+              <select id="accountSchool" required>
+                <option value="">Choose school</option>
+                <option>School of Business</option>
+                <option>School of Computing</option>
+                <option>School of Electrical & Electronic Engineering</option>
+                <option>School of Mechanical & Aeronautical Engineering</option>
+                <option>School of Architecture & the Built Environment</option>
+                <option>School of Chemical & Life Sciences</option>
+                <option>Media, Arts & Design School</option>
+                <option>Singapore Maritime Academy</option>
+              </select>
+              <label>ICHAT Email</label><input id="accountEmail" type="email" required placeholder="Example: name.ichat@ichat.sp.edu.sg">
+              <label>Account Type</label>
+              <div class="checks">
+                <label><input type="checkbox" name="accountRoles" value="order" checked> Student Order Account</label>
+                <label><input type="checkbox" name="accountRoles" value="delivery"> Driver Account</label>
+                <label id="adminRoleOption"><input type="checkbox" name="accountRoles" value="admin"> Admin Account</label>
+              </div>
+              <button class="green full" id="saveAccountBtn">Add Account</button>
+              <button type="button" class="white full hidden" id="cancelAccountEdit">Cancel Edit</button>
+            </form>
+          </div>
+
+          <div class="panel">
+            <div class="top"><h3>Manage Accounts</h3><span class="tag blue">Students & Drivers</span></div>
+            <input id="accountSearch" placeholder="Search account ID, role, or password..." style="margin:10px 0 14px">
+            <div id="accountFilters" class="account-filter-row">
+              <button type="button" class="white active-filter" data-account-filter="all">All</button>
+              <button type="button" class="white" data-account-filter="order">Student Order</button>
+              <button type="button" class="white" data-account-filter="delivery">Driver</button>
+              <button type="button" class="white" data-account-filter="admin">Admin</button>
+            </div>
+            <div id="accountList" class="list account-list-scroll"></div>
+          </div>
+        </div>
+
+        <div class="admin-grid section-gap">
+          <div class="panel">
+            <h3 id="orderFormTitle">Add Order</h3>
+            <form id="orderForm">
+              <input type="hidden" id="editOrderId">
+              <label>Pickup Outlet</label><select id="orderPickup" required></select>
+              <label>Drop-off Location</label><select id="orderDropoff" required></select>
+              <label>Requester Student ID</label><select id="orderRequester" required></select>
+              <label>Food Item</label><input id="orderItem" required placeholder="Example: McSpicy Meal">
+              <label>Starting Bid ($)</label><input id="orderReward" type="number" min="0" step="0.10" required placeholder="2.00">
+              <label>Delivery Timing</label>
+              <select id="orderDeliveryTiming">
+                <option value="now">Deliver Now - based on restaurant ETA + 15 mins</option>
+                <option value="schedule">Schedule Order</option>
+              </select>
+              <div id="adminScheduleBox" class="schedule-box hidden">
+                <label>Scheduled Date & Time</label>
+                <input id="orderScheduleTime" type="datetime-local">
+              </div>
+              <input id="orderTime" type="hidden" value="Deliver Now - ETA 30 to 35 mins">
+              <label>Status</label><select id="orderStatus"><option value="open">Open</option><option value="accepted">Accepted</option><option value="completed">Completed</option></select>
+              <button class="green full" id="saveOrderBtn">Add Order</button>
+              <button type="button" class="white full hidden" id="cancelOrderEdit">Cancel Edit</button>
+            </form>
+          </div>
+
+          <div class="panel">
+            <div class="top"><h3>Manage Orders</h3><span class="tag yellow">Bidding System</span></div>
+            <input id="orderSearch" placeholder="Search orders..." style="margin:10px 0 14px">
+            <div id="adminOrderList" class="list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="orderPage" class="hidden">
+        <div class="head"><div><h2>Student Order Page</h2><p class="muted">Choose an outlet, set a starting bid, and wait for drivers to bid.</p></div><span class="tag green">Order Mode</span></div>
+        <div class="panel section-gap" style="margin-top:0;margin-bottom:18px">
+          <div class="top"><h3>My Orders & Driver Bids</h3><span class="tag yellow">Choose a Bid</span></div>
+          <div id="myOrderList" class="list"></div>
+        </div>
+        <div class="grid">
+          <div class="panel"><div class="top"><h3>Choose Restaurant from Map or List</h3><span class="tag yellow">Around SP</span></div><p class="map-help">Click a restaurant marker on the map, or select one from the compact scroll list below.</p><div id="mapWarning" class="map-warning hidden">Map library could not load. Check your internet connection because Leaflet is loaded from a CDN.</div><div id="restaurantMap" class="map"></div><div class="food-search-row"><div class="food-search-wrap"><input id="foodSearch" placeholder="Search food or outlet..."></div><button id="viewAllStoresBtn" type="button" class="view-all-btn">View All Stores</button></div><div id="foodList" class="list scroll-list"></div></div>
+          <div class="panel">
+            <h3>Your Hitch Request</h3><br>
+            <div id="emptyCart" class="empty">Select an outlet to start.</div>
+            <div id="cart" class="hidden">
+              <div class="row"><span>Outlet</span><b id="cartOutlet"></b></div>
+              <div class="row"><span>ETA</span><b id="cartEta"></b></div>
+              <div class="row"><span>Minimum Pickup Bid</span><b id="cartFee"></b></div>
+              <div class="row"><span>Drop-off Surcharge</span><b id="dropoffFee">$0.00</b></div>
+              <div class="row"><span>Platform Fee</span><b id="platformFee">$0.30</b></div>
+              <label>Drop-off Location</label><select id="dropoff"></select>
+              <label>Delivery Timing</label>
+              <select id="deliveryTiming">
+                <option value="now">Deliver Now - based on restaurant ETA + 15 mins</option>
+                <option value="schedule">Schedule Order</option>
+              </select>
+              <div id="scheduleBox" class="schedule-box hidden">
+                <label>Scheduled Date & Time</label>
+                <input id="scheduleTime" type="datetime-local">
+              </div>
+              <p id="timingSummary" class="muted small">Deliver now estimate will update after you select a restaurant.</p>
+              <label>Your Starting Bid ($)</label><input id="bidAmount" type="number" min="0" step="0.10" placeholder="Example: 2.00">
+              <label>Pickup Code</label><input id="pickupCode" placeholder="Example: Order #A123 / last 4 digits / collection code">
+              <label>Contact Number <span style="color:#dc2626">*</span></label><input id="contactNumber" type="tel" required placeholder="Example: 9123 4567">
+              <label>Order Notes</label><p class="muted small">Write your full order inside, including item name, quantity, customisation, and any special instructions.</p><textarea id="orderNotes" rows="4" placeholder="Example: 1 McSpicy Meal, medium fries, Coke, no chilli sauce. Please call me when reaching."></textarea>
+              <div class="row total"><span>Estimated Total</span><span id="cartTotal"></span></div>
+              <button id="placeOrderBtn" class="green full">Post Order for Bidding</button>
+              <div id="orderSuccess" class="success hidden">Your order has been posted for driver bidding.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="deliveryPage" class="hidden">
+        <div class="head"><div><h2>Driver Page</h2><p class="muted">Bid for open orders and complete accepted deliveries.</p></div><span class="tag blue">Driver Mode</span></div>
+        <div class="note">Tip: place a competitive bid based on how convenient the pickup is along your route to SP.</div>
+        <div id="deliveryStats" class="stats"></div>
+        <div class="grid">
+          <div class="panel"><div class="top"><h3>Available Orders for Bidding</h3><span class="tag green">Open</span></div><div id="jobList" class="list"></div></div>
+          <div class="panel"><h3>My Bids / Accepted Orders</h3><br><div id="acceptedList" class="list"></div></div>
+        </div>
+      </section>
+
+      <section id="completedPage" class="hidden">
+        <div class="head">
+          <div>
+            <h2>My Completed Orders</h2>
+            <p class="muted">Only completed orders linked to your own account are shown here.</p>
+          </div>
+          <span class="tag green">Completed</span>
+        </div>
+        <div class="panel">
+          <div class="top">
+            <h3>Completed Order History</h3>
+            <button id="backToMainBtn" class="white">Back</button>
+          </div>
+          <div id="completedOrderList" class="list"></div>
+        </div>
+      </section>
+
+      <section id="allAccountsPage" class="hidden">
+        <div class="head">
+          <div>
+            <h2>All Accounts</h2>
+            <p class="muted">View every admin, student order, and driver account in one page.</p>
+          </div>
+          <span class="tag blue">Account Directory</span>
+        </div>
+        <div class="panel">
+          <div class="top">
+            <div>
+              <h3>Account Directory</h3>
+              <p class="muted">Search and filter all accounts. Editing and deleting is still managed from the Admin Dashboard.</p>
+            </div>
+            <button id="backToAdminFromAccountsBtn" class="white">Back to Dashboard</button>
+          </div>
+          <input id="allAccountSearch" placeholder="Search name, account ID, school, email, or role..." style="margin:14px 0">
+          <div id="allAccountFilters" class="account-filter-row">
+            <button type="button" class="white active-filter" data-all-account-filter="all">All</button>
+            <button type="button" class="white" data-all-account-filter="order">Student Order</button>
+            <button type="button" class="white" data-all-account-filter="delivery">Driver</button>
+            <button type="button" class="white" data-all-account-filter="admin">Admin</button>
+          </div>
+          <div id="allAccountStats" class="stats"></div>
+          <div id="allAccountsList" class="list account-list-scroll"></div>
+        </div>
+      </section>
+
+      <section id="approvalsPage" class="hidden">
+        <div class="head">
+          <div>
+            <h2>Account Approvals</h2>
+            <p class="muted">Approve or decline student sign-up requests before accounts are created.</p>
+          </div>
+          <span class="tag purple">Admin Review</span>
+        </div>
+        <div class="panel">
+          <div class="top">
+            <div>
+              <h3>Pending Sign-Up Requests</h3>
+              <p class="muted">Approved requests will become Student Order accounts.</p>
+            </div>
+            <button id="backToAdminFromApprovalsBtn" class="white">Back to Dashboard</button>
+          </div>
+          <div id="signupApprovalList" class="list approval-list section-gap"></div>
+        </div>
+      </section>
+
+      <section id="supportAdminPage" class="hidden">
+        <div class="head">
+          <div>
+            <h2>Customer Support Inbox</h2>
+            <p class="muted">View support messages from students and drivers, then reply as admin.</p>
+          </div>
+          <span class="tag purple">Admin Support</span>
+        </div>
+        <div class="support-inbox-grid">
+          <div class="panel">
+            <div class="top"><h3>Support Conversations</h3><span id="supportThreadCount" class="tag yellow">0</span></div>
+            <div id="supportThreadList" class="list support-thread-list"></div>
+          </div>
+          <div class="panel">
+            <div class="top"><h3 id="supportThreadTitle">Select a Conversation</h3><button id="backToAdminBtn" class="white">Back to Dashboard</button></div>
+            <div id="supportAdminMessages" class="support-admin-chat"><div class="empty">Choose a conversation to view and reply.</div></div>
+            <div class="support-admin-reply">
+              <input id="adminSupportReply" placeholder="Type admin reply...">
+              <button id="sendAdminSupportReply" type="button" class="green">Reply</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </section>
+
+  <div id="sgClock" class="sg-clock">Singapore Time<span>Loading...</span></div>
+
+  <div id="supportChat" class="support-chat hidden">
+    <div id="supportChatPanel" class="support-chat-panel hidden">
+      <div class="support-head">
+        <div>
+          <h3>Customer Service</h3>
+          <p>Need help with an order, bid, pickup code, or delivery issue?</p>
+        </div>
+        <button id="closeSupportChat" type="button">✕</button>
+      </div>
+      <div id="supportMessages" class="support-messages">
+        <div class="support-msg bot">Hi! 👋 This is SP FoodHitch support. Tell us what happened and include your order number if you have one.</div>
+      </div>
+      <div class="support-input-row">
+        <input id="supportInput" placeholder="Type your message...">
+        <button id="sendSupportMsg" type="button" class="green">Send</button>
+      </div>
+    </div>
+    <button id="supportChatBtn" type="button" class="support-chat-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path>
+        <path d="M8 9h8"></path>
+        <path d="M8 13h5"></path>
+      </svg>
+      <span>Customer Service</span>
+    </button>
+  </div>
+
+  <div id="signupModal" class="modal-bg hidden">
+    <form id="signupForm" class="modal" style="max-width:520px">
+      <div class="top">
+        <div>
+          <h3>Student Sign Up</h3>
+          <p class="muted">Submit your details. Admin approval is required before your account is created.</p>
+        </div>
+        <button id="closeSignupBtn" type="button" class="white">Close</button>
+      </div>
+      <label>Full Name</label><input id="signupFullName" required placeholder="Example: Tan Kai Jun">
+      <label>Student ID</label><input id="signupStudentId" required placeholder="Example: P2412345">
+      <label>Password</label><input id="signupPassword" type="password" required placeholder="Create a password">
+      <label>Account Type</label>
+      <div class="checks">
+        <label><input type="checkbox" name="signupRoles" value="order" checked> Student Order Account</label>
+        <label><input type="checkbox" name="signupRoles" value="delivery"> Driver Account</label>
+      </div>
+      <label>School</label>
+      <select id="signupSchool" required>
+        <option value="">Choose your school</option>
+        <option>School of Business</option>
+        <option>School of Computing</option>
+        <option>School of Electrical & Electronic Engineering</option>
+        <option>School of Mechanical & Aeronautical Engineering</option>
+        <option>School of Architecture & the Built Environment</option>
+        <option>School of Chemical & Life Sciences</option>
+        <option>Media, Arts & Design School</option>
+        <option>Singapore Maritime Academy</option>
+      </select>
+      <label>ICHAT Email</label><input id="signupEmail" type="email" required placeholder="Example: name.ichat@ichat.sp.edu.sg">
+      <div class="signup-note">Your request will appear in the admin approval page. You can log in only after an admin approves it.</div>
+      <button class="green full">Submit Sign Up Request</button>
+    </form>
+  </div>
+
+  <div id="storesModal" class="modal-bg hidden">
+    <div class="modal" style="max-width:760px">
+      <div class="top">
+        <div>
+          <h3>All Available Stores</h3>
+          <p class="muted">Choose any outlet from the full store list.</p>
+        </div>
+        <button id="closeStoresModal" type="button" class="white">Close</button>
+      </div>
+      <div class="store-modal-controls">
+        <input id="storeModalSearch" class="store-modal-search" placeholder="Search all stores...">
+        <select id="storeLocationFilter">
+          <option value="all">All Locations</option>
+          <option value="campus">SP Campus</option>
+          <option value="clementi">Clementi Mall</option>
+          <option value="starvista">The Star Vista</option>
+          <option value="holland">Holland Village</option>
+        </select>
+      </div>
+      <div id="allStoresList" class="store-modal-list"></div>
+    </div>
+  </div>
+
+  <div id="accountDetailsModal" class="modal-bg hidden">
+    <div class="modal" style="max-width:920px;max-height:90vh;overflow:auto">
+      <div class="top">
+        <div>
+          <h3 id="accountDetailsTitle">Account Details</h3>
+          <p class="muted">View profile details, current orders, past orders, and delivery activity.</p>
+        </div>
+        <div class="actions">
+          <button id="accountDetailsBanBtn" type="button" class="red">Ban</button>
+          <button id="closeAccountDetailsBtn" type="button" class="white">Close</button>
+        </div>
+      </div>
+      <div id="accountDetailsContent"></div>
+    </div>
+  </div>
+
+  <div id="ratingModal" class="modal-bg hidden">
+    <div class="modal" style="max-width:520px">
+      <h3>Rate Your Driver</h3>
+      <p class="muted">Please rate your completed delivery before continuing.</p>
+      <div id="ratingOrderInfo" class="rating-modal-order"></div>
+      <div id="starRating" class="star-rating" data-rating="0">
+        <button type="button" class="star-btn" data-star="1">★</button>
+        <button type="button" class="star-btn" data-star="2">★</button>
+        <button type="button" class="star-btn" data-star="3">★</button>
+        <button type="button" class="star-btn" data-star="4">★</button>
+        <button type="button" class="star-btn" data-star="5">★</button>
+      </div>
+      <label>Comments</label>
+      <textarea id="ratingCommentInput" rows="4" placeholder="Write comments about the delivery experience..."></textarea>
+      <div class="modal-actions">
+        <button id="skipRatingBtn" type="button" class="white">Later</button>
+        <button id="submitStarRatingBtn" type="button" class="green">Submit Rating</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="customModal" class="modal-bg hidden">
+    <div class="modal">
+      <h3 id="modalTitle">Confirm Action</h3>
+      <p id="modalMessage" class="muted"></p>
+      <input id="modalInput" class="hidden" type="number" min="0" step="0.10">
+      <div class="modal-actions">
+        <button id="modalCancel" type="button" class="white">Cancel</button>
+        <button id="modalConfirm" type="button" class="green">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="hidden"></div>
+
+  <script>
+    const $ = id => document.getElementById(id);
+    const ACC_KEY = "SPFH_accounts_bid_v1";
+    const ORD_KEY = "SPFH_orders_bid_v1";
+    const NOTIF_KEY = "SPFH_cleared_notifications_v1";
+    const ORDER_SEQ_KEY = "SPFH_order_sequence_v1";
+    const SUPPORT_KEY = "SPFH_support_threads_v1";
+    const SIGNUP_KEY = "SPFH_signup_requests_v1";
+    const defaultAdmin = { id: 1, studentId: "SPAdmin", password: "Admin", roles: ["admin"], banned:false, banReason:"" };
+    const PLATFORM_FEE = 0.30;
+    let loginType = "order", currentUser = null, selectedFood = null, leafletMap = null, mapMarkers = [];
+    let clearedNotifications = JSON.parse(localStorage.getItem(NOTIF_KEY)) || [];
+    let orderSequence = 1;
+    let adminOrderView = "all";
+    let accountFilter = "all";
+    let allAccountFilter = "all";
+    let activeSupportThreadId = null;
+    let currentRatingOrderId = null;
+    let dismissedRatingOrders = [];
+    let signupRequests = JSON.parse(localStorage.getItem(SIGNUP_KEY)) || [];
+    let supportThreads = JSON.parse(localStorage.getItem(SUPPORT_KEY)) || [];
+    supportThreads = supportThreads.map(t => ({...t, assignedAdmin:t.assignedAdmin||""}));
+    let liveSnapshot = {
+      accounts: localStorage.getItem(ACC_KEY) || "",
+      orders: localStorage.getItem(ORD_KEY) || "",
+      signup: localStorage.getItem(SIGNUP_KEY) || "",
+      support: localStorage.getItem(SUPPORT_KEY) || "",
+      notifications: localStorage.getItem(NOTIF_KEY) || ""
+    };
+    let accounts = JSON.parse(localStorage.getItem(ACC_KEY)) || [defaultAdmin];
+    let orders = JSON.parse(localStorage.getItem(ORD_KEY)) || [
+      { id: "FH-201", pickup: "McDonald's Clementi", dropoff: "SP Library", requester: "P2401234", reward: 2.20, time: "Before 12:45 PM", item: "McSpicy Meal + Coke", status: "open", driver: "", bids: [], acceptedBid: null },
+      { id: "FH-202", pickup: "Koi Thé Clementi", dropoff: "T18 Study Area", requester: "P2405678", reward: 1.80, time: "Before 1:15 PM", item: "Bubble tea x2", status: "open", driver: "", bids: [], acceptedBid: null },
+      { id: "FH-203", pickup: "Stuff'd Dover", dropoff: "Foodcourt 5", requester: "P2409012", reward: 1.50, time: "Before 2:00 PM", item: "Chicken Kebab", status: "open", driver: "", bids: [], acceptedBid: null }
+    ];
+    const dropoffOptions = [
+      { name: "SP One Stop Centre", fee: 0 },
+      { name: "School of Business", fee: 0.50 },
+      { name: "School of Computing", fee: 0.50 },
+      { name: "School of Electrical & Electronic Engineering", fee: 0.50 },
+      { name: "School of Mechanical & Aeronautical Engineering", fee: 0.50 },
+      { name: "School of Architecture & the Built Environment", fee: 0.50 },
+      { name: "School of Chemical & Life Sciences", fee: 0.50 },
+      { name: "Media, Arts & Design School", fee: 0.50 }
+    ];
+
+    const foodRows = [
+      "1|Subway @ SP Food Court 5|Singapore Polytechnic|8 - 15 min|Campus|Sandwich / Wrap|$|1.00|1.3095|103.7790",
+      "2|Food Court 4 Koufu @ SP|Singapore Polytechnic|8 - 15 min|Campus Food Court|Mixed Rice / Noodles|$|1.00|1.3105|103.7783",
+      "3|Food Court 3 @ SP|Singapore Polytechnic|8 - 15 min|Campus Food Court|Local Food|$|1.00|1.3092|103.7768",
+      "4|Starbucks @ SP|Singapore Polytechnic|8 - 15 min|Cafe|Coffee / Pastry|$$|1.00|1.3098|103.7777",
+      "5|McDonald's @ The Clementi Mall|The Clementi Mall|20 - 30 min|Fast Food|Burgers / Meals|$$|1.50|1.3151|103.7652",
+      "6|KFC @ The Clementi Mall|The Clementi Mall|20 - 30 min|Fast Food|Fried Chicken|$$|1.50|1.3153|103.7651",
+      "7|Stuff'd @ The Clementi Mall|The Clementi Mall|20 - 30 min|Wraps|Kebab / Burrito|$$|1.50|1.3150|103.7647",
+      "8|KOI Thé @ The Clementi Mall|The Clementi Mall|20 - 35 min|Drinks|Bubble Tea|$|1.50|1.3155|103.7650",
+      "9|Starbucks @ The Clementi Mall|The Clementi Mall|20 - 35 min|Cafe|Coffee / Pastry|$$|1.50|1.3152|103.7645",
+      "10|Ya Kun Kaya Toast @ The Clementi Mall|The Clementi Mall|20 - 30 min|Toast / Drinks|Kaya Toast Set|$|1.50|1.3148|103.7650",
+      "11|Krispy Kreme @ The Clementi Mall|The Clementi Mall|20 - 30 min|Dessert|Doughnuts|$|1.50|1.3154|103.7646",
+      "12|Jinjja Chicken @ The Clementi Mall|The Clementi Mall|20 - 30 min|Korean|Korean Fried Chicken|$$|1.50|1.3150|103.7653",
+      "13|Kaffe & Toast @ The Clementi Mall|The Clementi Mall|20 - 30 min|Toast / Drinks|Toast Set / Coffee|$|1.50|1.3149|103.7654",
+      "14|Kenny Rogers Roasters Express @ The Clementi Mall|The Clementi Mall|20 - 30 min|Western|Roasted Chicken|$$|1.50|1.3152|103.7655",
+      "15|Boleh Boleh! @ The Clementi Mall|The Clementi Mall|20 - 30 min|Food Court|Local Food|$|1.50|1.3151|103.7656",
+      "16|Carl's Jr. @ The Star Vista|The Star Vista|18 - 28 min|Fast Food|Burgers|$$|1.30|1.3066|103.7886",
+      "17|Fatburger & Buffalo's @ The Star Vista|The Star Vista|18 - 28 min|Fast Food|Burgers / Wings|$$|1.30|1.3068|103.7885",
+      "18|IPPUDO @ The Star Vista|The Star Vista|20 - 35 min|Japanese|Ramen|$$$|1.30|1.3069|103.7887",
+      "19|Itacho Sushi @ The Star Vista|The Star Vista|20 - 35 min|Japanese|Sushi|$$$|1.30|1.3067|103.7889",
+      "20|Chen's Mapo Tofu @ The Star Vista|The Star Vista|20 - 30 min|Chinese|Mapo Tofu Rice|$$|1.30|1.3070|103.7884",
+      "21|Canton Paradise @ The Star Vista|The Star Vista|20 - 35 min|Chinese|Noodles / Dim Sum|$$$|1.30|1.3064|103.7888",
+      "22|Eighteen Chefs @ The Star Vista|The Star Vista|20 - 30 min|Western|Pasta / Baked Rice|$$|1.30|1.3065|103.7883",
+      "23|iSTEAKS @ The Star Vista|The Star Vista|20 - 35 min|Western|Steak / Chicken Chop|$$$|1.30|1.3069|103.7881",
+      "24|LiHO Tea @ The Star Vista|The Star Vista|18 - 25 min|Drinks|Bubble Tea|$|1.30|1.3063|103.7886",
+      "25|Boost Juice Bars @ The Star Vista|The Star Vista|18 - 25 min|Drinks|Juice / Smoothie|$$|1.30|1.3062|103.7887",
+      "26|Cedele @ The Star Vista|The Star Vista|20 - 30 min|Bakery / Cafe|Cake / Sandwich|$$|1.30|1.3061|103.7883",
+      "27|Killiney @ The Star Vista|The Star Vista|18 - 28 min|Toast / Drinks|Kaya Toast Set|$|1.30|1.3068|103.7882",
+      "28|The Kitchen by Koufu @ The Star Vista|The Star Vista|18 - 30 min|Food Court|Local Food|$|1.30|1.3065|103.7880",
+      "29|Beauty in The Pot @ The Star Vista|The Star Vista|25 - 40 min|Hotpot|Hotpot Items|$$$$|1.30|1.3064|103.7881",
+      "30|Coco Ichibanya @ The Star Vista|The Star Vista|20 - 30 min|Japanese Curry|Curry Rice|$$|1.30|1.3067|103.7880",
+      "31|Din Tai Fung @ One Holland Village|Holland Village|25 - 40 min|Chinese|Xiao Long Bao / Fried Rice|$$$|2.00|1.3118|103.7946",
+      "32|Awfully Chocolate @ One Holland Village|Holland Village|25 - 35 min|Dessert|Chocolate Cake / Drinks|$$|2.00|1.3119|103.7948",
+      "33|% Arabica @ Holland Village|Holland Village|25 - 35 min|Cafe|Coffee|$$|2.00|1.3112|103.7953",
+      "34|Two Men Bagel House @ Holland Village|Holland Village|25 - 40 min|Bagels|Bagel Sandwich|$$$|2.00|1.3110|103.7958",
+      "35|Lola's Cafe @ Holland Village|Holland Village|25 - 40 min|Cafe|Brunch / Pasta|$$$|2.00|1.3115|103.7960",
+      "36|Craftsmen Coffee @ Holland Village|Holland Village|25 - 35 min|Cafe|Coffee / Brunch|$$|2.00|1.3117|103.7956",
+      "37|Little Farms Cafe @ Holland Village|Holland Village|25 - 40 min|Cafe / Market|Salad / Sandwich|$$$|2.00|1.3116|103.7949",
+      "38|Plain Meredith @ One Holland Village|Holland Village|25 - 40 min|Cafe|Cafe Food / Drinks|$$$|2.00|1.3119|103.7943",
+      "39|Surrey Hills Grocer @ One Holland Village|Holland Village|25 - 40 min|Cafe|Aussie Cafe Food|$$$$|2.00|1.3120|103.7942",
+      "40|Yatsudoki @ One Holland Village|Holland Village|25 - 35 min|Bakery / Dessert|Japanese Pastries|$$|2.00|1.3117|103.7944"
+    ];
+    const foods = foodRows.map(row=>{const [id,name,area,eta,tag,item,cost,fee,lat,lng]=row.split("|");return {id:+id,name,area,eta,tag,item,cost,fee:+fee,lat:+lat,lng:+lng};});
+
+    function saveAccounts(){localStorage.setItem(ACC_KEY, JSON.stringify(accounts));liveSnapshot.accounts=localStorage.getItem(ACC_KEY)||"";}
+    function saveOrders(){localStorage.setItem(ORD_KEY, JSON.stringify(orders));liveSnapshot.orders=localStorage.getItem(ORD_KEY)||"";}
+    function saveSignupRequests(){localStorage.setItem(SIGNUP_KEY, JSON.stringify(signupRequests));liveSnapshot.signup=localStorage.getItem(SIGNUP_KEY)||"";}
+    function todayOrderPrefix(){
+      const now = new Date();
+      const dd = String(now.getDate()).padStart(2,"0");
+      const mm = String(now.getMonth()+1).padStart(2,"0");
+      const yy = String(now.getFullYear()).slice(-2);
+      return `SPFH-${dd}${mm}${yy}`;
+    }
+    function nextOrderId(){
+      const prefix = todayOrderPrefix();
+      const saved = JSON.parse(localStorage.getItem(ORDER_SEQ_KEY) || "{}");
+      let count = saved.prefix === prefix ? Number(saved.count) || 1 : 1;
+      const id = `${prefix}-${String(count).padStart(3,"0")}`;
+      localStorage.setItem(ORDER_SEQ_KEY, JSON.stringify({prefix,count:count+1}));
+      return id;
+    }
+    function money(n){return "$" + Number(n).toFixed(2);}
+    function platformFee(order=null){return order && order.platformFee !== undefined ? Number(order.platformFee) : PLATFORM_FEE;}
+    function orderTotal(order){return Number(order.acceptedBid || order.reward || 0) + platformFee(order);}
+    function updateSingaporeClock(){
+      const now = new Date();
+      const time = new Intl.DateTimeFormat("en-SG",{timeZone:"Asia/Singapore",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false}).format(now);
+      const date = new Intl.DateTimeFormat("en-SG",{timeZone:"Asia/Singapore",weekday:"short",day:"2-digit",month:"short",year:"numeric"}).format(now);
+      $("sgClock").innerHTML = `Singapore Time<span>${date} · ${time}</span>`;
+    }
+    updateSingaporeClock();
+    setInterval(updateSingaporeClock,1000);
+    function formatSchedule(value){
+      if(!value) return "";
+      return new Date(value).toLocaleString("en-SG",{dateStyle:"medium",timeStyle:"short",hour12:false});
+    }
+    function etaRangeFromText(text){
+      const nums = String(text || "").match(new RegExp("[0-9]+","g"));
+      const min = nums ? Number(nums[0]) : 15;
+      const max = nums && nums[1] ? Number(nums[1]) : min;
+      return {min,max};
+    }
+    function foodFromOrder(order){return foods.find(f => f.name === order.pickup) || null;}
+    function etaWithDelivery(food){
+      if(!food) return "select a restaurant first";
+      const eta = etaRangeFromText(food.eta);
+      const min = eta.min + 15;
+      const max = eta.max + 20;
+      return min === max ? `${min} mins` : `${min} - ${max} mins`;
+    }
+    function deliveryNowText(food){
+      return `Deliver Now - estimated arrival ${etaWithDelivery(food)}`;
+    }
+    function addMinutes(date, minutes){return new Date(date.getTime() + minutes * 60000);}
+    function formatSgTime(date){return date.toLocaleTimeString("en-SG",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"Asia/Singapore"});}
+    function orderAge(order){
+      if(!order.createdAt) return "Not recorded";
+      const diff = Math.max(0, Date.now() - new Date(order.createdAt).getTime());
+      const totalSeconds = Math.floor(diff / 1000);
+      const days = Math.floor(totalSeconds / 86400);
+      const hours = Math.floor((totalSeconds % 86400) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+      const pad = n => String(n).padStart(2,"0");
+      return days > 0 ? `${days}d ${pad(hours)}:${pad(minutes)}:${pad(seconds)}` : `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+    }
+    function orderTimerLine(order){return order.status==="completed" ? "" : `<b>Live Timer:</b> ${esc(orderAge(order))}<br>`;}
+    function forceLogoutWithBanPopup(reason){
+      const message = "Your account has been banned and cannot access SP FoodHitch." + String.fromCharCode(10,10) + "Reason: " + (reason || "No reason provided.");
+      currentUser=null;
+      selectedFood=null;
+      activeSupportThreadId=null;
+      $("driverRatingHeader").classList.add("hidden");
+      $("allAccountsNavBtn").classList.add("hidden");
+      $("approvalsNavBtn").classList.add("hidden");
+      $("supportAdminNavBtn").classList.add("hidden");
+      $("supportChat").classList.add("hidden");
+      $("supportChatPanel").classList.add("hidden");
+      $("completedNavBtn").classList.add("hidden");
+      $("resetWrap").classList.add("hidden");
+      $("resetMenu").classList.add("hidden");
+      $("notifMenu").classList.add("hidden");
+      $("notifCount").classList.add("hidden");
+      $("loginForm").reset();
+      $("appPage").classList.add("hidden");
+      $("loginPage").classList.remove("hidden");
+      infoPopup("Account Banned", message);
+    }
+    function refreshActivePage(){
+      if(!currentUser) return;
+      if(!$('adminPage').classList.contains('hidden')) renderAdmin();
+      if(!$('orderPage').classList.contains('hidden')) renderMyOrders();
+      if(!$('deliveryPage').classList.contains('hidden')) renderDriver();
+      if(!$('completedPage').classList.contains('hidden')) renderCompletedOrders();
+    }
+    setInterval(refreshActivePage,1000);
+    function calculateArrivalEstimate(order){
+      const food = foodFromOrder(order);
+      const eta = etaRangeFromText(food ? food.eta : "15 - 20 min");
+      const base = order.deliveryTiming === "schedule" && order.scheduleTime ? new Date(order.scheduleTime) : new Date();
+      const minArrival = addMinutes(base, eta.min + 15);
+      const maxArrival = addMinutes(base, eta.max + 20);
+      return `Estimated arrival: ${formatSgTime(minArrival)} - ${formatSgTime(maxArrival)} Singapore Time`;
+    }
+    function updateStudentTimingUI(){
+      const scheduled = $("deliveryTiming").value === "schedule";
+      $("scheduleBox").classList.toggle("hidden",!scheduled);
+      $("deliveryTiming").querySelector("option[value='now']").textContent = deliveryNowText(selectedFood);
+      $("timingSummary").textContent = scheduled
+        ? "Scheduled order: choose your preferred delivery date and time."
+        : deliveryNowText(selectedFood) + ".";
+    }
+    function getStudentOrderTiming(){
+      const mode = $("deliveryTiming").value;
+      if(mode === "schedule"){
+        const value = $("scheduleTime").value;
+        if(!value) return null;
+        return {deliveryTiming:"schedule",scheduleTime:value,time:"Scheduled for " + formatSchedule(value)};
+      }
+      return {deliveryTiming:"now",scheduleTime:"",time:deliveryNowText(selectedFood)};
+    }
+    function updateAdminTimingUI(){
+      const scheduled = $("orderDeliveryTiming").value === "schedule";
+      const food = foods.find(f => f.name === $("orderPickup").value);
+      $("adminScheduleBox").classList.toggle("hidden",!scheduled);
+      $("orderDeliveryTiming").querySelector("option[value='now']").textContent = deliveryNowText(food);
+      $("orderTime").value = scheduled
+        ? ($("orderScheduleTime").value ? "Scheduled for " + formatSchedule($("orderScheduleTime").value) : "")
+        : deliveryNowText(food);
+    }
+    function getDropoffFee(value){const option=dropoffOptions.find(d=>d.name===value);return option?option.fee:0;}
+    function suggestedBid(){return selectedFood ? selectedFood.fee + getDropoffFee($("dropoff").value) : 0;}
+    function updateBidDisplay(){if(!selectedFood)return;const bid=suggestedBid();$("dropoffFee").textContent=money(getDropoffFee($("dropoff").value));$("platformFee").textContent=money(PLATFORM_FEE);$("bidAmount").value=bid.toFixed(2);$("cartTotal").textContent=money(bid + PLATFORM_FEE);}
+    function esc(s){return String(s).replace(/[&<>'"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));}
+    function toast(msg){$("toast").textContent=msg;$("toast").classList.remove("hidden");setTimeout(()=>$("toast").classList.add("hidden"),2500);}
+    function saveClearedNotifications(){localStorage.setItem(NOTIF_KEY, JSON.stringify(clearedNotifications));liveSnapshot.notifications=localStorage.getItem(NOTIF_KEY)||"";}
+    function saveSupportThreads(){localStorage.setItem(SUPPORT_KEY, JSON.stringify(supportThreads));liveSnapshot.support=localStorage.getItem(SUPPORT_KEY)||"";}
+    function resetSupportChatBox(){
+      $("supportMessages").innerHTML = `<div class="support-msg bot">Hi! 👋 This is SP FoodHitch support. Tell us what happened and include your order number if you have one.</div>`;
+      $("supportInput").value = "";
+    }
+    function closeInactiveSupportChats(){
+      const now = Date.now();
+      const before = supportThreads.length;
+      const currentStudentId = currentUser ? currentUser.studentId : "";
+      let currentUserChatClosed = false;
+      let activeAdminThreadClosed = false;
+      let changed = false;
+
+      supportThreads.forEach(thread => {
+        if(!thread.awaitingReplySince) return;
+        const waitingMs = now - new Date(thread.awaitingReplySince).getTime();
+
+        if(waitingMs >= 30000 && !thread.warningSent){
+          thread.messages.push({
+            sender:"warning",
+            text:"Warning: Please reply soon. This customer service chat will close automatically if there is no reply within 2 minutes.",
+            time:nowText()
+          });
+          thread.warningSent = true;
+          thread.status = "warning sent";
+          changed = true;
+        }
+      });
+
+      supportThreads = supportThreads.filter(thread => {
+        if(!thread.awaitingReplySince) return true;
+        const waitingMs = now - new Date(thread.awaitingReplySince).getTime();
+        const shouldClose = waitingMs >= 120000;
+        if(shouldClose && thread.userId === currentStudentId) currentUserChatClosed = true;
+        if(shouldClose && thread.id === activeSupportThreadId) activeAdminThreadClosed = true;
+        return !shouldClose;
+      });
+
+      if(changed || before !== supportThreads.length){
+        saveSupportThreads();
+
+        if(currentUserChatClosed && currentUser && !hasRole(currentUser,"admin")){
+          $("supportChatPanel").classList.add("hidden");
+          resetSupportChatBox();
+          toast("Customer service chat closed due to no reply within 2 minutes.");
+        }
+
+        if(activeAdminThreadClosed) activeSupportThreadId = null;
+
+        if(currentUser && hasRole(currentUser,"admin") && !$("supportAdminPage").classList.contains("hidden")){
+          renderAdminSupportInbox();
+          renderAdminSupportThread();
+          if(before !== supportThreads.length) toast("Inactive customer support chat cleared.");
+        }
+
+        if(changed && currentUser && !hasRole(currentUser,"admin") && !$("supportChatPanel").classList.contains("hidden")){
+          renderUserSupportMessages();
+          toast("Customer service warning: please reply soon.");
+        }
+      }
+    }
+    function nowText(){return new Date().toLocaleString("en-SG",{dateStyle:"medium",timeStyle:"short",hour12:false});}
+    function getCurrentSupportThread(){
+      if(!currentUser) return null;
+      let thread = supportThreads.find(t=>t.userId===currentUser.studentId);
+      if(!thread){
+        thread={id:"SUP-"+Date.now(),userId:currentUser.studentId,role:roleName(loginType),status:"open",assignedAdmin:"",updatedAt:new Date().toISOString(),awaitingReplySince:"",warningSent:false,messages:[{sender:"bot",text:"Hi! 👋 This is SP FoodHitch support. Tell us what happened and include your order number if you have one.",time:nowText()}]};
+        supportThreads.unshift(thread);
+        saveSupportThreads();
+      }
+      return thread;
+    }
+    function supportBubbleClass(message,isAdminView=false){
+      if(message.sender === "warning") return "warning";
+      if(isAdminView) return message.sender === "admin" ? "user" : "bot";
+      return message.sender === "user" ? "user" : "bot";
+    }
+
+    function supportBubbleName(message,userId="User"){
+      if(message.sender === "admin") return "Admin Support";
+      if(message.sender === "user") return currentUser && userId === currentUser.studentId ? "You" : userId;
+      if(message.sender === "warning") return "System Warning";
+      return "SP FoodHitch";
+    }
+
+    function supportBubbleHtml(message,userId,isAdminView=false){
+      return `<div class="support-msg ${supportBubbleClass(message,isAdminView)}"><b>${esc(supportBubbleName(message,userId))}</b><br>${esc(message.text)}<div class="notif-time">${esc(message.time)}</div></div>`;
+    }
+
+    function renderUserSupportMessages(){
+      const thread=getCurrentSupportThread();
+      $("supportMessages").innerHTML=thread.messages.map(m=>supportBubbleHtml(m,thread.userId,false)).join("");
+      $("supportMessages").scrollTop=$("supportMessages").scrollHeight;
+    }
+
+    function visibleSupportThreadsForAdmin(){
+      return supportThreads.filter(t => !t.assignedAdmin || t.assignedAdmin === currentUser.studentId);
+    }
+
+    function renderAdminSupportInbox(){
+      const visibleThreads = visibleSupportThreadsForAdmin();
+      $("supportThreadCount").textContent = visibleThreads.length;
+      if(!visibleThreads.length){
+        $("supportThreadList").innerHTML = `<div class="empty">No customer support messages yet.</div>`;
+        return;
+      }
+      $("supportThreadList").innerHTML = visibleThreads.map(t=>{
+        const last = t.messages[t.messages.length-1];
+        const tagColor = t.status === "open" ? "yellow" : t.status === "warning sent" ? "red" : "green";
+        const activeClass = t.id === activeSupportThreadId ? "active-thread" : "";
+        const handled = t.assignedAdmin ? "<b>Handled by:</b> " + esc(t.assignedAdmin) + "<br>" : "";
+        return '<div class="card support-thread-card ' + activeClass + '" data-thread-id="' + esc(t.id) + '"><h3>' + esc(t.userId) + '</h3><p class="muted"><b>' + esc(t.role || "User") + '</b><br>' + handled + esc(last ? last.text : "No messages") + '</p><span class="tag ' + tagColor + '">' + esc(t.status) + '</span></div>';
+      }).join("");
+    }
+
+    function renderAdminSupportThread(){
+      const thread=supportThreads.find(t=>t.id===activeSupportThreadId);
+      if(thread && thread.assignedAdmin && thread.assignedAdmin !== currentUser.studentId){
+        activeSupportThreadId=null;
+        $("supportThreadTitle").textContent="Select a Conversation";
+        $("supportAdminMessages").innerHTML=`<div class="empty">This support conversation is already being handled by another admin.</div>`;
+        renderAdminSupportInbox();
+        return;
+      }
+      if(!thread){
+        $("supportThreadTitle").textContent="Select a Conversation";
+        $("supportAdminMessages").innerHTML=`<div class="empty">Choose a conversation to view and reply.</div>`;
+        return;
+      }
+      $("supportThreadTitle").textContent=`${thread.userId} - ${thread.role||"User"}`;
+      $("supportAdminMessages").innerHTML=thread.messages.map(m=>supportBubbleHtml(m,thread.userId,true)).join("");
+      $("supportAdminMessages").scrollTop=$("supportAdminMessages").scrollHeight;
+      renderAdminSupportInbox();
+    }
+
+    function syncSupportThreads(){
+      closeInactiveSupportChats();
+      const latest = JSON.parse(localStorage.getItem(SUPPORT_KEY) || "[]");
+      const oldData = JSON.stringify(supportThreads);
+      const newData = JSON.stringify(latest);
+      if(oldData === newData) return;
+      const currentThreadExisted = currentUser ? supportThreads.some(t=>t.userId===currentUser.studentId) : false;
+      const currentThreadStillExists = currentUser ? latest.some(t=>t.userId===currentUser.studentId) : false;
+      supportThreads = latest;
+
+      if(currentUser && !hasRole(currentUser,"admin") && currentThreadExisted && !currentThreadStillExists){
+        $("supportChatPanel").classList.add("hidden");
+        resetSupportChatBox();
+        toast("Customer service chat closed due to no reply within 2 minutes.");
+        return;
+      }
+
+      if(currentUser && !$('supportChatPanel').classList.contains('hidden') && !hasRole(currentUser,"admin")){
+        renderUserSupportMessages();
+      }
+
+      if(currentUser && hasRole(currentUser,"admin") && !$('supportAdminPage').classList.contains('hidden')){
+        renderAdminSupportInbox();
+        renderAdminSupportThread();
+      }
+    }
+    setInterval(syncSupportThreads,1000);
+    function notificationId(n){return `${currentUser ? currentUser.studentId : "guest"}|${n.title}|${n.body}|${n.time}`;}
+    function getNotifications(){
+      if(!currentUser) return [];
+
+      if(hasRole(currentUser,"admin")){
+        const chatNotes = visibleSupportThreadsForAdmin()
+          .filter(t => (t.messages || []).some(m => m.sender === "user" || m.sender === "warning"))
+          .map(t => {
+            const last = t.messages[t.messages.length - 1];
+            return {
+              title: `Live chat: ${t.userId}`,
+              body: `${last.sender === "warning" ? "System warning" : t.userId}: ${last.text}`,
+              time: t.status.toUpperCase()
+            };
+          });
+
+        const lowRatingNotes = accounts
+          .filter(a => hasRole(a,"delivery"))
+          .map(a => {
+            const reviews = driverReviews(a.studentId);
+            if(!reviews.length) return null;
+            const avg = reviews.reduce((s,r)=>s+r.rating,0)/reviews.length;
+            return avg < 3.5 ? {
+              title: `Low rider rating: ${a.studentId}`,
+              body: `${a.fullName || a.studentId} has an average rating of ${avg.toFixed(1)} from ${reviews.length} review(s).`,
+              time: "RATING ALERT"
+            } : null;
+          })
+          .filter(Boolean);
+
+        return [...chatNotes, ...lowRatingNotes];
+      }
+
+      if(loginType === "order"){
+        return orders
+          .filter(o => o.requester === currentUser.studentId)
+          .flatMap(o => {
+            const bidNotes = (o.bids || []).map(b => ({
+              title: `New bid for ${o.id}`,
+              body: `${b.driver} offered ${money(b.amount)} for ${o.pickup}.`,
+              time: o.status === "open" ? "Waiting for your decision" : `Status: ${o.status}`
+            }));
+            if(o.acceptedBid){
+              bidNotes.unshift({title:`Bid accepted for ${o.id}`,body:`${o.driver} is delivering for ${money(o.acceptedBid)}. ${o.estimatedArrival || "Estimated arrival will be shown soon."}`,time:o.status.toUpperCase()});
+            }
+            return bidNotes;
+          });
+      }
+
+      if(loginType === "delivery"){
+        return orders
+          .flatMap(o => {
+            const notes = [];
+            const myBid = (o.bids || []).find(b => b.driver === currentUser.studentId);
+            const declinedBid = (o.declinedBids || []).find(b => b.driver === currentUser.studentId);
+
+            if(myBid){
+              if(o.driver === currentUser.studentId){
+                notes.push({
+                  title: `Your bid was accepted: ${o.id}`,
+                  body: `${o.pickup} to ${o.dropoff}. Your accepted price is ${money(o.acceptedBid || myBid.amount)}. ${o.estimatedArrival || "Estimated arrival will be shown soon."}`,
+                  time: o.status.toUpperCase()
+                });
+              }else if(o.status !== "open"){
+                notes.push({
+                  title: `Bid Fail: ${o.id}`,
+                  body: `Another driver was selected for ${o.pickup}. Your bid of ${money(myBid.amount)} was not accepted.`,
+                  time: "ORDER AWARDED"
+                });
+              }else{
+                notes.push({
+                  title: `Bid submitted: ${o.id}`,
+                  body: `${o.pickup} to ${o.dropoff}. Your bid: ${money(myBid.amount)}.`,
+                  time: "PENDING"
+                });
+              }
+            }
+
+            if(declinedBid && o.status === "open"){
+              notes.push({
+                title: `Your bid was declined: ${o.id}`,
+                body: `${o.pickup} to ${o.dropoff}. Your previous bid of ${money(declinedBid.amount)} was declined. You can place a new bid again.`,
+                time: "BID AGAIN AVAILABLE"
+              });
+            }
+
+            return notes;
+          });
+      }
+
+      return [];
+    }
+
+    function renderNotifications(){
+      const notes = getNotifications().filter(n => !clearedNotifications.includes(notificationId(n)));
+      const count = $("notifCount");
+      count.textContent = notes.length;
+      count.classList.toggle("hidden", notes.length === 0);
+      $("notifMenu").innerHTML = notes.length
+        ? `<button id="clearNotifBtn" type="button" class="white full" style="margin:0 0 8px">Clear Notifications</button>` + notes.map(n => `<div class="notif-item"><b>${esc(n.title)}</b><p class="muted small">${esc(n.body)}</p><div class="notif-time">${esc(n.time)}</div></div>`).join("")
+        : `<div class="empty">No notifications yet.</div>`;
+    }
+
+    $("bellBtn").onclick = () => {
+      renderNotifications();
+      $("notifMenu").classList.toggle("hidden");
+      $("resetMenu").classList.add("hidden");
+    };
+
+    $("notifMenu").onclick = e => {
+      if(e.target.id !== "clearNotifBtn") return;
+      getNotifications().forEach(n => {
+        const id = notificationId(n);
+        if(!clearedNotifications.includes(id)) clearedNotifications.push(id);
+      });
+      saveClearedNotifications();
+      renderNotifications();
+      toast("Notifications cleared.");
+    };
+    function getRoles(a){return a.roles || [a.role];}
+    function hasRole(a,r){return getRoles(a).includes(r);}
+    function roleName(r){return r==="admin"?"Admin Account":r==="order"?"Student Order Account":"Driver Account";}
+    function roleTag(r){return r==="admin"?"purple":r==="order"?"green":"blue";}
+    function accountRoleText(a){return getRoles(a).map(roleName).join(" + ");}
+    function getCheckedRoles(){return Array.from(document.querySelectorAll("input[name='accountRoles']:checked")).map(box=>box.value);}
+    function getSignupRoles(){return Array.from(document.querySelectorAll("input[name='signupRoles']:checked")).map(box=>box.value);}
+    function setCheckedRoles(roles){document.querySelectorAll("input[name='accountRoles']").forEach(box=>box.checked=roles.includes(box.value));}
+    function showOnly(id){["adminPage","orderPage","deliveryPage","completedPage","supportAdminPage","approvalsPage","allAccountsPage"].forEach(p=>$(p).classList.add("hidden"));$(id).classList.remove("hidden");}
+    function normalizeLiveData(){
+      accounts = accounts.map(a => a.roles ? a : {...a, roles:[a.role]}).map(a => ({...a, banned:a.banned||false, banReason:a.banReason||""}));
+      if(!accounts.some(a=>a.studentId==="SPAdmin")) accounts.unshift(defaultAdmin);
+      orders = orders.map(o => ({...o, createdAt:o.createdAt||new Date().toISOString(), pickupCode:o.pickupCode||"", contactNumber:o.contactNumber||"", platformFee:o.platformFee===undefined?PLATFORM_FEE:o.platformFee, bids:o.bids||[], declinedBids:o.declinedBids||[], acceptedBid:o.acceptedBid||null, confirmedAt:o.confirmedAt||"", estimatedArrival:o.estimatedArrival||"", driverRating:o.driverRating||"", driverComment:o.driverComment||"", ratedAt:o.ratedAt||""}));
+      supportThreads = supportThreads.map(t => ({...t, assignedAdmin:t.assignedAdmin||""}));
+    }
+    function refreshVisiblePage(){
+      if(!currentUser) return;
+      const latestUser = accounts.find(a=>a.studentId===currentUser.studentId);
+      if(!latestUser){toast("Your account is no longer available.");$("logoutBtn").click();return;}
+      currentUser = latestUser;
+      if(currentUser.banned){forceLogoutWithBanPopup(currentUser.banReason);return;}
+      if(!$('adminPage').classList.contains('hidden')) renderAdmin();
+      if(!$('orderPage').classList.contains('hidden')){renderMyOrders();renderNotifications();showPendingRatingPopup(false);}
+      if(!$('deliveryPage').classList.contains('hidden')){renderDriver();renderNotifications();}
+      if(!$('completedPage').classList.contains('hidden')) renderCompletedOrders();
+      if(!$('supportAdminPage').classList.contains('hidden')){renderAdminSupportInbox();renderAdminSupportThread();}
+      if(!$('approvalsPage').classList.contains('hidden')) renderSignupApprovals();
+      if(!$('allAccountsPage').classList.contains('hidden')) renderAllAccountsPage($("allAccountSearch").value);
+      if(!$('supportChatPanel').classList.contains('hidden') && !hasRole(currentUser,"admin")) renderUserSupportMessages();
+      updateDriverRatingHeader();
+      renderNotifications();
+    }
+    function syncLiveData(){
+      const next = {
+        accounts: localStorage.getItem(ACC_KEY) || "",
+        orders: localStorage.getItem(ORD_KEY) || "",
+        signup: localStorage.getItem(SIGNUP_KEY) || "",
+        support: localStorage.getItem(SUPPORT_KEY) || "",
+        notifications: localStorage.getItem(NOTIF_KEY) || ""
+      };
+      const changed = Object.keys(next).some(k => next[k] !== liveSnapshot[k]);
+      if(!changed) return;
+      liveSnapshot = next;
+      accounts = JSON.parse(next.accounts || "[]");
+      orders = JSON.parse(next.orders || "[]");
+      signupRequests = JSON.parse(next.signup || "[]");
+      supportThreads = JSON.parse(next.support || "[]");
+      clearedNotifications = JSON.parse(next.notifications || "[]");
+      normalizeLiveData();
+      refreshVisiblePage();
+    }
+    window.addEventListener("storage",syncLiveData);
+    setInterval(syncLiveData,1000);
+    function showModal({title="Confirm Action", message="", input=false, defaultValue="", inputType="number", placeholder="", confirmText="Confirm", cancelText="Cancel", hideCancel=false}){
+      return new Promise(resolve=>{
+        const modal=$("customModal"), inputBox=$("modalInput"), confirmBtn=$("modalConfirm"), cancelBtn=$("modalCancel");
+        $("modalTitle").textContent=title;
+        $("modalMessage").textContent=message;
+        confirmBtn.textContent=confirmText;
+        cancelBtn.textContent=cancelText;
+        cancelBtn.classList.toggle("hidden",hideCancel);
+        inputBox.classList.toggle("hidden",!input);
+        inputBox.type=inputType;
+        inputBox.placeholder=placeholder;
+        inputBox.value=defaultValue;
+        modal.classList.remove("hidden");
+        if(input) setTimeout(()=>inputBox.focus(),50);
+
+        const close=value=>{
+          modal.classList.add("hidden");
+          confirmBtn.onclick=null;
+          cancelBtn.onclick=null;
+          resolve(value);
+        };
+
+        cancelBtn.onclick=()=>close(null);
+        confirmBtn.onclick=()=>close(input ? inputBox.value : true);
+      });
+    }
+    function confirmChange(text){return showModal({title:"Confirm Changes",message:text});}
+    function infoPopup(title,message){return showModal({title,message,confirmText:"Close",hideCancel:true});}
+    function bidPopup(startingBid){return showModal({title:"Place Your Bid",message:"Enter the delivery price you want to offer for this order.",input:true,inputType:"number",defaultValue:startingBid});}
+    function banReasonPopup(account){return showModal({title:"Ban Account",message:"Type the reason why " + account.studentId + " is being banned. This reason will be shown when they try to log in.",input:true,inputType:"text",placeholder:"Example: Misuse of platform / repeated fake orders"});}
+
+    accounts = accounts.map(a => a.roles ? a : {...a, roles:[a.role]});
+    accounts = accounts.map(a => ({...a, banned:a.banned||false, banReason:a.banReason||""}));
+    orders = orders.map(o => ({...o, createdAt:o.createdAt||new Date().toISOString(), pickupCode:o.pickupCode||"", contactNumber:o.contactNumber||"", platformFee:o.platformFee===undefined?PLATFORM_FEE:o.platformFee, bids:o.bids||[], declinedBids:o.declinedBids||[], acceptedBid:o.acceptedBid||null, confirmedAt:o.confirmedAt||"", estimatedArrival:o.estimatedArrival||"", driverRating:o.driverRating||"", driverComment:o.driverComment||"", ratedAt:o.ratedAt||""}));
+    if(!accounts.some(a=>a.studentId==="SPAdmin")){accounts.unshift(defaultAdmin);}
+    saveAccounts(); saveOrders();
+
+    $("openSignupBtn").onclick = () => {$("signupForm").reset();$("signupModal").classList.remove("hidden");};
+    $("closeSignupBtn").onclick = () => $("signupModal").classList.add("hidden");
+    $("signupForm").onsubmit = e => {
+      e.preventDefault();
+      const roles = getSignupRoles();
+      if(roles.length===0) return toast("Please choose at least one account type to join.");
+      const request = {
+        id: Date.now(),
+        fullName: $("signupFullName").value.trim(),
+        studentId: $("signupStudentId").value.trim(),
+        password: $("signupPassword").value.trim(),
+        roles,
+        school: $("signupSchool").value,
+        email: $("signupEmail").value.trim(),
+        submittedAt: nowText(),
+        status: "pending"
+      };
+      if(accounts.some(a=>a.studentId.toLowerCase()===request.studentId.toLowerCase())) return toast("An account with this Student ID already exists.");
+      if(signupRequests.some(r=>r.studentId.toLowerCase()===request.studentId.toLowerCase())) return toast("A sign-up request for this Student ID is already pending.");
+      signupRequests.unshift(request);
+      saveSignupRequests();
+      $("signupModal").classList.add("hidden");
+      $("signupForm").reset();
+      toast("Sign-up request submitted. Please wait for admin approval.");
+    };
+
+    document.querySelectorAll("[data-login]").forEach(btn=>btn.onclick=()=>{
+      loginType = btn.dataset.login;
+      document.querySelectorAll("[data-login]").forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+      $("loginTitle").textContent = loginType==="delivery" ? "Driver Login" : "Student Order Login";
+    });
+
+    $("loginForm").onsubmit = e => {
+      e.preventDefault();
+      const id = $("loginId").value.trim(), pw = $("loginPassword").value.trim();
+      const user = accounts.find(a => a.studentId === id && a.password === pw && (hasRole(a, loginType) || hasRole(a, "admin")));
+      if(!user) return toast("Invalid ID or password for this login type.");
+      if(user.banned){
+        const reasonText = user.banReason || "No reason provided.";
+        const banMsg = "Your account has been banned and cannot access SP FoodHitch." + String.fromCharCode(10,10) + "Reason: " + reasonText;
+        infoPopup("Account Banned", banMsg);
+        return;
+      }
+      currentUser = user;
+      $("currentId").textContent = user.studentId;
+      $("loginPage").classList.add("hidden"); $("appPage").classList.remove("hidden");
+      if(hasRole(user,"admin")){ $("driverRatingHeader").classList.add("hidden"); $("currentRole").textContent="Admin Account"; $("allAccountsNavBtn").classList.remove("hidden"); $("approvalsNavBtn").classList.remove("hidden"); $("supportAdminNavBtn").classList.remove("hidden"); $("supportChat").classList.add("hidden"); $("supportChatPanel").classList.add("hidden"); $("completedNavBtn").classList.add("hidden"); $("resetWrap").classList.remove("hidden"); $("resetMenu").classList.add("hidden"); showOnly("adminPage"); renderAdmin(); }
+      else if(loginType==="order"){ $("driverRatingHeader").classList.add("hidden"); $("currentRole").textContent=roleName("order"); $("allAccountsNavBtn").classList.add("hidden"); $("approvalsNavBtn").classList.add("hidden"); $("supportAdminNavBtn").classList.add("hidden"); $("supportChat").classList.remove("hidden"); $("completedNavBtn").classList.remove("hidden"); $("resetWrap").classList.add("hidden"); $("resetMenu").classList.add("hidden"); showOnly("orderPage"); populateStudentDropoffs(); renderMap(); renderFood(foods); renderMyOrders(); dismissedRatingOrders=[]; setTimeout(()=>showPendingRatingPopup(true),300); }
+      else { $("driverRatingHeader").classList.remove("hidden"); updateDriverRatingHeader(); $("currentRole").textContent=roleName("delivery"); $("allAccountsNavBtn").classList.add("hidden"); $("approvalsNavBtn").classList.add("hidden"); $("supportAdminNavBtn").classList.add("hidden"); $("supportChat").classList.remove("hidden"); $("completedNavBtn").classList.remove("hidden"); $("resetWrap").classList.add("hidden"); $("resetMenu").classList.add("hidden"); showOnly("deliveryPage"); renderDriver(); }
+      renderNotifications();
+      toast("Welcome, " + user.studentId + "!");
+    };
+
+    $("logoutBtn").onclick = () => {$("driverRatingHeader").classList.add("hidden");currentUser=null;selectedFood=null;activeSupportThreadId=null;$("allAccountsNavBtn").classList.add("hidden");$("approvalsNavBtn").classList.add("hidden");$("supportAdminNavBtn").classList.add("hidden");$("supportChat").classList.add("hidden");$("supportChatPanel").classList.add("hidden");$("completedNavBtn").classList.add("hidden");$("resetWrap").classList.add("hidden");$("resetMenu").classList.add("hidden");$("notifMenu").classList.add("hidden");$("notifCount").classList.add("hidden");$("loginForm").reset();$("appPage").classList.add("hidden");$("loginPage").classList.remove("hidden");};
+
+    $("supportChatBtn").onclick = () => {
+      closeInactiveSupportChats();
+      renderUserSupportMessages();
+      $("supportChatPanel").classList.toggle("hidden");
+      $("notifMenu").classList.add("hidden");
+      $("resetMenu").classList.add("hidden");
+    };
+    $("closeSupportChat").onclick = () => $("supportChatPanel").classList.add("hidden");
+    $("sendSupportMsg").onclick = () => {
+      const msg = $("supportInput").value.trim();
+      if(!msg) return toast("Please type a message first.");
+      const thread=getCurrentSupportThread();
+      thread.messages.push({sender:"user",text:msg,time:nowText()});
+      thread.status="open";
+      thread.updatedAt=new Date().toISOString();
+      thread.awaitingReplySince="";
+      thread.warningSent=false;
+      saveSupportThreads();
+      $("supportInput").value = "";
+      renderUserSupportMessages();
+      toast("Message sent to customer service.");
+    };
+    $("supportInput").addEventListener("keydown", e => { if(e.key === "Enter") $("sendSupportMsg").click(); });
+
+    $("allAccountsNavBtn").onclick = () => {renderAllAccountsPage();showOnly("allAccountsPage");};
+    $("backToAdminFromAccountsBtn").onclick = () => {showOnly("adminPage");renderAdmin();};
+    function lowRatingAccountClass(a){
+      if(!hasRole(a,"delivery")) return "";
+      const reviews = driverReviews(a.studentId);
+      if(!reviews.length) return "";
+      const avg = reviews.reduce((s,r)=>s+r.rating,0)/reviews.length;
+      return avg < 3.5 ? "status-ongoing" : "";
+    }
+    function accountRatingText(a){
+      if(!hasRole(a,"delivery")) return "";
+      const reviews = driverReviews(a.studentId);
+      if(!reviews.length) return "No rider rating yet";
+      const avg = reviews.reduce((s,r)=>s+r.rating,0)/reviews.length;
+      return `${avg.toFixed(1)} average from ${reviews.length} review(s)`;
+    }
+    function renderAllAccountsPage(q=""){
+      const search = (q || $("allAccountSearch").value || "").toLowerCase();
+      const list = accounts.filter(a=>{
+        const text=(a.studentId+" "+a.password+" "+(a.fullName||"")+" "+(a.school||"")+" "+(a.email||"")+" "+accountRoleText(a)).toLowerCase();
+        const matchesSearch=text.includes(search);
+        const matchesFilter=allAccountFilter==="all" || hasRole(a,allAccountFilter);
+        return matchesSearch && matchesFilter;
+      });
+      document.querySelectorAll("[data-all-account-filter]").forEach(btn=>btn.classList.toggle("active-filter",btn.dataset.allAccountFilter===allAccountFilter));
+      const orderCount=accounts.filter(a=>hasRole(a,"order")).length;
+      const driverCount=accounts.filter(a=>hasRole(a,"delivery")).length;
+      const adminCount=accounts.filter(a=>hasRole(a,"admin")).length;
+      $("allAccountStats").innerHTML='<div class="card stat"><span class="muted">All Accounts</span><h2>'+accounts.length+'</h2></div><div class="card stat"><span class="muted">Student Order</span><h2>'+orderCount+'</h2></div><div class="card stat"><span class="muted">Drivers</span><h2>'+driverCount+'</h2></div><div class="card stat"><span class="muted">Admins</span><h2>'+adminCount+'</h2></div>';
+      $("allAccountsList").innerHTML=list.map(a=>{
+        const statusText = a.banned ? "Banned - " + esc(a.banReason || "No reason provided.") : "Active";
+        const riderText = hasRole(a,"delivery") ? '<br><b>Rider Rating:</b> ' + esc(accountRatingText(a)) : '';
+        const cardClass = a.banned ? 'status-declined' : lowRatingAccountClass(a);
+        const tagClass = a.banned ? 'red' : hasRole(a,'admin') ? 'purple' : hasRole(a,'delivery') && hasRole(a,'order') ? 'yellow' : roleTag(getRoles(a)[0]);
+        const tagText = a.banned ? 'Banned' : accountRoleText(a);
+        return '<div class="card clickable-account '+cardClass+'" data-view-account="'+esc(a.id)+'"><div class="top"><div><h3>'+esc(a.studentId)+'</h3><p class="muted"><b>Full Name:</b> '+esc(a.fullName||"Not provided")+'<br><b>School:</b> '+esc(a.school||"Not provided")+'<br><b>ICHAT Email:</b> '+esc(a.email||"Not provided")+'<br><b>Password:</b> '+esc(a.password)+'<br><b>Status:</b> '+statusText+riderText+'</p></div><span class="tag '+tagClass+'">'+tagText+'</span></div></div>';
+      }).join("") || '<div class="empty">No accounts found.</div>';
+    }
+    $("allAccountSearch").oninput=()=>renderAllAccountsPage($("allAccountSearch").value);
+    $("allAccountFilters").onclick=e=>{
+      const filter=e.target.dataset.allAccountFilter;
+      if(!filter)return;
+      allAccountFilter=filter;
+      renderAllAccountsPage($("allAccountSearch").value);
+    };
+
+    $("allAccountsList").onclick=e=>{
+      const card=e.target.closest("[data-view-account]");
+      if(!card)return;
+      renderAccountDetails(card.dataset.viewAccount);
+    };
+    $("closeAccountDetailsBtn").onclick=()=>$("accountDetailsModal").classList.add("hidden");
+    $("accountDetailsBanBtn").onclick=async()=>{
+      const accountId=$("accountDetailsBanBtn").dataset.accountId;
+      const a=accounts.find(x=>String(x.id)===String(accountId));
+      if(!a)return toast("Account not found.");
+      if(!canBanAccount(a))return toast(a.studentId==="SPAdmin"?"SPAdmin cannot be banned.":"Only SPAdmin can ban or unban admin accounts.");
+      if(a.banned){
+        if(!await confirmChange("Unban account " + a.studentId + "?"))return;
+        a.banned=false;
+        a.banReason="";
+        saveAccounts();
+        renderAllAccountsPage($("allAccountSearch").value);
+        renderAccountDetails(a.id);
+        toast("Account unbanned.");
+        return;
+      }
+      const reason=(await banReasonPopup(a) || "").trim();
+      if(!reason)return toast("Ban cancelled. Reason is required.");
+      if(!await confirmChange("Ban account " + a.studentId + " for this reason?" + String.fromCharCode(10,10) + reason))return;
+      a.banned=true;
+      a.banReason=reason;
+      saveAccounts();
+      renderAllAccountsPage($("allAccountSearch").value);
+      renderAccountDetails(a.id);
+      toast("Account banned.");
+    };
+
+    function roleTextForOrderUser(userId,o){
+      const isRequester=o.requester===userId;
+      const isAssignedDriver=o.driver===userId;
+      const hasBid=(o.bids||[]).some(b=>b.driver===userId);
+      const declined=(o.declinedBids||[]).some(b=>b.driver===userId);
+      if(isRequester)return "Student / Requester";
+      if(isAssignedDriver)return "Selected Driver";
+      if(hasBid && o.status!=="open")return "Driver Bid - Not Selected";
+      if(hasBid)return "Driver Bid Pending";
+      if(declined)return "Driver Bid Declined";
+      return "Related Account";
+    }
+    function detailOrderCard(o,userId){
+      const myBid=(o.bids||[]).find(b=>b.driver===userId);
+      const declinedBid=(o.declinedBids||[]).find(b=>b.driver===userId);
+      const bidsText=(o.bids||[]).length ? (o.bids||[]).map(b=>`${b.driver}: ${money(b.amount)}`).join(", ") : "No active bids";
+      return `<div class="card detail-order ${orderBgClass(o.status)}">
+        <div class="top">
+          <div>
+            <h3>${esc(o.id)} - ${esc(adminStatusLabel(o.status))}</h3>
+            <p class="muted">
+              <b>Account Role in Order:</b> ${esc(roleTextForOrderUser(userId,o))}<br>
+              ${orderTimerLine(o)}
+              <b>Pickup:</b> ${esc(o.pickup)}<br>
+              <b>Drop-off:</b> ${esc(o.dropoff)}<br>
+              <b>Requester:</b> ${esc(o.requester)}<br>
+              <b>Driver:</b> ${esc(o.driver||"Not assigned")}<br>
+              <b>Order Notes:</b> ${esc(o.item)}<br>
+              <b>Pickup Code:</b> ${esc(o.pickupCode||"Not provided")}<br>
+              <b>Contact:</b> ${esc(o.contactNumber||"Not provided")}<br>
+              <b>Starting Bid:</b> ${money(o.reward)}<br><b>Platform Fee:</b> ${money(platformFee(o))}<br><b>Estimated Total:</b> ${money(orderTotal(o))}<br>
+              <b>Accepted Bid:</b> ${o.acceptedBid?money(o.acceptedBid):"None"}<br>
+              <b>This Account's Bid:</b> ${myBid?money(myBid.amount):declinedBid?money(declinedBid.amount)+" (declined)":"None"}<br>
+              <b>All Bids:</b> ${esc(bidsText)}<br>
+              <b>Time:</b> ${esc(o.time)}<br>
+              <b>Estimated Arrival:</b> ${esc(o.estimatedArrival||"Shown once order is confirmed")}<br>
+              <b>Driver Rating:</b> ${o.driverRating?`${o.driverRating}/5 - ${esc(o.driverComment||"No comment")}`:"Not rated yet"}
+            </p>
+          </div>
+          <span class="tag ${o.status==="completed"?"green":o.status==="accepted"?"blue":"yellow"}">${esc(adminStatusLabel(o.status))}</span>
+        </div>
+      </div>`;
+    }
+    function renderOrderSection(title,list,userId,emptyText){
+      const content = list.length ? list.map(o=>detailOrderCard(o,userId)).join("") : '<div class="empty">' + esc(emptyText) + '</div>';
+      return '<div class="detail-section"><div class="top"><h3>' + esc(title) + '</h3><span class="tag blue">' + list.length + '</span></div><div class="list">' + content + '</div></div>';
+    }
+    function renderAccountDetails(accountId){
+      const a=accounts.find(x=>String(x.id)===String(accountId));
+      if(!a)return toast("Account not found.");
+      const userId=a.studentId;
+      const studentOrders=orders.filter(o=>o.requester===userId);
+      const driverRelated=orders.filter(o=>o.driver===userId || (o.bids||[]).some(b=>b.driver===userId) || (o.declinedBids||[]).some(b=>b.driver===userId));
+      const currentStudent=studentOrders.filter(o=>o.status!=="completed");
+      const pastStudent=studentOrders.filter(o=>o.status==="completed");
+      const currentDriver=driverRelated.filter(o=>o.status!=="completed" && !(o.status!=="open" && o.driver!==userId));
+      const pastDriver=driverRelated.filter(o=>o.status==="completed" || (o.status!=="open" && o.driver!==userId));
+      const completedCount=orders.filter(o=>(o.requester===userId || o.driver===userId) && o.status==="completed").length;
+      const activeCount=orders.filter(o=>(o.requester===userId || o.driver===userId || (o.bids||[]).some(b=>b.driver===userId)) && o.status!=="completed").length;
+      const totalBids=orders.reduce((sum,o)=>sum+(o.bids||[]).filter(b=>b.driver===userId).length,0);
+      const earnings=orders.filter(o=>o.driver===userId && o.status==="completed").reduce((sum,o)=>sum+Number(o.acceptedBid||o.reward),0);
+
+      $("accountDetailsTitle").textContent=`${a.studentId} - Account Details`;
+      $("accountDetailsBanBtn").dataset.accountId=a.id;
+      const bannable=canBanAccount(a);
+      $("accountDetailsBanBtn").textContent=!bannable?"Protected":a.banned?"Unban Account":"Ban Account";
+      $("accountDetailsBanBtn").className=!bannable?"white":a.banned?"green":"red";
+      $("accountDetailsBanBtn").disabled=!bannable;
+      $("accountDetailsContent").innerHTML=`
+        <div class="account-detail-grid">
+          <div class="detail-box">
+            <h4>Profile</h4>
+            <p class="muted">
+              <b>Full Name:</b> ${esc(a.fullName||"Not provided")}<br>
+              <b>Account ID:</b> ${esc(a.studentId)}<br>
+              <b>Roles:</b> ${esc(accountRoleText(a))}<br>
+              <b>School:</b> ${esc(a.school||"Not provided")}<br>
+              <b>ICHAT Email:</b> ${esc(a.email||"Not provided")}<br>
+              <b>Password:</b> ${esc(a.password)}<br>
+              <b>Status:</b> ${a.banned?"Banned - " + esc(a.banReason||"No reason provided."):"Active"}
+            </p>
+          </div>
+          <div class="detail-box">
+            <h4>Account Activity Summary</h4>
+            <p class="muted">
+              <b>Current Related Orders:</b> ${activeCount}<br>
+              <b>Completed Related Orders:</b> ${completedCount}<br>
+              <b>Student Orders Created:</b> ${studentOrders.length}<br>
+              <b>Driver Related Orders:</b> ${driverRelated.length}<br>
+              <b>Total Active Bids:</b> ${totalBids}<br>
+              <b>Completed Driver Earnings:</b> ${money(earnings)}
+            </p>
+          </div>
+        </div>
+        ${hasRole(a,"delivery")?adminDriverReviewSection(userId):""}
+        ${renderOrderSection("Current Student Orders",currentStudent,userId,"No current student orders for this account.")}
+        ${renderOrderSection("Past Student Orders",pastStudent,userId,"No past completed student orders for this account.")}
+        ${renderOrderSection("Current Driver Orders / Bids",currentDriver,userId,"No current driver orders or bids for this account.")}
+        ${renderOrderSection("Past Driver Orders / Bid Results",pastDriver,userId,"No past driver activity for this account.")}
+      `;
+      $("accountDetailsModal").classList.remove("hidden");
+    }
+
+    $("approvalsNavBtn").onclick = () => {renderSignupApprovals();showOnly("approvalsPage");};
+    $("backToAdminFromApprovalsBtn").onclick = () => {showOnly("adminPage");renderAdmin();};
+    function renderSignupApprovals(){
+      $("signupApprovalList").innerHTML = signupRequests.length ? signupRequests.map(r=>`
+        <div class="card approval-card">
+          <div class="top">
+            <div>
+              <h3>${esc(r.fullName)}</h3>
+              <p class="muted">
+                <b>Student ID:</b> ${esc(r.studentId)}<br>
+                <b>Requested Account:</b> ${esc((r.roles||["order"]).map(roleName).join(" + "))}<br>
+                <b>School:</b> ${esc(r.school)}<br>
+                <b>ICHAT Email:</b> ${esc(r.email)}<br>
+                <b>Submitted:</b> ${esc(r.submittedAt)}
+              </p>
+            </div>
+            <span class="tag yellow">Pending</span>
+          </div>
+          <div class="actions">
+            <button class="green" data-approve-signup="${r.id}">Approve Account</button>
+            <button class="red" data-decline-signup="${r.id}">Decline</button>
+          </div>
+        </div>
+      `).join("") : `<div class="empty">No pending sign-up requests.</div>`;
+    }
+    $("signupApprovalList").onclick = async e => {
+      const approveId = e.target.dataset.approveSignup;
+      const declineId = e.target.dataset.declineSignup;
+      if(approveId){
+        const req = signupRequests.find(r=>String(r.id)===String(approveId));
+        if(!req) return;
+        if(accounts.some(a=>a.studentId.toLowerCase()===req.studentId.toLowerCase())) return toast("This Student ID already has an account.");
+        if(!await confirmChange("Approve account request for " + req.studentId + "?")) return;
+        accounts.push({id:Date.now(),studentId:req.studentId,password:req.password,roles:req.roles||["order"],fullName:req.fullName,school:req.school,email:req.email});
+        signupRequests = signupRequests.filter(r=>String(r.id)!==String(approveId));
+        saveAccounts();
+        saveSignupRequests();
+        renderSignupApprovals();
+        renderAdmin();
+        toast("Student account approved and created.");
+      }
+      if(declineId){
+        const req = signupRequests.find(r=>String(r.id)===String(declineId));
+        if(!req) return;
+        if(!await confirmChange("Decline sign-up request from " + req.studentId + "?")) return;
+        signupRequests = signupRequests.filter(r=>String(r.id)!==String(declineId));
+        saveSignupRequests();
+        renderSignupApprovals();
+        toast("Sign-up request declined.");
+      }
+    };
+
+    $("supportAdminNavBtn").onclick = () => {activeSupportThreadId=null;renderAdminSupportInbox();renderAdminSupportThread();showOnly("supportAdminPage");};
+    $("backToAdminBtn").onclick = () => {showOnly("adminPage");renderAdmin();};
+    $("supportThreadList").onclick = e => {
+      const card = e.target.closest("[data-thread-id]");
+      if(!card) return;
+      activeSupportThreadId = card.dataset.threadId;
+      renderAdminSupportThread();
+    };
+    $("sendAdminSupportReply").onclick = () => {
+      const reply = $("adminSupportReply").value.trim();
+      if(!reply) return toast("Please type a reply first.");
+      const thread = supportThreads.find(t=>t.id===activeSupportThreadId);
+      if(!thread) return toast("Please choose a conversation first.");
+      if(thread.assignedAdmin && thread.assignedAdmin !== currentUser.studentId) return toast("This conversation is already handled by another admin.");
+      if(!thread.assignedAdmin) thread.assignedAdmin = currentUser.studentId;
+      thread.messages.push({sender:"admin",text:reply,time:nowText()});
+      thread.status="waiting for customer reply";
+      thread.updatedAt=new Date().toISOString();
+      thread.awaitingReplySince=new Date().toISOString();
+      thread.warningSent=false;
+      saveSupportThreads();
+      $("adminSupportReply").value="";
+      renderAdminSupportThread();
+      toast("Reply sent to " + thread.userId + ".");
+    };
+    $("adminSupportReply").addEventListener("keydown", e => { if(e.key === "Enter") $("sendAdminSupportReply").click(); });
+
+    $("resetToggle").onclick = () => {
+      $("resetMenu").classList.toggle("hidden");
+    };
+
+    $("resetMenu").onclick = async e => {
+      const choice = e.target.dataset.reset;
+      if(!choice) return;
+      $("resetMenu").classList.add("hidden");
+
+      if(choice === "accounts"){
+        if(!await confirmChange("This will delete all student and driver accounts. The admin account will remain.")) return;
+        accounts = [defaultAdmin];
+        saveAccounts();
+        resetAccountForm();
+        renderAdmin();
+        toast("All accounts have been reset. Admin account remains.");
+        $("resetWrap").classList.remove("hidden");
+      }
+
+      if(choice === "orders"){
+        if(!await confirmChange("This will delete all orders, bids, accepted orders, and completed orders.")) return;
+        orders = [];
+        saveOrders();
+        resetOrderForm();
+        renderAdmin();
+        toast("All orders have been reset.");
+        renderNotifications();
+        $("resetWrap").classList.remove("hidden");
+      }
+    };
+
+    function renderAdmin(){
+      showOnly("adminPage");
+      try{updateAdminRoleOption();}catch(e){console.error(e);}
+      try{populateOrderDropdowns();}catch(e){console.error(e);}
+      try{renderStats();}catch(e){console.error(e);$("adminStats").innerHTML='<div class="empty">Admin stats could not load.</div>';}
+      try{renderAdminAllOrders();}catch(e){console.error(e);$("adminAllOrdersList").innerHTML='<div class="empty">All orders could not load.</div>';}
+      try{renderAccounts();}catch(e){console.error(e);$("accountList").innerHTML='<div class="empty">Accounts could not load.</div>';}
+      try{renderAdminOrders();}catch(e){console.error(e);$("adminOrderList").innerHTML='<div class="empty">Manage orders could not load.</div>';}
+    }
+    function updateAdminRoleOption(){
+      const adminBox = document.querySelector("input[name='accountRoles'][value='admin']");
+      const adminOption = $("adminRoleOption");
+      const isMainAdmin = currentUser && currentUser.studentId === "SPAdmin";
+      if(adminBox){
+        adminBox.disabled = !isMainAdmin;
+        if(!isMainAdmin) adminBox.checked = false;
+      }
+      if(adminOption) adminOption.classList.toggle("hidden", !isMainAdmin);
+    }
+    function renderStats(){
+      const waiting=orders.filter(o=>o.status==="open").length, ongoing=orders.filter(o=>o.status==="accepted").length, completed=orders.filter(o=>o.status==="completed").length;
+      const platformRevenue = orders.filter(o=>o.status==="completed").reduce((sum,o)=>sum+platformFee(o),0);
+      $("adminStats").innerHTML = `<div class="card stat"><span class="muted">All Orders</span><h2>${orders.length}</h2></div><div class="card stat"><span class="muted">Waiting for Bidding</span><h2>${waiting}</h2></div><div class="card stat"><span class="muted">Ongoing</span><h2>${ongoing}</h2></div><div class="card stat"><span class="muted">Completed</span><h2>${completed}</h2></div><div class="card stat"><span class="muted">Platform Revenue</span><h2>${money(platformRevenue)}</h2><p class="muted small">From completed orders</p></div>`;
+    }
+
+    function adminStatusLabel(status){return status==="open"?"Waiting for Bidding":status==="accepted"?"Ongoing":"Completed";}
+    function renderAdminAllOrders(){
+      const list = orders.filter(o => adminOrderView === "all" || o.status === adminOrderView);
+      document.querySelectorAll("[data-admin-order-view]").forEach(btn=>btn.classList.toggle("active-filter",btn.dataset.adminOrderView===adminOrderView));
+      $("adminAllOrdersList").innerHTML = list.map(o=>`
+        <div class="card ${orderBgClass(o.status)}">
+          <div class="top">
+            <div>
+              <h3>${esc(o.id)} - ${adminStatusLabel(o.status)}</h3>
+              <p class="muted">
+                ${orderTimerLine(o)}
+                <b>Pickup:</b> ${esc(o.pickup)}<br>
+                <b>Drop-off:</b> ${esc(o.dropoff)}<br>
+                <b>Requester:</b> ${esc(o.requester)}<br>
+                <b>Driver:</b> ${esc(o.driver || "Not assigned")}<br>
+                <b>Starting Bid:</b> ${money(o.reward)}<br><b>Platform Fee:</b> ${money(platformFee(o))}<br><b>Estimated Total:</b> ${money(orderTotal(o))}<br>
+                <b>Total Bids:</b> ${(o.bids||[]).length}<br>
+                <b>Accepted Bid:</b> ${o.acceptedBid ? money(o.acceptedBid) : "None"}<br>
+                <b>Time:</b> ${esc(o.time)}<br>
+                <b>Estimated Arrival:</b> ${esc(o.estimatedArrival || "Shown once order is confirmed")}
+              </p>
+            </div>
+            <span class="tag ${o.status==="completed"?"green":o.status==="accepted"?"blue":"yellow"}">${adminStatusLabel(o.status)}</span>
+          </div>
+        </div>
+      `).join("") || `<div class="empty">No orders found for this status.</div>`;
+    }
+
+    $("adminViewFilters").onclick = e => {
+      const view = e.target.dataset.adminOrderView;
+      if(!view) return;
+      adminOrderView = view;
+      renderAdminAllOrders();
+    };
+
+    $("accountForm").onsubmit = async e => {
+      e.preventDefault();
+      const editId=$("editAccountId").value, studentId=$("accountStudentId").value.trim(), fullName=$("accountFullName").value.trim(), password=$("accountPassword").value.trim(), school=$("accountSchool").value, email=$("accountEmail").value.trim(), roles=getCheckedRoles();
+      if(roles.length===0) return toast("Please choose at least one account type.");
+      if(roles.includes("admin")){
+        if(!currentUser || currentUser.studentId !== "SPAdmin") return toast("Only SPAdmin can create or update admin accounts.");
+        if(!await confirmChange("You are creating or updating an admin account. This account will be able to manage accounts, orders, resets, and support inbox. Continue?")) return;
+      }
+      if(editId){
+        const acc=accounts.find(a=>a.id==editId);
+        if(!canEditAccount(acc)) return toast(acc.studentId==="SPAdmin"?"SPAdmin cannot be edited.":"Only SPAdmin can edit other admin accounts.");
+        if(!await confirmChange("Update account " + acc.studentId + "?")) return;
+        if(accounts.some(a=>a.id!=editId && a.studentId.toLowerCase()===studentId.toLowerCase())) return toast("Student ID already exists.");
+        acc.studentId=studentId; acc.fullName=fullName; acc.password=password; acc.school=school; acc.email=email; acc.roles=roles; delete acc.role; toast("Account updated.");
+      }else{
+        if(accounts.some(a=>a.studentId.toLowerCase()===studentId.toLowerCase())) return toast("Student ID already exists.");
+        if(!await confirmChange("Add new account for " + studentId + "?")) return;
+        accounts.push({id:Date.now(),studentId,fullName,password,school,email,roles}); toast("Account added.");
+      }
+      saveAccounts(); resetAccountForm(); renderAdmin();
+    };
+    $("cancelAccountEdit").onclick = resetAccountForm;
+    function resetAccountForm(){$("accountForm").reset();setCheckedRoles(["order"]);$("editAccountId").value="";$("accountFormTitle").textContent="Add Account";$("saveAccountBtn").textContent="Add Account";$("cancelAccountEdit").classList.add("hidden");updateAdminRoleOption();}
+    $("accountSearch").oninput=()=>renderAccounts($("accountSearch").value.toLowerCase());
+    $("accountFilters").onclick=e=>{
+      const filter=e.target.dataset.accountFilter;
+      if(!filter)return;
+      accountFilter=filter;
+      document.querySelectorAll("[data-account-filter]").forEach(btn=>btn.classList.toggle("active-filter",btn.dataset.accountFilter===accountFilter));
+      renderAccounts($("accountSearch").value.toLowerCase());
+    };
+    function canEditAccount(a){
+      if(a.studentId === "SPAdmin") return false;
+      if(hasRole(a,"admin")) return currentUser && currentUser.studentId === "SPAdmin";
+      return true;
+    }
+    function canDeleteAccount(a){
+      if(a.studentId === "SPAdmin") return false;
+      if(hasRole(a,"admin")) return currentUser && currentUser.studentId === "SPAdmin";
+      return true;
+    }
+    function canBanAccount(a){
+      if(a.studentId === "SPAdmin") return false;
+      if(hasRole(a,"admin")) return currentUser && currentUser.studentId === "SPAdmin";
+      return true;
+    }
+    function renderAccounts(q=""){
+      const list=accounts.filter(a=>{
+        const text=(a.studentId+" "+a.password+" "+(a.fullName||"")+" "+(a.school||"")+" "+(a.email||"")+" "+accountRoleText(a)).toLowerCase();
+        const matchesSearch=text.includes(q);
+        const matchesFilter=accountFilter==="all" || hasRole(a,accountFilter);
+        return matchesSearch && matchesFilter;
+      });
+      $("accountList").innerHTML=list.map(a=>{
+        const editable = canEditAccount(a);
+        const deletable = canDeleteAccount(a);
+        const editLabel = editable ? "Edit" : "Protected";
+        const deleteLabel = a.studentId === "SPAdmin" ? "Protected" : deletable ? "Delete" : "Protected";
+        const deleteClass = deletable ? "red" : "white";
+        const bannable = canBanAccount(a);
+        const banLabel = !bannable ? "Protected" : a.banned ? "Unban" : "Ban";
+        const banClass = !bannable ? "white" : a.banned ? "green" : "red";
+        return `
+        <div class="card ${a.banned?'status-declined':''}"><div class="top"><div><h3>${esc(a.studentId)}</h3><p class="muted">Full Name: <b>${esc(a.fullName||"Not provided")}</b><br>School: <b>${esc(a.school||"Not provided")}</b><br>ICHAT Email: <b>${esc(a.email||"Not provided")}</b><br>Password: <b>${esc(a.password)}</b><br><b>Status:</b> ${a.banned?"Banned - " + esc(a.banReason||"No reason provided."):"Active"}</p></div><span class="tag ${a.banned?'red':hasRole(a,'admin')?'purple':hasRole(a,'delivery')&&hasRole(a,'order')?'yellow':roleTag(getRoles(a)[0])}">${a.banned?'Banned':accountRoleText(a)}</span></div>
+        <div class="actions"><button class="white" data-edit-account="${a.id}" ${editable?'':'disabled'}>${editLabel}</button><button class="${banClass}" data-ban-account="${a.id}" ${bannable?'':'disabled'}>${banLabel}</button><button class="${deleteClass}" data-delete-account="${a.id}">${deleteLabel}</button></div></div>`;
+      }).join("") || `<div class="empty">No account found.</div>`;
+    }
+    $("accountList").onclick=async e=>{
+      const edit=e.target.dataset.editAccount, del=e.target.dataset.deleteAccount, ban=e.target.dataset.banAccount;
+      if(edit){const a=accounts.find(x=>x.id==edit);if(!canEditAccount(a))return toast(a.studentId==="SPAdmin"?"SPAdmin cannot be edited.":"Only SPAdmin can edit other admin accounts.");$("editAccountId").value=a.id;$("accountStudentId").value=a.studentId;$("accountFullName").value=a.fullName||"";$("accountPassword").value=a.password;$("accountSchool").value=a.school||"";$("accountEmail").value=a.email||"";setCheckedRoles(getRoles(a));$("accountFormTitle").textContent="Edit Account";$("saveAccountBtn").textContent="Update Account";$("cancelAccountEdit").classList.remove("hidden");}
+      if(ban){
+        const a=accounts.find(x=>x.id==ban);
+        if(!canBanAccount(a))return toast(a.studentId==="SPAdmin"?"SPAdmin cannot be banned.":"Only SPAdmin can ban or unban admin accounts.");
+        if(a.banned){
+          if(!await confirmChange("Unban account " + a.studentId + "?"))return;
+          a.banned=false;
+          a.banReason="";
+          saveAccounts();
+          renderAdmin();
+          toast("Account unbanned.");
+          return;
+        }
+        const reason=(await banReasonPopup(a) || "").trim();
+        if(!reason)return toast("Ban cancelled. Reason is required.");
+        if(!await confirmChange("Ban account " + a.studentId + " for this reason?" + String.fromCharCode(10,10) + reason))return;
+        a.banned=true;
+        a.banReason=reason;
+        saveAccounts();
+        renderAdmin();
+        toast("Account banned.");
+      }
+      if(del){const a=accounts.find(x=>x.id==del);if(!canDeleteAccount(a))return toast(a.studentId==="SPAdmin"?"SPAdmin cannot be deleted.":"Only SPAdmin can delete other admin accounts.");if(!await confirmChange("Delete account " + a.studentId + "?"))return;accounts=accounts.filter(x=>x.id!=del);saveAccounts();renderAdmin();toast("Account deleted.");}
+    };
+
+    function updateAdminOrderForm(){
+      const food = foods.find(f => f.name === $("orderPickup").value);
+      if(food){
+        $("orderItem").value = food.item;
+        $("orderReward").value = (food.fee + getDropoffFee($("orderDropoff").value)).toFixed(2);
+      }
+      updateAdminTimingUI();
+    }
+    $("orderPickup").onchange = updateAdminOrderForm;
+    $("orderDropoff").onchange = updateAdminOrderForm;
+    $("orderDeliveryTiming").onchange = updateAdminTimingUI;
+    $("orderScheduleTime").onchange = updateAdminTimingUI;
+    $("deliveryTiming").onchange = updateStudentTimingUI;
+    $("scheduleTime").onchange = updateStudentTimingUI;
+
+    function populateOrderDropdowns(){
+      const currentPickup = $("orderPickup").value;
+      $("orderPickup").innerHTML = foods.map(f => `<option value="${esc(f.name)}">${esc(f.name)} - ${esc(f.area)}</option>`).join("");
+      if(currentPickup) $("orderPickup").value = currentPickup;
+
+      const currentDropoff = $("orderDropoff").value;
+      $("orderDropoff").innerHTML = dropoffOptions.map(d => `<option value="${esc(d.name)}">${esc(d.name)} ${d.fee===0?"(Free)":"(+"+money(d.fee)+")"}</option>`).join("");
+      if(currentDropoff) $("orderDropoff").value = currentDropoff;
+
+      const orderAccounts = accounts.filter(a => hasRole(a,"order") && !hasRole(a,"admin"));
+      $("orderRequester").innerHTML = orderAccounts.length
+        ? orderAccounts.map(a => `<option value="${esc(a.studentId)}">${esc(a.studentId)}</option>`).join("")
+        : `<option value="">No student order accounts created</option>`;
+    }
+
+    function addMissingOption(selectId,value){
+      if(!value) return;
+      const select = $(selectId);
+      if(!Array.from(select.options).some(option => option.value === value)){
+        select.insertAdjacentHTML("afterbegin", `<option value="${esc(value)}">${esc(value)}</option>`);
+      }
+      select.value = value;
+    }
+
+    $("orderForm").onsubmit=async e=>{
+      e.preventDefault();
+      const editId=$("editOrderId").value;
+      updateAdminTimingUI();
+      if($("orderDeliveryTiming").value === "schedule" && !$("orderScheduleTime").value) return toast("Please choose a scheduled date and time.");
+      const data={pickup:$("orderPickup").value.trim(),dropoff:$("orderDropoff").value.trim(),dropoffFee:getDropoffFee($("orderDropoff").value),platformFee:PLATFORM_FEE,requester:$("orderRequester").value.trim(),item:$("orderItem").value.trim(),reward:Number($("orderReward").value),deliveryTiming:$("orderDeliveryTiming").value,scheduleTime:$("orderScheduleTime").value,time:$("orderTime").value.trim(),status:$("orderStatus").value};
+      if(editId){const o=orders.find(x=>x.id===editId);if(!await confirmChange("Update order " + o.id + "?"))return;Object.assign(o,data);if(o.status==="open"){o.driver="";o.acceptedBid=null;o.confirmedAt="";o.estimatedArrival="";}else if(o.status==="accepted" || o.status==="completed"){o.estimatedArrival=o.estimatedArrival||calculateArrivalEstimate(o);}toast("Order updated.");}
+      else{if(!await confirmChange("Add new order?"))return;orders.unshift({id:nextOrderId(),...data,createdAt:new Date().toISOString(),driver:"",bids:[],declinedBids:[],acceptedBid:null});toast("Order added.");}
+      saveOrders();resetOrderForm();renderAdmin();renderNotifications();
+    };
+    $("cancelOrderEdit").onclick=resetOrderForm;
+    function resetOrderForm(){
+      $("orderForm").reset();
+      $("editOrderId").value="";
+      $("orderFormTitle").textContent="Add Order";
+      $("saveOrderBtn").textContent="Add Order";
+      $("cancelOrderEdit").classList.add("hidden");
+      populateOrderDropdowns();
+      updateAdminOrderForm();
+    }
+    $("orderSearch").oninput=()=>renderAdminOrders($("orderSearch").value.toLowerCase());
+    function renderAdminOrders(q=""){
+      const list=orders.filter(o=>(o.id+o.pickup+o.dropoff+o.requester+o.item+o.status+o.driver).toLowerCase().includes(q));
+      $("adminOrderList").innerHTML=list.map(o=>`
+        <div class="card ${orderBgClass(o.status)}"><div class="top"><div><h3>${esc(o.id)} - ${esc(o.status)}</h3><p class="muted">${orderTimerLine(o)}
+                <b>Pickup:</b> ${esc(o.pickup)}<br>
+                <b>Drop-off:</b> ${esc(o.dropoff)}<br><b>Requester:</b> ${esc(o.requester)}<br><b>Driver:</b> ${esc(o.driver||"Not assigned")}<br><b>Order Notes:</b> ${esc(o.item)}<br><b>Pickup Code:</b> ${esc(o.pickupCode || "Not provided")}<br><b>Contact:</b> ${esc(o.contactNumber || "Not provided")}<br><b>Starting Bid:</b> ${money(o.reward)}<br><b>Platform Fee:</b> ${money(platformFee(o))}<br><b>Estimated Total:</b> ${money(orderTotal(o))}<br><b>Total Bids:</b> ${(o.bids||[]).length}<br><b>Accepted Bid:</b> ${o.acceptedBid?money(o.acceptedBid):"None"}<br><b>Time:</b> ${esc(o.time)}<br><b>Estimated Arrival:</b> ${esc(o.estimatedArrival || "Shown once order is confirmed")}</p></div></div>
+        <div class="actions"><button class="white" data-edit-order="${o.id}">Edit</button><button class="red" data-delete-order="${o.id}">Delete</button></div></div>`).join("") || `<div class="empty">No order found.</div>`;
+    }
+    $("adminOrderList").onclick=async e=>{
+      const edit=e.target.dataset.editOrder, del=e.target.dataset.deleteOrder;
+      if(edit){const o=orders.find(x=>x.id===edit);$("editOrderId").value=o.id;addMissingOption("orderPickup",o.pickup);$("orderDropoff").value=o.dropoff;addMissingOption("orderRequester",o.requester);$("orderItem").value=o.item;$("orderReward").value=o.reward;$("orderDeliveryTiming").value=o.deliveryTiming||"now";$("orderScheduleTime").value=o.scheduleTime||"";$("orderTime").value=o.time;$("orderStatus").value=o.status;updateAdminTimingUI();$("orderFormTitle").textContent="Edit Order";$("saveOrderBtn").textContent="Update Order";$("cancelOrderEdit").classList.remove("hidden");}
+      if(del){const o=orders.find(x=>x.id===del);if(!await confirmChange("Delete order " + o.id + "?"))return;orders=orders.filter(x=>x.id!==del);saveOrders();renderAdmin();toast("Order deleted.");renderNotifications();}
+    };
+
+    function populateStudentDropoffs(){
+      $("dropoff").innerHTML = dropoffOptions.map(d => `<option value="${esc(d.name)}">${esc(d.name)} ${d.fee===0?"(Free)":"(+"+money(d.fee)+")"}</option>`).join("");
+    }
+    $("dropoff").onchange=()=>updateBidDisplay();
+    $("foodSearch").oninput=()=>{const q=$("foodSearch").value.toLowerCase();renderFood(foods.filter(f=>(f.name+f.area+f.tag+f.item).toLowerCase().includes(q)));};
+    function renderMap(){
+      if(typeof L === "undefined"){
+        $("mapWarning").classList.remove("hidden");
+        $("restaurantMap").innerHTML = `<div class="empty" style="margin:20px">Free map could not load. Check your internet connection.</div>`;
+        return;
+      }
+
+      $("mapWarning").classList.add("hidden");
+
+      if(leafletMap){
+        setTimeout(() => leafletMap.invalidateSize(), 100);
+        return;
+      }
+
+      leafletMap = L.map("restaurantMap").setView([1.3115, 103.7798], 14);
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: "&copy; OpenStreetMap contributors"
+      }).addTo(leafletMap);
+
+      mapMarkers = foods.map(food => {
+        const marker = L.marker([food.lat, food.lng]).addTo(leafletMap);
+        marker.bindPopup(`<b>${esc(food.name)}</b><br>${esc(food.area)}<br>${esc(food.item)}<br>Minimum bid: ${money(food.fee)}`);
+        marker.on("click", () => selectRestaurant(food.id));
+        return marker;
+      });
+      if(mapMarkers.length){
+        const group = L.featureGroup(mapMarkers);
+        leafletMap.fitBounds(group.getBounds().pad(0.15));
+      }
+
+      setTimeout(() => leafletMap.invalidateSize(), 100);
+    }
+    function foodCard(f,buttonAttr="data-food"){
+      return `<div class="card"><div class="top"><div><h3>${esc(f.name)}</h3><p class="muted">📍 ${esc(f.area)}</p></div><span class="tag green">${esc(f.tag)}</span></div><p class="muted">Average Cost: <b>${esc(f.cost || "$" )}</b><br>ETA: <b>${esc(f.eta)}</b><br>Minimum Starting Bid: <b>${money(f.fee)}</b></p><div class="actions"><button class="green" ${buttonAttr}="${f.id}">Select Outlet</button></div></div>`;
+    }
+    function renderFood(list){$("foodList").innerHTML=list.map(f=>foodCard(f)).join("")||`<div class="empty">No outlet found.</div>`;}
+    function storeLocationGroup(f){
+      const area = f.area.toLowerCase();
+      if(area.includes("singapore polytechnic")) return "campus";
+      if(area.includes("clementi")) return "clementi";
+      if(area.includes("star vista")) return "starvista";
+      if(area.includes("holland")) return "holland";
+      return "other";
+    }
+    function filteredModalStores(){
+      const q = $("storeModalSearch").value.toLowerCase();
+      const location = $("storeLocationFilter").value;
+      return foods.filter(f => {
+        const matchesSearch = (f.name+f.area+f.tag+f.item).toLowerCase().includes(q);
+        const matchesLocation = location === "all" || storeLocationGroup(f) === location;
+        return matchesSearch && matchesLocation;
+      });
+    }
+    function renderAllStores(){
+      const list = filteredModalStores();
+      $("allStoresList").innerHTML=list.map(f=>foodCard(f,"data-modal-food")).join("")||`<div class="empty">No outlet found for this location.</div>`;
+    }
+    function selectRestaurant(id){selectedFood=foods.find(f=>f.id==id);$("emptyCart").classList.add("hidden");$("cart").classList.remove("hidden");$("orderSuccess").classList.add("hidden");$("cartOutlet").textContent=selectedFood.name;$("cartEta").textContent=selectedFood.eta;$("cartFee").textContent=money(selectedFood.fee);updateBidDisplay();updateStudentTimingUI();if(leafletMap){leafletMap.setView([selectedFood.lat,selectedFood.lng],16);}toast(selectedFood.name + " selected.");}
+    $("foodList").onclick=e=>{const id=e.target.dataset.food;if(!id)return;selectRestaurant(id);};
+    $("viewAllStoresBtn").onclick=()=>{$("storesModal").classList.remove("hidden");$("storeModalSearch").value="";$("storeLocationFilter").value="all";renderAllStores();};
+    $("closeStoresModal").onclick=()=>$("storesModal").classList.add("hidden");
+    $("storeModalSearch").oninput=()=>renderAllStores();
+    $("storeLocationFilter").onchange=()=>renderAllStores();
+    $("allStoresList").onclick=e=>{const id=e.target.dataset.modalFood;if(!id)return;selectRestaurant(id);$("storesModal").classList.add("hidden");};
+    
+    $("bidAmount").oninput=()=>$("cartTotal").textContent=money(Number($("bidAmount").value||0) + PLATFORM_FEE);
+    $("placeOrderBtn").onclick=()=>{if(!selectedFood)return toast("Select an outlet first.");const timing=getStudentOrderTiming();if(!timing)return toast("Please choose a scheduled date and time.");const contactNumber=$("contactNumber").value.trim();if(!contactNumber)return toast("Contact number is required.");const bid=Number($("bidAmount").value||0);if(bid<=0)return toast("Please enter a valid starting bid.");orders.unshift({id:nextOrderId(),pickup:selectedFood.name,dropoff:$("dropoff").value,dropoffFee:getDropoffFee($("dropoff").value),requester:currentUser.studentId,reward:bid,platformFee:PLATFORM_FEE,deliveryTiming:timing.deliveryTiming,scheduleTime:timing.scheduleTime,time:timing.time,item:$("orderNotes").value.trim()||selectedFood.item,pickupCode:$("pickupCode").value.trim(),contactNumber:$("contactNumber").value.trim(),createdAt:new Date().toISOString(),status:"open",driver:"",bids:[],declinedBids:[],acceptedBid:null});saveOrders();$("orderNotes").value="";$("pickupCode").value="";$("contactNumber").value="";$("orderSuccess").classList.remove("hidden");renderMyOrders();toast("Order posted for bidding.");renderNotifications();};
+
+    function driverReviews(driverId){return orders.filter(o=>o.driver===driverId && o.driverRating).map(o=>({rating:Number(o.driverRating),comment:o.driverComment||"",orderId:o.id,date:o.ratedAt||""}));}
+    function driverReviewSummary(driverId){
+      const reviews=driverReviews(driverId);
+      if(!reviews.length) return `<div class="rating-summary"><b>Driver Rating:</b> No ratings yet.</div>`;
+      const avg=reviews.reduce((s,r)=>s+r.rating,0)/reviews.length;
+      const recent=reviews.slice(0,3);
+      const lastRatings=recent.map(r=>r.rating).join(", ");
+      const comments=recent.map(r=>`<div class="review-comment"><b>${r.rating}/5</b> · ${esc(r.comment||"No comment")}</div>`).join("");
+      return `<div class="rating-summary"><b>Average Rating:</b> ${avg.toFixed(1)}<br><b>Last 3 Ratings:</b> ${esc(lastRatings)}${comments}</div>`;
+    }
+    function adminDriverReviewSection(driverId){
+      const reviews=driverReviews(driverId);
+      if(!reviews.length) return `<div class="detail-section"><div class="top"><h3>Rider Ratings & Comments</h3><span class="tag yellow">0</span></div><div class="empty">This rider has no ratings yet.</div></div>`;
+      const avg=reviews.reduce((s,r)=>s+r.rating,0)/reviews.length;
+      const low=avg<3.5;
+      const allComments=reviews.map(r=>`<div class="review-comment"><b>${r.rating}/5</b> · Order ${esc(r.orderId)}<br>${esc(r.comment||"No comment")}<div class="notif-time">${esc(r.date||"No date recorded")}</div></div>`).join("");
+      return `<div class="detail-section"><div class="top"><h3>Rider Ratings & Comments</h3><span class="tag ${low?"yellow":"green"}">${avg.toFixed(1)} average</span></div><div class="rating-summary ${low?"low-rating":""}"><b>Average Rating:</b> ${avg.toFixed(1)}<br><b>Total Reviews:</b> ${reviews.length}${low?"<br><b>Warning:</b> Rider rating is below 3.5 stars.":""}</div><div class="list">${allComments}</div></div>`;
+    }
+    function driverAverageText(driverId){
+      const reviews=driverReviews(driverId);
+      if(!reviews.length) return "No ratings yet";
+      const avg=reviews.reduce((s,r)=>s+r.rating,0)/reviews.length;
+      return avg.toFixed(1);
+    }
+    function updateDriverRatingHeader(){
+      if(!currentUser || loginType !== "delivery") return;
+      $("driverRatingValue").textContent = driverAverageText(currentUser.studentId);
+    }
+
+    function renderMyOrders(){
+      const mine=orders.filter(o=>o.requester===currentUser.studentId && o.status!=="completed");
+      $("myOrderList").innerHTML=mine.map(o=>{
+        const bids=(o.bids||[]).map(b=>`<div class="row"><span>${esc(b.driver)} bid <b>${money(b.amount)}</b></span>${o.status==="open"?`<span class="actions"><button class="green" data-accept-bid="${o.id}" data-driver="${esc(b.driver)}">Accept Bid</button><button class="red" data-decline-bid="${o.id}" data-driver="${esc(b.driver)}">Decline Bid</button></span>`:`<span class="tag ${o.driver===b.driver?'green':'yellow'}">${o.driver===b.driver?'Accepted':'Not selected'}</span>`}</div>`).join("") || `<p class="muted">No driver bids yet.</p>`;
+        return `<div class="card ${orderBgClass(o.status)}"><div class="top"><div><h3>${esc(o.id)} - ${esc(o.status)}</h3><p class="muted">${orderTimerLine(o)}
+                <b>Pickup:</b> ${esc(o.pickup)}<br>
+                <b>Drop-off:</b> ${esc(o.dropoff)}<br><b>Order Notes:</b> ${esc(o.item)}<br><b>Pickup Code:</b> ${esc(o.pickupCode || "Not provided")}<br><b>Contact:</b> ${esc(o.contactNumber || "Not provided")}<br><b>Starting Bid:</b> ${money(o.reward)}<br><b>Platform Fee:</b> ${money(platformFee(o))}<br><b>Estimated Total:</b> ${money(orderTotal(o))}<br><b>Accepted Bid:</b> ${o.acceptedBid?money(o.acceptedBid):"None"}<br><b>Time:</b> ${esc(o.time)}<br><b>Estimated Arrival:</b> ${esc(o.estimatedArrival || "Shown once order is confirmed")}</p>${o.driver?driverReviewSummary(o.driver):""}</div><span class="tag yellow">${(o.bids||[]).length} bids</span></div>${bids}</div>`;
+      }).join("") || `<div class="empty">You have not posted any orders yet.</div>`;
+    }
+    $("myOrderList").onclick=async e=>{
+      const acceptId=e.target.dataset.acceptBid;
+      const declineId=e.target.dataset.declineBid;
+      const driver=e.target.dataset.driver;
+
+      if(acceptId){
+        const o=orders.find(x=>x.id===acceptId), b=(o.bids||[]).find(x=>x.driver===driver);
+        if(!b)return;
+        if(!await confirmChange("Accept " + driver + "'s bid of " + money(b.amount) + "?"))return;
+        o.status="accepted";
+        o.driver=driver;
+        o.acceptedBid=b.amount;
+        o.confirmedAt=new Date().toISOString();
+        o.estimatedArrival=calculateArrivalEstimate(o);
+        saveOrders();
+        renderMyOrders();
+        toast("Bid accepted. " + o.estimatedArrival);
+        renderNotifications();
+      }
+
+      if(declineId){
+        const o=orders.find(x=>x.id===declineId), b=(o.bids||[]).find(x=>x.driver===driver);
+        if(!b)return;
+        if(!await confirmChange("Decline " + driver + "'s bid of " + money(b.amount) + "?"))return;
+        o.declinedBids=o.declinedBids||[];
+        o.declinedBids=o.declinedBids.filter(x=>x.driver!==driver);
+        o.declinedBids.push({driver,amount:b.amount});
+        o.bids=o.bids.filter(x=>x.driver!==driver);
+        saveOrders();
+        renderMyOrders();
+        toast("Bid declined. Driver has been informed and can bid again.");
+        renderNotifications();
+      }
+    };
+
+    function renderDriver(){
+      updateDriverRatingHeader();
+      const open=orders.filter(o=>o.status==="open" && o.requester!==currentUser.studentId), myBids=orders.filter(o=>(o.bids||[]).some(b=>b.driver===currentUser.studentId) && o.status!=="completed" && o.requester!==currentUser.studentId), completed=orders.filter(o=>o.driver===currentUser.studentId && o.status==="completed"), failed=myBids.filter(o=>o.status!=="open" && o.driver!==currentUser.studentId);
+      $("deliveryStats").innerHTML=`<div class="card stat"><span class="muted">Open</span><h2>${open.length}</h2></div><div class="card stat"><span class="muted">My Bids</span><h2>${myBids.length}</h2></div><div class="card stat"><span class="muted">Bid Fail</span><h2>${failed.length}</h2></div><div class="card stat"><span class="muted">Earnings</span><h2>${money(completed.reduce((s,o)=>s+Number(o.acceptedBid||o.reward),0))}</h2></div>`;
+      $("jobList").innerHTML=open.map(o=>orderCard(o,`<button class="green" data-accept-offer="${o.id}">Accept Starting Offer</button><button class="white" data-bid="${o.id}">Place / Update Bid</button>`)).join("")||`<div class="empty">No open orders.</div>`;
+      $("acceptedList").innerHTML=myBids.map(o=>{
+        const b=(o.bids||[]).find(x=>x.driver===currentUser.studentId);
+        let statusText="Pending", statusClass="yellow", btn="";
+        if(o.driver===currentUser.studentId){statusText=o.status==="completed"?"Completed":"Accepted";statusClass="green";}
+        else if(o.status!=="open"){statusText="Declined";statusClass="red";}
+        if(o.driver===currentUser.studentId&&o.status==="accepted") btn=`<button class="green" data-complete="${o.id}">Mark Completed</button>`;
+        return orderCard(o,`<span class="tag ${statusClass}">My Bid: ${money(b.amount)} · ${statusText}</span>${btn}`,statusText==="Declined"?"declined":null)
+      }).join("")||`<div class="empty">You have not placed any bids yet.</div>`;
+    }
+    function pendingRatingOrders(){
+      return currentUser && loginType === "order"
+        ? orders.filter(o => o.status === "completed" && o.requester === currentUser.studentId && o.driver && !o.driverRating)
+        : [];
+    }
+    function setStarRating(value){
+      $("starRating").dataset.rating=value;
+      document.querySelectorAll("#starRating .star-btn").forEach(btn=>btn.classList.toggle("active-star",Number(btn.dataset.star)<=Number(value)));
+    }
+    function openRatingPopup(orderId=null){
+      const pending=pendingRatingOrders();
+      const o=orderId ? orders.find(x=>x.id===orderId && x.requester===currentUser.studentId && x.status==="completed" && x.driver && !x.driverRating) : pending[0];
+      if(!o)return;
+      currentRatingOrderId=o.id;
+      $("ratingOrderInfo").innerHTML=`<b>${esc(o.id)}</b><br><span class="muted">Driver: <b>${esc(o.driver)}</b><br>Pickup: ${esc(o.pickup)}<br>Drop-off: ${esc(o.dropoff)}</span>`;
+      $("ratingCommentInput").value="";
+      setStarRating(0);
+      $("ratingModal").classList.remove("hidden");
+    }
+    function showPendingRatingPopup(force=false){
+      if(loginType !== "order" || !currentUser || !$("ratingModal")) return;
+      if(!$("ratingModal").classList.contains("hidden")) return;
+      const pending = pendingRatingOrders().filter(o => force || !dismissedRatingOrders.includes(o.id));
+      if(pending.length) openRatingPopup(pending[0].id);
+    }
+    function completedReviewBlock(o){
+      if(loginType === "order" && o.requester === currentUser.studentId && o.driver){
+        if(o.driverRating){
+          return `<div class="rating-summary"><b>Your Driver Rating:</b> ${o.driverRating}/5<br><b>Comment:</b> ${esc(o.driverComment||"No comment")}</div>`;
+        }
+        return `<div class="rating-box"><b>Driver rating pending</b><p class="muted small">A rating popup will appear when you log in. You can also rate this order now.</p><button class="green full" data-open-rating="${o.id}">Rate Driver</button></div>`;
+      }
+      if(o.driverRating){
+        return `<div class="rating-summary"><b>Driver Rating:</b> ${o.driverRating}/5<br><b>Student Comment:</b> ${esc(o.driverComment||"No comment")}</div>`;
+      }
+      return `<div class="rating-summary"><b>Driver Rating:</b> Waiting for student review.</div>`;
+    }
+
+    function renderCompletedOrders(){
+      let completed = [];
+
+      if(loginType === "order"){
+        completed = orders.filter(o => o.status === "completed" && o.requester === currentUser.studentId);
+      }
+
+      if(loginType === "delivery"){
+        completed = orders.filter(o => o.status === "completed" && o.driver === currentUser.studentId);
+      }
+
+      $("completedOrderList").innerHTML = completed.length ? completed.map(o => `
+        <div class="card status-completed">
+          <div class="top">
+            <div>
+              <h3>${esc(o.id)} - Completed</h3>
+              <p class="muted">
+                ${orderTimerLine(o)}
+                <b>Pickup:</b> ${esc(o.pickup)}<br>
+                <b>Drop-off:</b> ${esc(o.dropoff)}<br>
+                <b>Order Notes:</b> ${esc(o.item)}<br>
+                <b>Pickup Code:</b> ${esc(o.pickupCode || "Not provided")}<br>
+                <b>Contact:</b> ${esc(o.contactNumber || "Not provided")}<br>
+                <b>Requester:</b> ${esc(o.requester)}<br>
+                <b>Driver:</b> ${esc(o.driver || "Not assigned")}<br>
+                <b>Driver Delivery Fee:</b> ${money(o.acceptedBid || o.reward)}<br><b>Platform Fee:</b> ${money(platformFee(o))}<br><b>Final Total:</b> ${money(orderTotal(o))}<br>
+                <b>Time:</b> ${esc(o.time)}<br>
+                <b>Estimated Arrival:</b> ${esc(o.estimatedArrival || "Not recorded")}</p>${completedReviewBlock(o)}
+            </div>
+            <span class="tag green">Completed</span>
+          </div>
+        </div>
+      `).join("") : `<div class="empty">No completed orders for your account yet.</div>`;
+    }
+
+    $("completedNavBtn").onclick = () => {renderCompletedOrders();showOnly("completedPage");};
+    $("completedOrderList").onclick=e=>{
+      const openId=e.target.dataset.openRating;
+      if(!openId)return;
+      openRatingPopup(openId);
+    };
+    $("starRating").onclick=e=>{const star=e.target.dataset.star;if(star)setStarRating(star);};
+    $("skipRatingBtn").onclick=()=>{
+      if(currentRatingOrderId && !dismissedRatingOrders.includes(currentRatingOrderId)) dismissedRatingOrders.push(currentRatingOrderId);
+      $("ratingModal").classList.add("hidden");
+    };
+    $("submitStarRatingBtn").onclick=()=>{
+      const rating=Number($("starRating").dataset.rating||0);
+      if(!rating)return toast("Please click a star rating first.");
+      const o=orders.find(x=>x.id===currentRatingOrderId && x.requester===currentUser.studentId && x.status==="completed");
+      if(!o)return toast("Completed order not found.");
+      o.driverRating=rating;
+      o.driverComment=($("ratingCommentInput").value||"").trim();
+      o.ratedAt=nowText();
+      saveOrders();
+      $("ratingModal").classList.add("hidden");
+      renderCompletedOrders();
+      renderMyOrders();
+      toast("Driver rating submitted.");
+      setTimeout(()=>showPendingRatingPopup(true),300);
+    };
+    $("backToMainBtn").onclick = () => {
+      if(loginType === "order"){showOnly("orderPage");renderMyOrders();}
+      if(loginType === "delivery"){showOnly("deliveryPage");renderDriver();}
+    };
+
+    function orderBgClass(status){return status==="completed"?"status-completed":status==="declined"?"status-declined":status==="accepted"?"status-accepted":"status-ongoing";}
+    function orderCard(o,btn,displayStatus=null){const shownStatus=displayStatus||o.status;const statusClass=shownStatus==="completed"?"green":shownStatus==="accepted"?"blue":shownStatus==="declined"?"red":"yellow";return `<div class="card ${orderBgClass(shownStatus)}"><div class="top"><div><h3>${esc(o.id)}</h3><p class="muted">${orderTimerLine(o)}
+                <b>Pickup:</b> ${esc(o.pickup)}<br>
+                <b>Drop-off:</b> ${esc(o.dropoff)}<br><b>Order Notes:</b> ${esc(o.item)}<br><b>Pickup Code:</b> ${esc(o.pickupCode || "Not provided")}<br><b>Contact:</b> ${esc(o.contactNumber || "Not provided")}<br><b>Starting Bid:</b> ${money(o.reward)}<br><b>Platform Fee:</b> ${money(platformFee(o))}<br><b>Estimated Total:</b> ${money(orderTotal(o))}<br><b>Total Bids:</b> ${(o.bids||[]).length}<br><b>Time:</b> ${esc(o.time)}<br><b>Estimated Arrival:</b> ${esc(o.estimatedArrival || "Shown once order is confirmed")}</p></div><span class="tag ${statusClass}">${esc(shownStatus)}</span></div><div class="actions">${btn}</div></div>`;}
+    $("jobList").onclick=async e=>{
+      const bidId=e.target.dataset.bid;
+      const acceptId=e.target.dataset.acceptOffer;
+
+      if(acceptId){
+        const o=orders.find(x=>x.id===acceptId);
+        if(o.requester===currentUser.studentId)return toast("You cannot accept your own order.");
+        if(!await confirmChange("Accept this order at the starting offer of " + money(o.reward) + "?")) return;
+        o.status="accepted";
+        o.driver=currentUser.studentId;
+        o.acceptedBid=o.reward;
+        o.confirmedAt=new Date().toISOString();
+        o.estimatedArrival=calculateArrivalEstimate(o);
+        o.bids=o.bids||[];
+        if(!o.bids.some(b=>b.driver===currentUser.studentId)) o.bids.push({driver:currentUser.studentId,amount:o.reward});
+        saveOrders();
+        renderDriver();
+        toast("Starting offer accepted. " + o.estimatedArrival);
+        renderNotifications();
+        return;
+      }
+
+      if(bidId){
+        const o=orders.find(x=>x.id===bidId);
+        if(o.requester===currentUser.studentId)return toast("You cannot bid for your own order.");
+        const amount=Number(await bidPopup(o.reward));
+        if(!amount||amount<=0)return toast("Invalid bid amount.");
+        o.bids=o.bids||[];
+        const existing=o.bids.find(b=>b.driver===currentUser.studentId);
+        if(existing){existing.amount=amount;}else{o.bids.push({driver:currentUser.studentId,amount});}
+        o.declinedBids=(o.declinedBids||[]).filter(b=>b.driver!==currentUser.studentId);
+        saveOrders();
+        renderDriver();
+        toast("Bid submitted.");
+        renderNotifications();
+      }
+    };
+    $("acceptedList").onclick=e=>{const id=e.target.dataset.complete;if(!id)return;const o=orders.find(x=>x.id===id);o.status="completed";saveOrders();renderDriver();toast("Order completed.");renderNotifications();};
+  </script>
+</body>
+</html>
