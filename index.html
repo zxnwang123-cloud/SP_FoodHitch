@@ -569,11 +569,8 @@
       notifications: localStorage.getItem(NOTIF_KEY) || ""
     };
     let accounts = JSON.parse(localStorage.getItem(ACC_KEY)) || [defaultAdmin];
-    let orders = JSON.parse(localStorage.getItem(ORD_KEY)) || [
-      { id: "FH-201", pickup: "McDonald's Clementi", dropoff: "SP Library", requester: "P2401234", reward: 2.20, time: "Before 12:45 PM", item: "McSpicy Meal + Coke", status: "open", driver: "", bids: [], acceptedBid: null },
-      { id: "FH-202", pickup: "Koi Thé Clementi", dropoff: "T18 Study Area", requester: "P2405678", reward: 1.80, time: "Before 1:15 PM", item: "Bubble tea x2", status: "open", driver: "", bids: [], acceptedBid: null },
-      { id: "FH-203", pickup: "Stuff'd Dover", dropoff: "Foodcourt 5", requester: "P2409012", reward: 1.50, time: "Before 2:00 PM", item: "Chicken Kebab", status: "open", driver: "", bids: [], acceptedBid: null }
-    ];
+    let orders = JSON.parse(localStorage.getItem(ORD_KEY)) || [];
+    const DEMO_ORDER_IDS = ["FH-201","FH-202","FH-203"];
     const dropoffOptions = [
       { name: "SP One Stop Centre", fee: 0 },
       { name: "School of Business", fee: 0.50 },
@@ -1129,7 +1126,9 @@
 
     accounts = accounts.map(a => a.roles ? a : {...a, roles:[a.role]});
     accounts = accounts.map(a => ({...a, banned:a.banned||false, banReason:a.banReason||""}));
-    orders = orders.map(o => ({...o, createdAt:o.createdAt||new Date().toISOString(), pickupCode:o.pickupCode||"", contactNumber:o.contactNumber||"", platformFee:o.platformFee===undefined?PLATFORM_FEE:o.platformFee, bids:o.bids||[], declinedBids:o.declinedBids||[], acceptedBid:o.acceptedBid||null, confirmedAt:o.confirmedAt||"", estimatedArrival:o.estimatedArrival||"", driverRating:o.driverRating||"", driverComment:o.driverComment||"", ratedAt:o.ratedAt||""}));
+    orders = orders
+      .filter(o => !DEMO_ORDER_IDS.includes(o.id))
+      .map(o => ({...o, createdAt:o.createdAt||new Date().toISOString(), pickupCode:o.pickupCode||"", contactNumber:o.contactNumber||"", platformFee:o.platformFee===undefined?PLATFORM_FEE:o.platformFee, bids:o.bids||[], declinedBids:o.declinedBids||[], acceptedBid:o.acceptedBid||null, confirmedAt:o.confirmedAt||"", estimatedArrival:o.estimatedArrival||"", driverRating:o.driverRating||"", driverComment:o.driverComment||"", ratedAt:o.ratedAt||""}));
     if(!accounts.some(a=>a.studentId==="SPAdmin")){accounts.unshift(defaultAdmin);}
     saveAccounts(); saveOrders();
 
