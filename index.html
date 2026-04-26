@@ -552,6 +552,8 @@
     const isSupabaseConfigured = SUPABASE_URL.startsWith("https://") && !SUPABASE_ANON_KEY.includes("PASTE_YOUR");
     const supabaseClient = window.supabase && isSupabaseConfigured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
     let supabaseReady = false;
+    let supabasePollTimer = null;
+    let lastSupabaseSnapshot = "";
     const ACC_KEY = "SPFH_accounts_bid_v1";
     const ORD_KEY = "SPFH_orders_bid_v1";
     const NOTIF_KEY = "SPFH_cleared_notifications_v1";
@@ -640,7 +642,7 @@
     async function saveSupabaseState(key,value){
       if(!supabaseClient || !supabaseReady) return;
       const { error } = await supabaseClient.from("app_state").upsert({ key, data:value });
-      if(error){ console.error("Supabase save error:", error); toast("Live database save failed."); }
+      if(error){ console.error("Supabase save error:", error); toast("Live database save failed. Check Supabase policies/API key."); }
     }
     function saveAccounts(){localStorage.setItem(ACC_KEY, JSON.stringify(accounts));liveSnapshot.accounts=localStorage.getItem(ACC_KEY)||"";saveSupabaseState("accounts",accounts);}
     function saveOrders(){localStorage.setItem(ORD_KEY, JSON.stringify(orders));liveSnapshot.orders=localStorage.getItem(ORD_KEY)||"";saveSupabaseState("orders",orders);}
@@ -1108,10 +1110,7 @@
       normalizeLiveData();
       refreshVisiblePage();
     }
-    async function loadSupabaseState(){
-      if(!supabaseClient) return false;
-      const { data, error } = await supabaseClient.from("app_state").select("key,data");
-      if(error){console.error("Supabase load error:",error);toast("Could not connect to live database. Using this browser only.");return false;}
+    function applySupabaseRows(data){
       const state = {};
       (data||[]).forEach(row => state[row.key] = row.data);
       accounts = state.accounts && state.accounts.length ? state.accounts : [defaultAdmin];
@@ -1125,8 +1124,28 @@
       localStorage.setItem(SIGNUP_KEY, JSON.stringify(signupRequests));
       localStorage.setItem(SUPPORT_KEY, JSON.stringify(supportThreads));
       localStorage.setItem(NOTIF_KEY, JSON.stringify(clearedNotifications));
+      lastSupabaseSnapshot = JSON.stringify(data || []);
+    }
+    async function loadSupabaseState(){
+      if(!supabaseClient) return false;
+      const { data, error } = await supabaseClient.from("app_state").select("key,data");
+      if(error){console.error("Supabase load error:",error);toast("Could not connect to live database. Using this browser only.");return false;}
+      applySupabaseRows(data);
       supabaseReady = true;
       return true;
+    }
+    async function pollSupabaseState(){
+      if(!supabaseClient || !supabaseReady) return;
+      const { data, error } = await supabaseClient.from("app_state").select("key,data");
+      if(error){console.error("Supabase polling error:",error);return;}
+      const snap = JSON.stringify(data || []);
+      if(snap === lastSupabaseSnapshot) return;
+      applySupabaseRows(data);
+      refreshVisiblePage();
+    }
+    function startSupabasePolling(){
+      if(supabasePollTimer) clearInterval(supabasePollTimer);
+      supabasePollTimer = setInterval(pollSupabaseState,2000);
     }
     function applySupabaseUpdate(key,value){
       if(key === "accounts") accounts = value || [defaultAdmin];
@@ -1151,7 +1170,7 @@
         return;
       }
       const connected = await loadSupabaseState();
-      if(connected){startSupabaseRealtime();toast("Connected to live database.");}
+      if(connected){startSupabaseRealtime();startSupabasePolling();toast("Connected to live database.");}
     }
     window.addEventListener("storage",syncLiveData);
     setInterval(syncLiveData,1000);
