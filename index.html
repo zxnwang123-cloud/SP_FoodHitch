@@ -12,18 +12,18 @@
     *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,Helvetica,sans-serif}
     body{background:#eef6f1;color:#0f172a}.hidden{display:none!important}
     #appPage{min-height:100vh;background:radial-gradient(circle at top left,rgba(34,197,94,.12),transparent 28%),radial-gradient(circle at top right,rgba(250,204,21,.12),transparent 25%),linear-gradient(180deg,#f8fafc,#eef6f1)}
-    .login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:34px;background:radial-gradient(circle at 8% 12%,rgba(34,197,94,.32),transparent 26%),radial-gradient(circle at 92% 10%,rgba(245,158,11,.24),transparent 24%),radial-gradient(circle at 78% 82%,rgba(59,130,246,.16),transparent 26%),linear-gradient(135deg,#ecfdf5 0%,#ffffff 46%,#fff7ed 100%);position:relative;overflow:auto}.login:before,.login:after{content:"";position:absolute;border-radius:999px;background:rgba(255,255,255,.58);filter:blur(1px);pointer-events:none}.login:before{width:300px;height:300px;left:-90px;bottom:-110px}.login:after{width:240px;height:240px;right:-80px;top:-90px}.login-wrap{width:100%;max-width:1280px;display:grid;grid-template-columns:1.2fr .8fr;gap:34px;align-items:center;position:relative;z-index:1}
-    .box,.panel,.card{background:rgba(255,255,255,.96);border:1px solid rgba(226,232,240,.95);border-radius:26px;padding:22px;box-shadow:0 14px 38px rgba(15,23,42,.08);backdrop-filter:blur(10px)}.panel{padding:24px}.card{border-radius:20px;transition:.2s}.card:hover{transform:translateY(-2px);box-shadow:0 16px 35px rgba(15,23,42,.11)}.login-card{padding:32px;border-radius:32px;box-shadow:0 28px 80px rgba(15,23,42,.18);border:1px solid rgba(226,232,240,.95);background:rgba(255,255,255,.93);backdrop-filter:blur(14px);position:relative;overflow:hidden}.login-card:before{content:"";position:absolute;inset:0 0 auto;height:6px;background:linear-gradient(90deg,#15803d,#22c55e,#f59e0b)}.login-card h2{font-size:34px;letter-spacing:-.8px}.login-card input{padding:15px 15px}.login-card .green.full{padding:15px;font-size:16px;box-shadow:0 14px 30px rgba(21,128,61,.26)}.login-mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}.login-mini{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:12px;font-size:12px;color:#64748b}.login-mini b{display:block;color:#0f172a;margin-bottom:4px}.admin-note{background:linear-gradient(135deg,#f8fafc,#f0fdf4);border:1px solid #bbf7d0;border-radius:18px;padding:14px;margin:16px 0;color:#475569;line-height:1.55}.admin-note strong{color:#14532d}.signup-row{display:grid;grid-template-columns:1fr;gap:8px;margin-top:10px}.signup-row .white{background:#f8fafc}
+    .login{height:100vh;max-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:radial-gradient(circle at 8% 12%,rgba(34,197,94,.32),transparent 26%),radial-gradient(circle at 92% 10%,rgba(245,158,11,.24),transparent 24%),radial-gradient(circle at 78% 82%,rgba(59,130,246,.16),transparent 26%),linear-gradient(135deg,#ecfdf5 0%,#ffffff 46%,#fff7ed 100%);position:relative;overflow:hidden;width:100%}.login:before,.login:after{content:"";position:absolute;border-radius:999px;background:rgba(255,255,255,.58);filter:blur(1px);pointer-events:none}.login:before{width:300px;height:300px;left:-90px;bottom:-110px}.login:after{width:240px;height:240px;right:-80px;top:-90px}.login-wrap{width:100%;max-width:1280px;display:grid;grid-template-columns:1.2fr .8fr;gap:34px;align-items:center;position:relative;z-index:1}
+    .box,.panel,.card{background:rgba(255,255,255,.96);border:1px solid rgba(226,232,240,.95);border-radius:26px;padding:22px;box-shadow:0 14px 38px rgba(15,23,42,.08);backdrop-filter:blur(10px)}.panel{padding:24px}.card{border-radius:20px;transition:.2s}.card:hover{transform:translateY(-2px);box-shadow:0 16px 35px rgba(15,23,42,.11)}.login-card{padding:24px;border-radius:32px;box-shadow:0 28px 80px rgba(15,23,42,.18);border:1px solid rgba(226,232,240,.95);background:rgba(255,255,255,.93);backdrop-filter:blur(14px);position:relative;overflow:hidden}.login-card:before{content:"";position:absolute;inset:0 0 auto;height:6px;background:linear-gradient(90deg,#15803d,#22c55e,#f59e0b)}.login-card h2{font-size:29px;letter-spacing:-.8px}.login-card input{padding:12px 14px}.login-card .green.full{padding:13px;font-size:15px;box-shadow:0 14px 30px rgba(21,128,61,.26)}.login-mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}.login-mini{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:12px;font-size:12px;color:#64748b}.login-mini b{display:block;color:#0f172a;margin-bottom:4px}.admin-note{background:linear-gradient(135deg,#f8fafc,#f0fdf4);border:1px solid #bbf7d0;border-radius:18px;padding:14px;margin:16px 0;color:#475569;line-height:1.55}.admin-note strong{color:#14532d}.signup-row{display:grid;grid-template-columns:1fr;gap:8px;margin-top:10px}.signup-row .white{background:#f8fafc}
     .brand,.nav-left,.nav-right,.top,.actions,.tabs{display:flex;align-items:center;gap:12px}.nav-right{flex-wrap:wrap;justify-content:flex-end}.brand{margin-bottom:22px}.top{justify-content:space-between;align-items:flex-start}.actions,.tabs{flex-wrap:wrap}
     .logo{width:52px;height:52px;background:linear-gradient(135deg,#15803d,#22c55e);color:#fff;border-radius:18px;display:grid;place-items:center;font-size:26px;box-shadow:0 12px 28px rgba(21,128,61,.26)}
-    h1{font-size:52px;line-height:1.03;margin-bottom:18px;letter-spacing:-1.8px}h2{font-size:30px;margin-bottom:8px}h3{margin-bottom:12px}.muted{color:#64748b;line-height:1.6}.small{font-size:13px}
+    h1{font-size:44px;line-height:1.02;margin-bottom:12px;letter-spacing:-1.6px}h2{font-size:30px;margin-bottom:8px}h3{margin-bottom:12px}.muted{color:#64748b;line-height:1.6}.small{font-size:13px}
     .login-hero{position:relative}.hero-badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #bbf7d0;color:#166534;border-radius:999px;padding:8px 12px;font-weight:900;font-size:13px;margin-bottom:18px;box-shadow:0 8px 18px rgba(15,23,42,.06)}.hero-highlight{color:#15803d}.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:24px}.hero-stat{background:rgba(255,255,255,.82);border:1px solid #e2e8f0;border-radius:20px;padding:15px;box-shadow:0 10px 25px rgba(15,23,42,.06)}.hero-stat b{font-size:22px;display:block}.hero-stat span{font-size:12px;color:#64748b}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}.feature{background:rgba(255,255,255,.82);border:1px solid #e2e8f0;border-radius:20px;padding:17px;transition:.2s}.feature:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(15,23,42,.1)}.feature b{display:block;margin:8px 0}.login-preview{margin-top:22px;background:rgba(15,23,42,.94);color:#fff;border-radius:28px;padding:20px;box-shadow:0 22px 55px rgba(15,23,42,.22);border:1px solid rgba(255,255,255,.12)}.preview-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:16px}.preview-pill{background:rgba(34,197,94,.18);border:1px solid rgba(187,247,208,.35);color:#bbf7d0;border-radius:999px;padding:7px 11px;font-size:12px;font-weight:900}.preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.preview-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:14px}.preview-card b{display:block;margin-bottom:5px}.preview-card span{font-size:12px;color:#cbd5e1;line-height:1.45}.feature-showcase{margin-top:18px;background:rgba(255,255,255,.88);border:1px solid #dbeafe;border-radius:26px;padding:20px;box-shadow:0 12px 30px rgba(15,23,42,.07)}.feature-showcase h3{margin-bottom:6px}.feature-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}.feature-pill{display:flex;gap:10px;align-items:flex-start;background:#f8fafc;border:1px solid #e2e8f0;border-radius:17px;padding:12px 13px;font-size:13px;line-height:1.4}.feature-pill span{font-size:18px}.feature-pill b{display:block;color:#0f172a;margin-bottom:2px}.feature-pill p{color:#64748b}
-    label{display:block;font-weight:700;margin:14px 0 7px}input,select,textarea{width:100%;padding:13px;border:1px solid #e2e8f0;border-radius:14px;font-size:15px}input:focus,select:focus,textarea:focus{outline:2px solid #bbf7d0}
-    button{border:0;border-radius:14px;padding:11px 14px;font-weight:800;cursor:pointer;transition:.2s}button:hover{transform:translateY(-1px)}.green{background:#15803d;color:#fff}.green:hover{background:#166534}.white{background:#fff;border:1px solid #e2e8f0}.red{background:#fee2e2;color:#b91c1c}.blue{background:#dbeafe;color:#1d4ed8}.purple{background:#ede9fe;color:#5b21b6}.yellow{background:#fef9c3;color:#854d0e}.active{outline:3px solid #86efac}.full{width:100%;margin-top:18px}
+    label{display:block;font-weight:700;margin:10px 0 6px}input,select,textarea{width:100%;padding:13px;border:1px solid #e2e8f0;border-radius:14px;font-size:15px}input:focus,select:focus,textarea:focus{outline:2px solid #bbf7d0}
+    button{border:0;border-radius:14px;padding:11px 14px;font-weight:800;cursor:pointer;transition:.2s}button:hover{transform:translateY(-1px)}.green{background:#15803d;color:#fff}.green:hover{background:#166534}.white{background:#fff;border:1px solid #e2e8f0}.red{background:#fee2e2;color:#b91c1c}.blue{background:#dbeafe;color:#1d4ed8}.purple{background:#ede9fe;color:#5b21b6}.yellow{background:#fef9c3;color:#854d0e}.active{outline:3px solid #86efac}.full{width:100%;margin-top:12px}
     .tabs .white{flex:1;background:#f8fafc}.tabs .active{background:#dcfce7;border-color:#86efac;color:#166534;outline:0;box-shadow:0 0 0 3px rgba(34,197,94,.18)}.checks label{display:flex;align-items:center;gap:10px;margin:10px 0}.checks input{width:auto}.note{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:14px;margin:16px 0;color:#64748b;line-height:1.6}.note strong{color:#0f172a}
     nav{background:rgba(255,255,255,.86);border-bottom:1px solid rgba(226,232,240,.9);position:sticky;top:0;z-index:10;backdrop-filter:blur(18px)}.nav{max-width:1180px;margin:auto;padding:18px 24px;display:flex;justify-content:space-between;align-items:center}.user{text-align:right}.nav-right button{white-space:nowrap}.driver-rating-pill{display:flex;align-items:center;gap:6px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:999px;padding:8px 12px;font-size:13px;font-weight:900;white-space:nowrap}.driver-rating-pill span{color:#64748b;font-weight:700}.action-btn{display:flex;align-items:center;gap:8px;justify-content:center}.btn-svg{width:17px;height:17px;display:inline-block;flex-shrink:0}.icon-completed{color:#15803d}.icon-logout{color:#dc2626}.action-btn svg{stroke:currentColor}.reset-wrap,.bell-wrap{position:relative}.reset-menu,.notif-menu{position:absolute;right:0;top:46px;background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:8px;box-shadow:0 12px 30px rgba(15,23,42,.15);min-width:190px;z-index:9999}.reset-menu button{display:block;width:100%;text-align:left;margin:4px 0}.bell{background:#fff;border:1px solid #e2e8f0;border-radius:14px;min-width:48px;position:relative}.badge{position:absolute;right:-6px;top:-7px;background:#ef4444;color:#fff;border-radius:999px;font-size:11px;font-weight:900;min-width:20px;height:20px;display:grid;place-items:center;padding:0 5px}.notif-menu{width:320px;max-height:360px;overflow:auto;z-index:10000}.bell-wrap{z-index:10001}.leaflet-pane,.leaflet-top,.leaflet-bottom{z-index:1!important}.notif-item{padding:12px;border-radius:12px;border:1px solid #e2e8f0;margin:6px 0;background:#f8fafc}.notif-item b{display:block;margin-bottom:4px}.notif-time{font-size:12px;color:#64748b;margin-top:4px}
     main{max-width:1180px;margin:auto;padding:30px 24px 60px}.head{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:22px;background:linear-gradient(135deg,#ffffff,#f0fdf4);border:1px solid rgba(187,247,208,.9);border-radius:30px;padding:24px 26px;box-shadow:0 18px 45px rgba(15,23,42,.08)}.head h2{font-size:34px;letter-spacing:-.8px}.head .tag{align-self:flex-start}.tag{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:7px 12px;font-size:12px;font-weight:900;white-space:nowrap;letter-spacing:.1px}
-    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:20px}.admin-order-filters{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 16px}.admin-order-filters button.active-filter{background:#15803d;color:#fff;border-color:#15803d}.admin-overview-list{max-height:520px;overflow-y:auto;padding-right:6px}.admin-grid .panel:has(#adminOrderList){max-height:720px;overflow:hidden}.admin-grid .panel:has(#adminOrderList) #adminOrderList{max-height:520px;overflow-y:auto;padding-right:6px}.admin-grid .panel:has(#adminOrderList) #adminOrderList::-webkit-scrollbar{width:8px}.admin-grid .panel:has(#adminOrderList) #adminOrderList::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:999px}.account-filter-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 14px}.account-filter-row button.active-filter{background:#15803d;color:#fff;border-color:#15803d}.account-list-scroll{max-height:520px;overflow-y:auto;padding-right:6px}.account-list-scroll::-webkit-scrollbar{width:8px}.account-list-scroll::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:999px}.stat h2{margin:5px 0 0}.scroll-list{max-height:420px;overflow-y:auto;padding-right:6px}.food-search-row{display:flex;align-items:center;gap:14px;margin:10px 0 14px;width:100%}.food-search-wrap{flex:1;max-width:none}.food-search-wrap input{margin:0!important;width:100%}.view-all-btn{white-space:nowrap;background:#ecfdf5;color:#166534;border:1px solid #bbf7d0;margin-left:auto;padding-left:22px;padding-right:22px}.store-modal-list{max-height:460px;overflow-y:auto;display:grid;gap:10px;margin-top:14px;padding-right:6px}.store-modal-list .card{box-shadow:none}.store-modal-controls{display:grid;grid-template-columns:1fr 220px;gap:12px;margin-top:12px}.store-modal-search{margin-top:0}@media(max-width:700px){.store-modal-controls{grid-template-columns:1fr}}.login-shell{width:100%;max-width:1220px;display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:stretch;position:relative;z-index:1}.login-left-panel{background:rgba(255,255,255,.58);border:1px solid rgba(255,255,255,.82);border-radius:34px;padding:34px;box-shadow:0 26px 75px rgba(15,23,42,.13);backdrop-filter:blur(14px)}.login-brand{margin-bottom:18px}.login-status-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}.login-status-row span{background:#fff;border:1px solid #bbf7d0;color:#166534;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:900}.login-lead{font-size:16px;max-width:760px}.login-feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:24px}.login-feature-card{background:rgba(255,255,255,.9);border:1px solid #e2e8f0;border-radius:20px;padding:15px;box-shadow:0 10px 24px rgba(15,23,42,.06)}.login-feature-card b{display:block;margin-bottom:6px;color:#0f172a}.login-feature-card span{display:block;color:#64748b;font-size:13px;line-height:1.45}.modern-login-card{align-self:center;max-width:460px;width:100%;justify-self:end}.login-card-top{text-align:left;margin-bottom:18px}.login-role-tabs{margin:18px 0 14px}.login-info-strip{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.login-info-strip div{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:12px}.login-info-strip b{display:block;color:#0f172a;margin-bottom:4px}.login-info-strip span{font-size:12px;color:#64748b;line-height:1.4}.compact-admin-note{margin:14px 0}.login-approval-note{text-align:center;margin-top:10px}
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:20px}.admin-order-filters{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 16px}.admin-order-filters button.active-filter{background:#15803d;color:#fff;border-color:#15803d}.admin-overview-list{max-height:520px;overflow-y:auto;padding-right:6px}.admin-grid .panel:has(#adminOrderList){max-height:720px;overflow:hidden}.admin-grid .panel:has(#adminOrderList) #adminOrderList{max-height:520px;overflow-y:auto;padding-right:6px}.admin-grid .panel:has(#adminOrderList) #adminOrderList::-webkit-scrollbar{width:8px}.admin-grid .panel:has(#adminOrderList) #adminOrderList::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:999px}.account-filter-row{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 14px}.account-filter-row button.active-filter{background:#15803d;color:#fff;border-color:#15803d}.account-list-scroll{max-height:520px;overflow-y:auto;padding-right:6px}.account-list-scroll::-webkit-scrollbar{width:8px}.account-list-scroll::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:999px}.stat h2{margin:5px 0 0}.scroll-list{max-height:420px;overflow-y:auto;padding-right:6px}.food-search-row{display:flex;align-items:center;gap:14px;margin:10px 0 14px;width:100%}.food-search-wrap{flex:1;max-width:none}.food-search-wrap input{margin:0!important;width:100%}.view-all-btn{white-space:nowrap;background:#ecfdf5;color:#166534;border:1px solid #bbf7d0;margin-left:auto;padding-left:22px;padding-right:22px}.store-modal-list{max-height:460px;overflow-y:auto;display:grid;gap:10px;margin-top:14px;padding-right:6px}.store-modal-list .card{box-shadow:none}.store-modal-controls{display:grid;grid-template-columns:1fr 220px;gap:12px;margin-top:12px}.store-modal-search{margin-top:0}@media(max-width:700px){.store-modal-controls{grid-template-columns:1fr}}.login-shell{width:100%;max-width:1180px;height:calc(100vh - 48px);display:grid;grid-template-columns:1.08fr .82fr;gap:22px;align-items:stretch;position:relative;z-index:1;overflow:hidden}.login-left-panel{background:rgba(255,255,255,.58);border:1px solid rgba(255,255,255,.82);border-radius:34px;padding:24px;box-shadow:0 26px 75px rgba(15,23,42,.13);backdrop-filter:blur(14px);overflow:hidden}.login-brand{margin-bottom:12px}.login-status-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.login-status-row span{background:#fff;border:1px solid #bbf7d0;color:#166534;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:900}.login-lead{font-size:16px;max-width:760px}.login-feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:14px}.login-feature-card{background:rgba(255,255,255,.9);border:1px solid #e2e8f0;border-radius:18px;padding:11px 12px;box-shadow:0 10px 24px rgba(15,23,42,.06)}.login-feature-card b{display:block;margin-bottom:6px;color:#0f172a}.login-feature-card span{display:block;color:#64748b;font-size:13px;line-height:1.45}.modern-login-card{align-self:center;max-width:440px;width:100%;justify-self:end}.login-card-top{text-align:left;margin-bottom:12px}.login-role-tabs{margin:12px 0 10px}.login-info-strip{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}.login-info-strip div{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:12px}.login-info-strip b{display:block;color:#0f172a;margin-bottom:4px}.login-info-strip span{font-size:12px;color:#64748b;line-height:1.4}.compact-admin-note{margin:14px 0}.login-approval-note{text-align:center;margin-top:8px}
     @media(max-width:900px){.food-search-row{flex-direction:column;align-items:stretch}.food-search-wrap{max-width:100%}}.scroll-list::-webkit-scrollbar{width:8px}.scroll-list::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:999px}.grid{display:grid;grid-template-columns:1.25fr .75fr;gap:20px;align-items:start}.admin-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:18px}.list{display:grid;gap:12px}.row{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid #e2e8f0;padding:11px 0}.total{font-size:22px;font-weight:900}.section-gap{margin-top:22px}
     .success{background:#dcfce7;color:#166534;padding:14px;border-radius:16px;margin-top:14px;font-weight:800;border:1px solid #bbf7d0}.status-declined{background:#fee2e2!important;border-color:#fecaca!important}.status-ongoing{background:#fef9c3!important;border-color:#fde68a!important}.status-accepted{background:#ffedd5!important;border-color:#fdba74!important}.status-completed{background:#dcfce7!important;border-color:#bbf7d0!important}.status-declined .muted,.status-ongoing .muted,.status-accepted .muted,.status-completed .muted{color:#334155}.empty{border:1px dashed #cbd5e1;border-radius:18px;padding:22px;text-align:center;color:#64748b;background:linear-gradient(135deg,#ffffff,#f8fafc)}.empty:before{content:"✨";display:block;font-size:22px;margin-bottom:6px}
     .sg-clock{position:fixed;left:18px;bottom:18px;background:linear-gradient(135deg,#0f172a,#1e293b);color:#fff;border-radius:18px;padding:13px 16px;box-shadow:0 18px 38px rgba(0,0,0,.25);z-index:98;font-weight:900;font-size:14px;border:1px solid rgba(255,255,255,.12)}.support-chat{position:fixed;right:18px;bottom:18px;z-index:11000}.support-chat-btn{display:flex;align-items:center;gap:9px;background:linear-gradient(135deg,#15803d,#22c55e);color:#fff;border-radius:999px;padding:14px 18px;box-shadow:0 18px 38px rgba(21,128,61,.32);border:1px solid rgba(255,255,255,.25)}.support-chat-btn svg{width:20px;height:20px;stroke:currentColor}.support-chat-panel{position:absolute;right:0;bottom:62px;width:340px;background:#fff;border:1px solid #e2e8f0;border-radius:24px;box-shadow:0 24px 70px rgba(15,23,42,.24);overflow:hidden}.support-head{background:linear-gradient(135deg,#15803d,#22c55e);color:#fff;padding:16px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.support-head h3{margin:0;font-size:17px}.support-head p{font-size:12px;opacity:.9;line-height:1.4}.support-head button{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.28);padding:6px 9px}.support-messages{padding:14px;display:grid;gap:10px;max-height:260px;overflow-y:auto;background:#f8fafc}.support-msg{padding:10px 12px;border-radius:14px;font-size:13px;line-height:1.45}.support-msg.bot{background:#dcfce7;color:#14532d;border:1px solid #bbf7d0;justify-self:start;max-width:55%}.support-msg.warning{background:#fef9c3;color:#854d0e;border:1px solid #fde68a;justify-self:start;max-width:55%}.support-msg.user{background:#fff;color:#0f172a;border:1px solid #e2e8f0;justify-self:end;max-width:55%}@media(max-width:560px){.support-msg.bot,.support-msg.warning,.support-msg.user{max-width:82%}}.support-input-row{display:flex;gap:8px;padding:12px;border-top:1px solid #e2e8f0;background:#fff}.support-input-row input{padding:11px;border-radius:12px}.support-input-row button{padding:11px 13px}.support-inbox-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:18px}.support-thread-list{max-height:540px;overflow-y:auto;padding-right:6px}.support-thread-card{cursor:pointer}.support-thread-card.active-thread{outline:3px solid #86efac}.support-admin-chat{background:#f8fafc;border:1px solid #e2e8f0;border-radius:18px;padding:14px;min-height:320px;max-height:460px;overflow-y:auto;display:grid;gap:10px}.support-admin-reply{display:flex;gap:10px;margin-top:12px}.support-admin-reply input{flex:1}.signup-note{font-size:13px;background:#f0fdf4;border:1px solid #bbf7d0;color:#166534;border-radius:14px;padding:12px;margin-top:12px;line-height:1.5}.approval-list{max-height:620px;overflow-y:auto;padding-right:6px}.approval-card .muted b{color:#0f172a}.clickable-account{cursor:pointer}.clickable-account:hover{outline:3px solid #86efac}.account-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.detail-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:18px;padding:14px}.detail-box h4{margin-bottom:8px}.detail-section{margin-top:16px}.detail-section .list{max-height:320px;overflow-y:auto;padding-right:6px}.detail-order{box-shadow:none!important}.detail-order:hover{transform:none}.rating-box{margin-top:12px;background:#fff;border:1px solid #bbf7d0;border-radius:16px;padding:14px}.rating-box textarea{margin-top:7px}.star-rating{display:flex;gap:6px;margin:14px 0}.star-btn{background:#fff7ed;border:1px solid #fed7aa;color:#f59e0b;font-size:30px;line-height:1;border-radius:14px;padding:9px 11px}.star-btn:hover,.star-btn.active-star{background:#fef3c7;color:#d97706;transform:translateY(-2px)}.rating-modal-order{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:12px;margin:12px 0}.rating-summary{margin-top:10px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:14px;padding:12px;color:#166534}.rating-summary.low-rating{background:#fef9c3;border-color:#fde68a;color:#854d0e}.review-comment{margin-top:8px;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:10px;color:#334155}@media(max-width:800px){.account-detail-grid{grid-template-columns:1fr}}@media(max-width:900px){.support-inbox-grid{grid-template-columns:1fr}}.sg-clock span{display:block;font-size:12px;color:#cbd5e1;font-weight:500;margin-top:2px}.schedule-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:12px;margin-top:10px}.map{height:360px;border-radius:24px;overflow:hidden;border:1px solid #cbd5e1;background:#e2e8f0;margin:14px 0 16px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.4)}.map-help{font-size:13px;color:#64748b;margin-bottom:8px}.map-warning{font-size:13px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:14px;padding:12px;margin-bottom:12px;line-height:1.5}.modal-bg{position:fixed;inset:0;background:rgba(15,23,42,.55);display:flex;align-items:center;justify-content:center;padding:20px;z-index:200}.modal{background:#fff;border-radius:24px;padding:24px;max-width:420px;width:100%;box-shadow:0 25px 60px rgba(0,0,0,.3)}.modal h3{margin-bottom:8px}.modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}.modal input{margin-top:14px}#toast{position:fixed;right:20px;bottom:92px;background:#0f172a;color:#fff;padding:14px 16px;border-radius:16px;box-shadow:0 18px 38px rgba(0,0,0,.24);max-width:320px;z-index:99}
@@ -31,10 +31,11 @@
     @media(max-width:560px){.features,.stats,.hero-stats,.feature-list{grid-template-columns:1fr}.nav,.head,.top{flex-direction:column;align-items:flex-start}.user{text-align:left}}
 
     /* Mobile friendly layout */
-    html,body{max-width:100%;overflow-x:hidden}
+    html,body{max-width:100%;overflow-x:hidden}.login,.login-shell,.login-left-panel,.modern-login-card{max-width:100%;min-width:0}
     img,svg,canvas,#restaurantMap{max-width:100%}
     @media(max-width:1024px){
-      .login-shell{grid-template-columns:1fr;max-width:760px;gap:20px}
+      .login{height:auto;min-height:100vh;max-height:none;overflow-y:auto}
+      .login-shell{grid-template-columns:1fr;max-width:760px;height:auto;min-height:0;gap:20px;overflow:visible}
       .modern-login-card{justify-self:stretch;max-width:none}
       .login-left-panel{padding:26px}
       .login-feature-grid{grid-template-columns:1fr 1fr}
@@ -95,14 +96,35 @@
       .sg-clock{display:none}
       #toast{bottom:86px}
     }
+
+    /* Modern login redesign */
+    .new-login{height:100vh;max-height:100vh;padding:22px;overflow:hidden;background:radial-gradient(circle at 12% 10%,rgba(34,197,94,.34),transparent 24%),radial-gradient(circle at 85% 16%,rgba(245,158,11,.26),transparent 22%),radial-gradient(circle at 52% 92%,rgba(59,130,246,.16),transparent 28%),linear-gradient(135deg,#ecfdf5 0%,#ffffff 48%,#fff7ed 100%)}
+    .new-login:before{width:420px;height:420px;left:-160px;bottom:-210px;background:rgba(255,255,255,.5)}
+    .new-login:after{width:330px;height:330px;right:-150px;top:-160px;background:rgba(255,255,255,.62)}
+    .login-stage{width:100%;max-width:1200px;height:calc(100vh - 44px);display:grid;grid-template-columns:1.14fr .86fr;gap:22px;position:relative;z-index:1;overflow:hidden}
+    .login-hero-panel,.login-auth-card{border:1px solid rgba(255,255,255,.78);background:rgba(255,255,255,.64);backdrop-filter:blur(18px);box-shadow:0 28px 80px rgba(15,23,42,.14)}
+    .login-hero-panel{border-radius:34px;padding:24px;overflow:hidden;display:flex;flex-direction:column;min-height:0}
+    .login-auth-card{align-self:center;justify-self:end;width:100%;max-width:430px;border-radius:32px;padding:26px;position:relative;overflow:hidden}
+    .login-auth-card:before{content:"";position:absolute;inset:0 0 auto;height:7px;background:linear-gradient(90deg,#15803d,#22c55e,#f59e0b,#3b82f6)}
+    .login-brand-modern{margin-bottom:12px}.login-brand-modern .logo{box-shadow:0 16px 36px rgba(21,128,61,.26)}
+    .login-kicker{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 12px}.login-kicker span{background:#fff;border:1px solid #bbf7d0;color:#166534;border-radius:999px;padding:7px 11px;font-size:12px;font-weight:900}
+    .modern-title{font-size:41px;line-height:1.02;letter-spacing:-1.7px;margin-bottom:10px;max-width:820px}.modern-subtitle{font-size:15px;color:#475569;line-height:1.55;max-width:760px}
+    .feature-orbit{position:relative;margin:15px 0 14px;min-height:0;border-radius:28px;background:linear-gradient(135deg,#0f172a,#14532d);overflow:hidden;border:1px solid rgba(255,255,255,.16);box-shadow:0 22px 55px rgba(15,23,42,.18);display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:18px}
+    .feature-orbit:before{content:"";position:absolute;width:360px;height:360px;border:1px solid rgba(187,247,208,.22);border-radius:999px;left:50%;top:50%;transform:translate(-50%,-50%)}
+    .orbit-main-card{position:relative;left:auto;top:auto;right:auto;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:20px;padding:14px;color:#fff;z-index:2;grid-column:1/-1}.orbit-top{display:flex;align-items:center;gap:9px;margin-bottom:10px}.live-dot{width:10px;height:10px;border-radius:999px;background:#22c55e;box-shadow:0 0 0 7px rgba(34,197,94,.18)}.orbit-route{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.orbit-route span{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:7px 10px;font-size:12px;color:#e2e8f0}
+    .floating-feature{position:relative;background:#fff;color:#0f172a;border:1px solid #e2e8f0;border-radius:999px;padding:8px 10px;font-size:12px;font-weight:900;box-shadow:0 10px 24px rgba(15,23,42,.15);z-index:3;text-align:center;white-space:nowrap}.f1,.f2,.f3,.f4{left:auto;right:auto;top:auto;bottom:auto}
+    .modern-feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:10px}.modern-feature{background:rgba(255,255,255,.92);border:1px solid #e2e8f0;border-radius:18px;padding:11px 12px;box-shadow:0 10px 24px rgba(15,23,42,.05)}.modern-feature b{display:block;color:#0f172a;margin-bottom:4px;font-size:13px}.modern-feature span{display:block;color:#64748b;font-size:11.5px;line-height:1.35}
+    .auth-header{margin-bottom:14px}.auth-header h2{font-size:31px;letter-spacing:-.8px;margin-top:10px}.modern-tabs{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}.modern-tabs button{width:100%;padding:12px 10px}.role-cards{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0 14px}.role-cards div{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:11px}.role-cards b{display:block;margin-bottom:3px}.role-cards span{font-size:12px;color:#64748b;line-height:1.35}.primary-login-btn{box-shadow:0 16px 34px rgba(21,128,61,.28)}.create-account-btn{background:#f8fafc}.auth-footnote{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:13px}.auth-footnote span{font-size:11px;color:#64748b;background:#f8fafc;border:1px solid #e2e8f0;border-radius:999px;padding:6px 9px}
+    @media(max-width:1050px){.new-login{height:auto;max-height:none;overflow-y:auto}.login-stage{height:auto;grid-template-columns:1fr;max-width:780px;overflow:visible}.login-auth-card{justify-self:stretch;max-width:none}.modern-feature-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:640px){.new-login{padding:12px}.login-stage{gap:14px}.login-hero-panel,.login-auth-card{border-radius:24px;padding:17px}.modern-title{font-size:30px}.modern-subtitle{font-size:14px}.feature-orbit{grid-template-columns:1fr 1fr;padding:14px}.orbit-main-card{left:auto;right:auto}.floating-feature{position:relative;display:flex;justify-content:center;margin:0;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important}.modern-feature-grid,.role-cards{grid-template-columns:1fr}.auth-header h2{font-size:26px}.login-kicker span{width:100%;text-align:center}.auth-footnote{display:none}}
   </style>
 </head>
 
 <body>
-  <section id="loginPage" class="login">
-    <div class="login-shell">
-      <div class="login-left-panel">
-        <div class="brand login-brand">
+  <section id="loginPage" class="login new-login">
+    <div class="login-stage">
+      <div class="login-hero-panel">
+        <div class="brand login-brand-modern">
           <div class="logo">🍱</div>
           <div>
             <h2>SP FoodHitch</h2>
@@ -110,42 +132,61 @@
           </div>
         </div>
 
-        <div class="login-status-row">
-          <span>Live Prototype</span>
-          <span>Student · Driver · Admin</span>
-          <span>$0.30 Platform Fee</span>
+        <div class="login-kicker">
+          <span>Live food hitching prototype</span>
+          <span>GitHub Pages + Supabase</span>
         </div>
 
-        <h1>Order food from more places, hitched by students already heading to SP.</h1>
-        <p class="muted login-lead">Students can request food from nearby outlets, drivers can bid for convenient deliveries, and admins can manage accounts, support, revenue, bans, ratings, and orders in real time.</p>
+        <h1 class="modern-title">More food choices, delivered by students already heading to SP.</h1>
+        <p class="modern-subtitle">Post an order, receive driver bids, track the delivery, chat with support, and rate the rider after completion — all inside one live system.</p>
 
-        <div class="login-feature-grid">
-          <div class="login-feature-card"><b>🗺️ Map & Store List</b><span>Choose outlets from SP Campus, Clementi Mall, Star Vista, and Holland Village.</span></div>
-          <div class="login-feature-card"><b>💸 Bidding System</b><span>Drivers can accept the starting offer or place a custom bid.</span></div>
-          <div class="login-feature-card"><b>⏱️ Schedule & ETA</b><span>Deliver now or schedule orders with estimated arrival timing.</span></div>
-          <div class="login-feature-card"><b>🔔 Live Updates</b><span>Orders, bids, chat, approvals, bans, and ratings update without refresh.</span></div>
-          <div class="login-feature-card"><b>⭐ Driver Ratings</b><span>Students rate completed orders using stars and comments.</span></div>
-          <div class="login-feature-card"><b>💬 Customer Support</b><span>Live support chat handled by admin accounts.</span></div>
-          <div class="login-feature-card"><b>🧾 Account Approval</b><span>New accounts must be approved before login access.</span></div>
-          <div class="login-feature-card"><b>🔐 Admin Controls</b><span>Manage accounts, orders, bans, support inbox, and platform revenue.</span></div>
+        <div class="feature-orbit">
+          <div class="orbit-main-card">
+            <div class="orbit-top">
+              <span class="live-dot"></span>
+              <b>Live System Overview</b>
+            </div>
+            <div class="orbit-route">
+              <span>Student Order</span>
+              <b>→</b>
+              <span>Driver Bid</span>
+              <b>→</b>
+              <span>Completed + Rated</span>
+            </div>
+          </div>
+          <div class="floating-feature f1">🗺️ Map outlets</div>
+          <div class="floating-feature f2">💸 Driver bidding</div>
+          <div class="floating-feature f3">🔔 Live notifications</div>
+          <div class="floating-feature f4">⭐ Rider ratings</div>
+        </div>
+
+        <div class="modern-feature-grid">
+          <div class="modern-feature"><b>🗺️ Map & Store List</b><span>SP Campus, Clementi Mall, Star Vista, and Holland Village outlets.</span></div>
+          <div class="modern-feature"><b>💸 Bidding + Fee</b><span>Minimum bids by location plus a $0.30 platform fee per order.</span></div>
+          <div class="modern-feature"><b>⏱️ Schedule & ETA</b><span>Deliver now or schedule orders with estimated arrival timing.</span></div>
+          <div class="modern-feature"><b>🔔 Live Updates</b><span>Orders, bids, acceptances, bans, approvals, and ratings update live.</span></div>
+          <div class="modern-feature"><b>💬 Support Chat</b><span>Students and drivers can contact admin customer service.</span></div>
+          <div class="modern-feature"><b>⭐ Ratings</b><span>Students rate drivers using stars and written comments.</span></div>
+          <div class="modern-feature"><b>🧾 Account Approval</b><span>Sign-ups require admin approval before access is granted.</span></div>
+          <div class="modern-feature"><b>🔐 Admin Controls</b><span>Manage accounts, orders, bans, low ratings, and platform revenue.</span></div>
         </div>
       </div>
 
-      <form id="loginForm" class="box login-card modern-login-card">
-        <div class="login-card-top">
+      <form id="loginForm" class="login-auth-card">
+        <div class="auth-header">
           <span class="tag green">Welcome Back</span>
           <h2 id="loginTitle">Student Order Login</h2>
-          <p class="muted">Select your login mode and enter your account details.</p>
+          <p class="muted">Choose a role and continue to your FoodHitch workspace.</p>
         </div>
 
-        <div class="tabs login-role-tabs">
-          <button type="button" class="white active" data-login="order">🍔 Student Order</button>
+        <div class="tabs login-role-tabs modern-tabs">
+          <button type="button" class="white active" data-login="order">🍔 Student</button>
           <button type="button" class="white" data-login="delivery">🚗 Driver</button>
         </div>
 
-        <div class="login-info-strip">
-          <div><b>Student</b><span>Post orders, accept bids, track ETA, rate drivers.</span></div>
-          <div><b>Driver</b><span>Bid for orders, complete deliveries, build rating.</span></div>
+        <div class="role-cards">
+          <div><b>Student</b><span>Order, accept bids, track ETA, rate riders.</span></div>
+          <div><b>Driver</b><span>Bid, deliver, complete orders, build rating.</span></div>
         </div>
 
         <label id="idLabel">Account ID / Student ID</label>
@@ -154,9 +195,14 @@
         <label>Password</label>
         <input id="loginPassword" type="password" required placeholder="Enter password">
 
-        <button class="green full">Login to SP FoodHitch →</button>
-        <button id="openSignupBtn" type="button" class="white full">Create Account</button>
+        <button class="green full primary-login-btn">Login to SP FoodHitch →</button>
+        <button id="openSignupBtn" type="button" class="white full create-account-btn">Create Account</button>
         <p class="muted small login-approval-note">New student/driver accounts require admin approval before login.</p>
+
+        <div class="auth-footnote">
+          <span>🔴 Live DB status appears here</span>
+          <span>🔒 Admin-controlled access</span>
+        </div>
       </form>
     </div>
   </section>
@@ -625,6 +671,7 @@
     let supabasePollTimer = null;
     let lastSupabaseSnapshot = "";
     const ACC_KEY = "SPFH_accounts_bid_v1";
+    const SESSION_KEY = "SPFH_current_session_v1";
     const ORD_KEY = "SPFH_orders_bid_v1";
     const NOTIF_KEY = "SPFH_cleared_notifications_v1";
     const ORDER_SEQ_KEY = "SPFH_order_sequence_v1";
@@ -792,6 +839,7 @@
     }
     function orderTimerLine(order){return order.status==="completed" ? "" : `<b>Live Timer:</b> ${esc(orderAge(order))}<br>`;}
     function forceLogoutWithBanPopup(reason){
+      localStorage.removeItem(SESSION_KEY);
       const message = "Your account has been banned and cannot access SP FoodHitch." + String.fromCharCode(10,10) + "Reason: " + (reason || "No reason provided.");
       currentUser=null;
       selectedFood=null;
@@ -858,12 +906,12 @@
     function suggestedBid(){return selectedFood ? selectedFood.fee + getDropoffFee($("dropoff").value) : 0;}
     function updateBidDisplay(){if(!selectedFood)return;const bid=suggestedBid();$("dropoffFee").textContent=money(getDropoffFee($("dropoff").value));$("platformFee").textContent=money(PLATFORM_FEE);$("bidAmount").value=bid.toFixed(2);$("cartTotal").textContent=money(bid + PLATFORM_FEE);}
     function esc(s){return String(s).replace(/[&<>'"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));}
-    function toast(msg){
+    function toast(msg,duration=10000){
       const toastBox = $("toast");
       toastBox.textContent = msg;
       toastBox.classList.remove("hidden");
       clearTimeout(window.spfhToastTimer);
-      window.spfhToastTimer = setTimeout(()=>toastBox.classList.add("hidden"),10000);
+      window.spfhToastTimer = setTimeout(()=>toastBox.classList.add("hidden"),duration);
     }
     function saveClearedNotifications(){localStorage.setItem(NOTIF_KEY, JSON.stringify(clearedNotifications));liveSnapshot.notifications=localStorage.getItem(NOTIF_KEY)||"";saveSupabaseState("clearedNotifications",clearedNotifications);}
     function saveSupportThreads(){localStorage.setItem(SUPPORT_KEY, JSON.stringify(supportThreads));liveSnapshot.support=localStorage.getItem(SUPPORT_KEY)||"";saveSupabaseState("supportThreads",supportThreads);}
@@ -1126,9 +1174,11 @@
       const count = $("notifCount");
       count.textContent = notes.length;
       count.classList.toggle("hidden", notes.length === 0);
-      $("notifMenu").innerHTML = notes.length
-        ? `<button id="clearNotifBtn" type="button" class="white full" style="margin:0 0 8px">Clear Notifications</button>` + notes.map(n => `<div class="notif-item"><b>${esc(n.title)}</b><p class="muted small">${esc(n.body)}</p><div class="notif-time">${esc(n.time)}</div></div>`).join("")
-        : `<div class="empty">No notifications yet.</div>`;
+      const closeBtn = `<button id="closeNotifBtn" type="button" class="white full" style="margin:0 0 8px">Close</button>`;
+      const clearBtn = `<button id="clearNotifBtn" type="button" class="white full" style="margin:0 0 8px">Clear Notifications</button>`;
+      $("notifMenu").innerHTML = closeBtn + (notes.length
+        ? clearBtn + notes.map(n => `<div class="notif-item"><b>${esc(n.title)}</b><p class="muted small">${esc(n.body)}</p><div class="notif-time">${esc(n.time)}</div></div>`).join("")
+        : `<div class="empty">No notifications yet.</div>`);
     }
 
     $("bellBtn").onclick = () => {
@@ -1138,6 +1188,10 @@
     };
 
     $("notifMenu").onclick = e => {
+      if(e.target.id === "closeNotifBtn"){
+        $("notifMenu").classList.add("hidden");
+        return;
+      }
       if(e.target.id !== "clearNotifBtn") return;
       getNotifications().forEach(n => {
         const id = notificationId(n);
@@ -1222,7 +1276,7 @@
         if(!res.ok){
           const text = await res.text();
           console.error("Supabase load error:", res.status, text);
-          toast("Could not connect to live database. Check Supabase RLS/API key.");
+          toast("Fail to connect");
           return false;
         }
         const data = await res.json();
@@ -1231,7 +1285,7 @@
         return true;
       }catch(err){
         console.error("Supabase load failed:", err);
-        toast("Could not connect to live database. Check internet/API settings.");
+        toast("Fail to connect");
         return false;
       }
     }
@@ -1271,10 +1325,12 @@
     async function startLiveDatabase(){
       if(!isSupabaseConfigured){
         console.warn("Supabase is not configured yet. Paste your Project URL and anon key.");
+        restoreSession();
         return;
       }
       const connected = await loadSupabaseState();
-      if(connected){startSupabaseRealtime();startSupabasePolling();toast("Connected to live database.");}
+      if(connected){startSupabaseRealtime();startSupabasePolling();toast("Connected to live database.",5000);}else{toast("Fail to connect");}
+      restoreSession();
     }
     window.addEventListener("storage",syncLiveData);
     setInterval(syncLiveData,1000);
@@ -1317,7 +1373,7 @@
     if(!accounts.some(a=>a.studentId==="SPAdmin")){accounts.unshift(defaultAdmin);}
     localStorage.setItem(ACC_KEY, JSON.stringify(accounts));
     localStorage.setItem(ORD_KEY, JSON.stringify(orders));
-    startLiveDatabase();
+    // Live database starts at the end after all functions and event handlers are ready.
 
     $("openSignupBtn").onclick = () => {$("signupForm").reset();$("signupModal").classList.remove("hidden");};
     $("closeSignupBtn").onclick = () => $("signupModal").classList.add("hidden");
@@ -1352,6 +1408,93 @@
       $("loginTitle").textContent = loginType==="delivery" ? "Driver Login" : "Student Order Login";
     });
 
+    function enterApp(user,type=loginType,showWelcome=true){
+      currentUser = user;
+      loginType = type;
+      localStorage.setItem(SESSION_KEY, JSON.stringify({studentId:user.studentId, loginType:type}));
+      $("currentId").textContent = user.studentId;
+      $("loginPage").classList.add("hidden");
+      $("appPage").classList.remove("hidden");
+      document.querySelectorAll("[data-login]").forEach(b=>b.classList.toggle("active",b.dataset.login===type));
+      $("loginTitle").textContent = type==="delivery" ? "Driver Login" : "Student Order Login";
+
+      if(hasRole(user,"admin")){
+        $("driverRatingHeader").classList.add("hidden");
+        $("currentRole").textContent="Admin Account";
+        $("allAccountsNavBtn").classList.remove("hidden");
+        $("approvalsNavBtn").classList.remove("hidden");
+        $("supportAdminNavBtn").classList.remove("hidden");
+        $("supportChat").classList.add("hidden");
+        $("supportChatPanel").classList.add("hidden");
+        $("completedNavBtn").classList.add("hidden");
+        $("resetWrap").classList.remove("hidden");
+        $("resetMenu").classList.add("hidden");
+        showOnly("adminPage");
+        renderAdmin();
+      }else if(type==="order"){
+        $("driverRatingHeader").classList.add("hidden");
+        $("currentRole").textContent=roleName("order");
+        $("allAccountsNavBtn").classList.add("hidden");
+        $("approvalsNavBtn").classList.add("hidden");
+        $("supportAdminNavBtn").classList.add("hidden");
+        $("supportChat").classList.remove("hidden");
+        $("completedNavBtn").classList.remove("hidden");
+        $("resetWrap").classList.add("hidden");
+        $("resetMenu").classList.add("hidden");
+        showOnly("orderPage");
+        populateStudentDropoffs();
+        renderMap();
+        renderFood(foods);
+        renderMyOrders();
+        dismissedRatingOrders=[];
+        setTimeout(()=>showPendingRatingPopup(true),300);
+      }else{
+        $("driverRatingHeader").classList.remove("hidden");
+        updateDriverRatingHeader();
+        $("currentRole").textContent=roleName("delivery");
+        $("allAccountsNavBtn").classList.add("hidden");
+        $("approvalsNavBtn").classList.add("hidden");
+        $("supportAdminNavBtn").classList.add("hidden");
+        $("supportChat").classList.remove("hidden");
+        $("completedNavBtn").classList.remove("hidden");
+        $("resetWrap").classList.add("hidden");
+        $("resetMenu").classList.add("hidden");
+        showOnly("deliveryPage");
+        renderDriver();
+      }
+      renderNotifications();
+      if(showWelcome) toast("Welcome, " + user.studentId + "!");
+    }
+
+    function restoreSession(){
+      const saved = JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
+      if(!saved || currentUser) return;
+      const user = accounts.find(a=>a.studentId===saved.studentId);
+      if(!user){localStorage.removeItem(SESSION_KEY);return;}
+      if(user.banned){forceLogoutWithBanPopup(user.banReason);return;}
+      if(!hasRole(user,saved.loginType) && !hasRole(user,"admin")){localStorage.removeItem(SESSION_KEY);return;}
+      enterApp(user,saved.loginType,false);
+    }
+
+    function clearSessionAndShowLogin(){
+      localStorage.removeItem(SESSION_KEY);
+      $("driverRatingHeader").classList.add("hidden");
+      currentUser=null;selectedFood=null;activeSupportThreadId=null;
+      $("allAccountsNavBtn").classList.add("hidden");
+      $("approvalsNavBtn").classList.add("hidden");
+      $("supportAdminNavBtn").classList.add("hidden");
+      $("supportChat").classList.add("hidden");
+      $("supportChatPanel").classList.add("hidden");
+      $("completedNavBtn").classList.add("hidden");
+      $("resetWrap").classList.add("hidden");
+      $("resetMenu").classList.add("hidden");
+      $("notifMenu").classList.add("hidden");
+      $("notifCount").classList.add("hidden");
+      $("loginForm").reset();
+      $("appPage").classList.add("hidden");
+      $("loginPage").classList.remove("hidden");
+    }
+
     $("loginForm").onsubmit = e => {
       e.preventDefault();
       const id = $("loginId").value.trim(), pw = $("loginPassword").value.trim();
@@ -1363,17 +1506,14 @@
         infoPopup("Account Banned", banMsg);
         return;
       }
-      currentUser = user;
-      $("currentId").textContent = user.studentId;
-      $("loginPage").classList.add("hidden"); $("appPage").classList.remove("hidden");
-      if(hasRole(user,"admin")){ $("driverRatingHeader").classList.add("hidden"); $("currentRole").textContent="Admin Account"; $("allAccountsNavBtn").classList.remove("hidden"); $("approvalsNavBtn").classList.remove("hidden"); $("supportAdminNavBtn").classList.remove("hidden"); $("supportChat").classList.add("hidden"); $("supportChatPanel").classList.add("hidden"); $("completedNavBtn").classList.add("hidden"); $("resetWrap").classList.remove("hidden"); $("resetMenu").classList.add("hidden"); showOnly("adminPage"); renderAdmin(); }
-      else if(loginType==="order"){ $("driverRatingHeader").classList.add("hidden"); $("currentRole").textContent=roleName("order"); $("allAccountsNavBtn").classList.add("hidden"); $("approvalsNavBtn").classList.add("hidden"); $("supportAdminNavBtn").classList.add("hidden"); $("supportChat").classList.remove("hidden"); $("completedNavBtn").classList.remove("hidden"); $("resetWrap").classList.add("hidden"); $("resetMenu").classList.add("hidden"); showOnly("orderPage"); populateStudentDropoffs(); renderMap(); renderFood(foods); renderMyOrders(); dismissedRatingOrders=[]; setTimeout(()=>showPendingRatingPopup(true),300); }
-      else { $("driverRatingHeader").classList.remove("hidden"); updateDriverRatingHeader(); $("currentRole").textContent=roleName("delivery"); $("allAccountsNavBtn").classList.add("hidden"); $("approvalsNavBtn").classList.add("hidden"); $("supportAdminNavBtn").classList.add("hidden"); $("supportChat").classList.remove("hidden"); $("completedNavBtn").classList.remove("hidden"); $("resetWrap").classList.add("hidden"); $("resetMenu").classList.add("hidden"); showOnly("deliveryPage"); renderDriver(); }
-      renderNotifications();
-      toast("Welcome, " + user.studentId + "!");
+      enterApp(user,loginType,true);
     };
 
-    $("logoutBtn").onclick = () => {$("driverRatingHeader").classList.add("hidden");currentUser=null;selectedFood=null;activeSupportThreadId=null;$("allAccountsNavBtn").classList.add("hidden");$("approvalsNavBtn").classList.add("hidden");$("supportAdminNavBtn").classList.add("hidden");$("supportChat").classList.add("hidden");$("supportChatPanel").classList.add("hidden");$("completedNavBtn").classList.add("hidden");$("resetWrap").classList.add("hidden");$("resetMenu").classList.add("hidden");$("notifMenu").classList.add("hidden");$("notifCount").classList.add("hidden");$("loginForm").reset();$("appPage").classList.add("hidden");$("loginPage").classList.remove("hidden");};
+    $("logoutBtn").onclick = async () => {
+      if(!await confirmChange("Are you sure you want to log out?")) return;
+      clearSessionAndShowLogin();
+      toast("Logged out.");
+    };
 
     $("supportChatBtn").onclick = () => {
       closeInactiveSupportChats();
@@ -1434,7 +1574,9 @@
         const cardClass = a.banned ? 'status-declined' : lowRatingAccountClass(a);
         const tagClass = a.banned ? 'red' : hasRole(a,'admin') ? 'purple' : hasRole(a,'delivery') && hasRole(a,'order') ? 'yellow' : roleTag(getRoles(a)[0]);
         const tagText = a.banned ? 'Banned' : accountRoleText(a);
-        return '<div class="card clickable-account '+cardClass+'" data-view-account="'+esc(a.id)+'"><div class="top"><div><h3>'+esc(a.studentId)+'</h3><p class="muted"><b>Full Name:</b> '+esc(a.fullName||"Not provided")+'<br><b>School:</b> '+esc(a.school||"Not provided")+'<br><b>ICHAT Email:</b> '+esc(a.email||"Not provided")+'<br><b>Password:</b> '+esc(a.password)+'<br><b>Status:</b> '+statusText+riderText+'</p></div><span class="tag '+tagClass+'">'+tagText+'</span></div></div>';
+        const editable = canEditAccount(a);
+        const editLabel = editable ? "Edit Account" : "Protected";
+        return '<div class="card clickable-account '+cardClass+'" data-view-account="'+esc(a.id)+'"><div class="top"><div><h3>'+esc(a.studentId)+'</h3><p class="muted"><b>Full Name:</b> '+esc(a.fullName||"Not provided")+'<br><b>School:</b> '+esc(a.school||"Not provided")+'<br><b>ICHAT Email:</b> '+esc(a.email||"Not provided")+'<br><b>Password:</b> '+esc(a.password)+'<br><b>Status:</b> '+statusText+riderText+'</p></div><span class="tag '+tagClass+'">'+tagText+'</span></div><div class="actions"><button class="white" data-all-edit-account="'+esc(a.id)+'" '+(editable?'':'disabled')+'>'+editLabel+'</button><button class="blue" data-view-account-btn="'+esc(a.id)+'">View Details</button></div></div>';
       }).join("") || '<div class="empty">No accounts found.</div>';
     }
     $("allAccountSearch").oninput=()=>renderAllAccountsPage($("allAccountSearch").value);
@@ -1446,6 +1588,16 @@
     };
 
     $("allAccountsList").onclick=e=>{
+      const editId = e.target.dataset.allEditAccount;
+      if(editId){
+        startEditAccount(editId,true);
+        return;
+      }
+      const viewBtn = e.target.dataset.viewAccountBtn;
+      if(viewBtn){
+        renderAccountDetails(viewBtn);
+        return;
+      }
       const card=e.target.closest("[data-view-account]");
       if(!card)return;
       renderAccountDetails(card.dataset.viewAccount);
@@ -1773,6 +1925,24 @@
     };
     $("cancelAccountEdit").onclick = resetAccountForm;
     function resetAccountForm(){$("accountForm").reset();setCheckedRoles(["order"]);$("editAccountId").value="";$("accountFormTitle").textContent="Add Account";$("saveAccountBtn").textContent="Add Account";$("cancelAccountEdit").classList.add("hidden");updateAdminRoleOption();}
+    function startEditAccount(accountId,fromAllAccounts=false){
+      const a=accounts.find(x=>String(x.id)===String(accountId));
+      if(!a)return toast("Account not found.");
+      if(!canEditAccount(a))return toast(a.studentId==="SPAdmin"?"SPAdmin cannot be edited.":"Only SPAdmin can edit other admin accounts.");
+      if(fromAllAccounts){showOnly("adminPage");renderAdmin();}
+      $("editAccountId").value=a.id;
+      $("accountStudentId").value=a.studentId;
+      $("accountFullName").value=a.fullName||"";
+      $("accountPassword").value=a.password;
+      $("accountSchool").value=a.school||"";
+      $("accountEmail").value=a.email||"";
+      setCheckedRoles(getRoles(a));
+      updateAdminRoleOption();
+      $("accountFormTitle").textContent="Edit Account";
+      $("saveAccountBtn").textContent="Update Account";
+      $("cancelAccountEdit").classList.remove("hidden");
+      if(fromAllAccounts){$("accountForm").scrollIntoView({behavior:"smooth",block:"start"});toast("Editing account " + a.studentId + ".");}
+    }
     $("accountSearch").oninput=()=>renderAccounts($("accountSearch").value.toLowerCase());
     $("accountFilters").onclick=e=>{
       const filter=e.target.dataset.accountFilter;
@@ -1819,7 +1989,7 @@
     }
     $("accountList").onclick=async e=>{
       const edit=e.target.dataset.editAccount, del=e.target.dataset.deleteAccount, ban=e.target.dataset.banAccount;
-      if(edit){const a=accounts.find(x=>x.id==edit);if(!canEditAccount(a))return toast(a.studentId==="SPAdmin"?"SPAdmin cannot be edited.":"Only SPAdmin can edit other admin accounts.");$("editAccountId").value=a.id;$("accountStudentId").value=a.studentId;$("accountFullName").value=a.fullName||"";$("accountPassword").value=a.password;$("accountSchool").value=a.school||"";$("accountEmail").value=a.email||"";setCheckedRoles(getRoles(a));$("accountFormTitle").textContent="Edit Account";$("saveAccountBtn").textContent="Update Account";$("cancelAccountEdit").classList.remove("hidden");}
+      if(edit){startEditAccount(edit,false);}
       if(ban){
         const a=accounts.find(x=>x.id==ban);
         if(!canBanAccount(a))return toast(a.studentId==="SPAdmin"?"SPAdmin cannot be banned.":"Only SPAdmin can ban or unban admin accounts.");
@@ -2225,7 +2395,27 @@
         renderNotifications();
       }
     };
-    $("acceptedList").onclick=e=>{const id=e.target.dataset.complete;if(!id)return;const o=orders.find(x=>x.id===id);o.status="completed";saveOrders();renderDriver();toast("Order completed.");renderNotifications();};
+    $("acceptedList").onclick = async e => {
+      const id = e.target.dataset.complete;
+      if(!id) return;
+      const o = orders.find(x => x.id === id);
+      if(!o) return toast("Order not found.");
+      if(!await confirmChange("Mark order " + o.id + " as completed?")) return;
+      o.status = "completed";
+      saveOrders();
+      renderDriver();
+      toast("Order completed.");
+      renderNotifications();
+    };
+
+    function initApp(){
+      try{ populateStudentDropoffs(); }catch(e){ console.error("Startup drop-off setup error:", e); }
+      try{ renderFood(foods); }catch(e){ console.error("Startup food list error:", e); }
+      try{ renderNotifications(); }catch(e){ console.error("Startup notification error:", e); }
+      startLiveDatabase();
+    }
+
+    initApp();
   </script>
 </body>
 </html>
