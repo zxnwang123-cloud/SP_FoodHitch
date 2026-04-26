@@ -551,6 +551,12 @@
     const SUPABASE_ANON_KEY = "sb_publishable_NK_6uCx-qQrkcNf3-eMjDg_Gms2Y-zx";
     const isSupabaseConfigured = SUPABASE_URL.startsWith("https://") && !SUPABASE_ANON_KEY.includes("PASTE_YOUR");
     const supabaseClient = window.supabase && isSupabaseConfigured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+    const SUPABASE_REST_URL = SUPABASE_URL + "/rest/v1/app_state";
+    const supabaseHeaders = {
+      "apikey": SUPABASE_ANON_KEY,
+      "Authorization": "Bearer " + SUPABASE_ANON_KEY,
+      "Content-Type": "application/json"
+    };
     let supabaseReady = false;
     let supabasePollTimer = null;
     let lastSupabaseSnapshot = "";
@@ -640,9 +646,22 @@
     const foods = foodRows.map(row=>{const [id,name,area,eta,tag,item,cost,fee,lat,lng]=row.split("|");return {id:+id,name,area,eta,tag,item,cost,fee:+fee,lat:+lat,lng:+lng};});
 
     async function saveSupabaseState(key,value){
-      if(!supabaseClient || !supabaseReady) return;
-      const { error } = await supabaseClient.from("app_state").upsert({ key, data:value });
-      if(error){ console.error("Supabase save error:", error); toast("Live database save failed. Check Supabase policies/API key."); }
+      if(!isSupabaseConfigured || !supabaseReady) return;
+      try{
+        const res = await fetch(SUPABASE_REST_URL + "?on_conflict=key", {
+          method:"POST",
+          headers:{...supabaseHeaders,"Prefer":"resolution=merge-duplicates,return=minimal"},
+          body:JSON.stringify({key,data:value})
+        });
+        if(!res.ok){
+          const text = await res.text();
+          console.error("Supabase save error:", res.status, text);
+          toast("Live database save failed. Check Supabase RLS policies.");
+        }
+      }catch(err){
+        console.error("Supabase save failed:", err);
+        toast("Live database save failed. Check internet/API settings.");
+      }
     }
     function saveAccounts(){localStorage.setItem(ACC_KEY, JSON.stringify(accounts));liveSnapshot.accounts=localStorage.getItem(ACC_KEY)||"";saveSupabaseState("accounts",accounts);}
     function saveOrders(){localStorage.setItem(ORD_KEY, JSON.stringify(orders));liveSnapshot.orders=localStorage.getItem(ORD_KEY)||"";saveSupabaseState("orders",orders);}
@@ -1127,21 +1146,36 @@
       lastSupabaseSnapshot = JSON.stringify(data || []);
     }
     async function loadSupabaseState(){
-      if(!supabaseClient) return false;
-      const { data, error } = await supabaseClient.from("app_state").select("key,data");
-      if(error){console.error("Supabase load error:",error);toast("Could not connect to live database. Using this browser only.");return false;}
-      applySupabaseRows(data);
-      supabaseReady = true;
-      return true;
+      if(!isSupabaseConfigured) return false;
+      try{
+        const res = await fetch(SUPABASE_REST_URL + "?select=key,data", {headers:supabaseHeaders});
+        if(!res.ok){
+          const text = await res.text();
+          console.error("Supabase load error:", res.status, text);
+          toast("Could not connect to live database. Check Supabase RLS/API key.");
+          return false;
+        }
+        const data = await res.json();
+        applySupabaseRows(data);
+        supabaseReady = true;
+        return true;
+      }catch(err){
+        console.error("Supabase load failed:", err);
+        toast("Could not connect to live database. Check internet/API settings.");
+        return false;
+      }
     }
     async function pollSupabaseState(){
-      if(!supabaseClient || !supabaseReady) return;
-      const { data, error } = await supabaseClient.from("app_state").select("key,data");
-      if(error){console.error("Supabase polling error:",error);return;}
-      const snap = JSON.stringify(data || []);
-      if(snap === lastSupabaseSnapshot) return;
-      applySupabaseRows(data);
-      refreshVisiblePage();
+      if(!isSupabaseConfigured || !supabaseReady) return;
+      try{
+        const res = await fetch(SUPABASE_REST_URL + "?select=key,data", {headers:supabaseHeaders});
+        if(!res.ok){console.error("Supabase polling error:", res.status, await res.text());return;}
+        const data = await res.json();
+        const snap = JSON.stringify(data || []);
+        if(snap === lastSupabaseSnapshot) return;
+        applySupabaseRows(data);
+        refreshVisiblePage();
+      }catch(err){console.error("Supabase polling failed:",err);}
     }
     function startSupabasePolling(){
       if(supabasePollTimer) clearInterval(supabasePollTimer);
