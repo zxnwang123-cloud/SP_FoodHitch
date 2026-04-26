@@ -6,6 +6,7 @@
   <title>SP FoodHitch</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
     *{box-sizing:border-box;margin:0;padding:0;font-family:Arial,Helvetica,sans-serif}
@@ -541,6 +542,16 @@
 
   <script>
     const $ = id => document.getElementById(id);
+
+    /* Supabase Live Database Connection
+       Paste your Supabase Project URL and anon public key below.
+       Get them from: Supabase Dashboard > Project Settings > API
+    */
+    const SUPABASE_URL = "https://opvswfhiqvvkroljxwsl.supabase.co";
+    const SUPABASE_ANON_KEY = "sb_publishable_NK_6uCx-qQrkcNf3-eMjDg_Gms2Y-zx";
+    const isSupabaseConfigured = SUPABASE_URL.startsWith("https://") && !SUPABASE_ANON_KEY.includes("PASTE_YOUR");
+    const supabaseClient = window.supabase && isSupabaseConfigured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+    let supabaseReady = false;
     const ACC_KEY = "SPFH_accounts_bid_v1";
     const ORD_KEY = "SPFH_orders_bid_v1";
     const NOTIF_KEY = "SPFH_cleared_notifications_v1";
@@ -626,9 +637,14 @@
     ];
     const foods = foodRows.map(row=>{const [id,name,area,eta,tag,item,cost,fee,lat,lng]=row.split("|");return {id:+id,name,area,eta,tag,item,cost,fee:+fee,lat:+lat,lng:+lng};});
 
-    function saveAccounts(){localStorage.setItem(ACC_KEY, JSON.stringify(accounts));liveSnapshot.accounts=localStorage.getItem(ACC_KEY)||"";}
-    function saveOrders(){localStorage.setItem(ORD_KEY, JSON.stringify(orders));liveSnapshot.orders=localStorage.getItem(ORD_KEY)||"";}
-    function saveSignupRequests(){localStorage.setItem(SIGNUP_KEY, JSON.stringify(signupRequests));liveSnapshot.signup=localStorage.getItem(SIGNUP_KEY)||"";}
+    async function saveSupabaseState(key,value){
+      if(!supabaseClient || !supabaseReady) return;
+      const { error } = await supabaseClient.from("app_state").upsert({ key, data:value });
+      if(error){ console.error("Supabase save error:", error); toast("Live database save failed."); }
+    }
+    function saveAccounts(){localStorage.setItem(ACC_KEY, JSON.stringify(accounts));liveSnapshot.accounts=localStorage.getItem(ACC_KEY)||"";saveSupabaseState("accounts",accounts);}
+    function saveOrders(){localStorage.setItem(ORD_KEY, JSON.stringify(orders));liveSnapshot.orders=localStorage.getItem(ORD_KEY)||"";saveSupabaseState("orders",orders);}
+    function saveSignupRequests(){localStorage.setItem(SIGNUP_KEY, JSON.stringify(signupRequests));liveSnapshot.signup=localStorage.getItem(SIGNUP_KEY)||"";saveSupabaseState("signupRequests",signupRequests);}
     function todayOrderPrefix(){
       const now = new Date();
       const dd = String(now.getDate()).padStart(2,"0");
@@ -758,8 +774,8 @@
     function updateBidDisplay(){if(!selectedFood)return;const bid=suggestedBid();$("dropoffFee").textContent=money(getDropoffFee($("dropoff").value));$("platformFee").textContent=money(PLATFORM_FEE);$("bidAmount").value=bid.toFixed(2);$("cartTotal").textContent=money(bid + PLATFORM_FEE);}
     function esc(s){return String(s).replace(/[&<>'"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));}
     function toast(msg){$("toast").textContent=msg;$("toast").classList.remove("hidden");setTimeout(()=>$("toast").classList.add("hidden"),2500);}
-    function saveClearedNotifications(){localStorage.setItem(NOTIF_KEY, JSON.stringify(clearedNotifications));liveSnapshot.notifications=localStorage.getItem(NOTIF_KEY)||"";}
-    function saveSupportThreads(){localStorage.setItem(SUPPORT_KEY, JSON.stringify(supportThreads));liveSnapshot.support=localStorage.getItem(SUPPORT_KEY)||"";}
+    function saveClearedNotifications(){localStorage.setItem(NOTIF_KEY, JSON.stringify(clearedNotifications));liveSnapshot.notifications=localStorage.getItem(NOTIF_KEY)||"";saveSupabaseState("clearedNotifications",clearedNotifications);}
+    function saveSupportThreads(){localStorage.setItem(SUPPORT_KEY, JSON.stringify(supportThreads));liveSnapshot.support=localStorage.getItem(SUPPORT_KEY)||"";saveSupabaseState("supportThreads",supportThreads);}
     function resetSupportChatBox(){
       $("supportMessages").innerHTML = `<div class="support-msg bot">Hi! 👋 This is SP FoodHitch support. Tell us what happened and include your order number if you have one.</div>`;
       $("supportInput").value = "";
@@ -1073,6 +1089,7 @@
       renderNotifications();
     }
     function syncLiveData(){
+      if(supabaseReady) return;
       const next = {
         accounts: localStorage.getItem(ACC_KEY) || "",
         orders: localStorage.getItem(ORD_KEY) || "",
@@ -1090,6 +1107,51 @@
       clearedNotifications = JSON.parse(next.notifications || "[]");
       normalizeLiveData();
       refreshVisiblePage();
+    }
+    async function loadSupabaseState(){
+      if(!supabaseClient) return false;
+      const { data, error } = await supabaseClient.from("app_state").select("key,data");
+      if(error){console.error("Supabase load error:",error);toast("Could not connect to live database. Using this browser only.");return false;}
+      const state = {};
+      (data||[]).forEach(row => state[row.key] = row.data);
+      accounts = state.accounts && state.accounts.length ? state.accounts : [defaultAdmin];
+      orders = state.orders || [];
+      signupRequests = state.signupRequests || [];
+      supportThreads = state.supportThreads || [];
+      clearedNotifications = state.clearedNotifications || [];
+      normalizeLiveData();
+      localStorage.setItem(ACC_KEY, JSON.stringify(accounts));
+      localStorage.setItem(ORD_KEY, JSON.stringify(orders));
+      localStorage.setItem(SIGNUP_KEY, JSON.stringify(signupRequests));
+      localStorage.setItem(SUPPORT_KEY, JSON.stringify(supportThreads));
+      localStorage.setItem(NOTIF_KEY, JSON.stringify(clearedNotifications));
+      supabaseReady = true;
+      return true;
+    }
+    function applySupabaseUpdate(key,value){
+      if(key === "accounts") accounts = value || [defaultAdmin];
+      if(key === "orders") orders = value || [];
+      if(key === "signupRequests") signupRequests = value || [];
+      if(key === "supportThreads") supportThreads = value || [];
+      if(key === "clearedNotifications") clearedNotifications = value || [];
+      normalizeLiveData();
+      refreshVisiblePage();
+    }
+    function startSupabaseRealtime(){
+      if(!supabaseClient || !supabaseReady) return;
+      supabaseClient.channel("sp_foodhitch_app_state")
+        .on("postgres_changes",{event:"*",schema:"public",table:"app_state"},payload=>{
+          if(payload && payload.new) applySupabaseUpdate(payload.new.key,payload.new.data);
+        })
+        .subscribe(status=>console.log("Supabase realtime:",status));
+    }
+    async function startLiveDatabase(){
+      if(!isSupabaseConfigured){
+        console.warn("Supabase is not configured yet. Paste your Project URL and anon key.");
+        return;
+      }
+      const connected = await loadSupabaseState();
+      if(connected){startSupabaseRealtime();toast("Connected to live database.");}
     }
     window.addEventListener("storage",syncLiveData);
     setInterval(syncLiveData,1000);
@@ -1130,7 +1192,9 @@
       .filter(o => !DEMO_ORDER_IDS.includes(o.id))
       .map(o => ({...o, createdAt:o.createdAt||new Date().toISOString(), pickupCode:o.pickupCode||"", contactNumber:o.contactNumber||"", platformFee:o.platformFee===undefined?PLATFORM_FEE:o.platformFee, bids:o.bids||[], declinedBids:o.declinedBids||[], acceptedBid:o.acceptedBid||null, confirmedAt:o.confirmedAt||"", estimatedArrival:o.estimatedArrival||"", driverRating:o.driverRating||"", driverComment:o.driverComment||"", ratedAt:o.ratedAt||""}));
     if(!accounts.some(a=>a.studentId==="SPAdmin")){accounts.unshift(defaultAdmin);}
-    saveAccounts(); saveOrders();
+    localStorage.setItem(ACC_KEY, JSON.stringify(accounts));
+    localStorage.setItem(ORD_KEY, JSON.stringify(orders));
+    startLiveDatabase();
 
     $("openSignupBtn").onclick = () => {$("signupForm").reset();$("signupModal").classList.remove("hidden");};
     $("closeSignupBtn").onclick = () => $("signupModal").classList.add("hidden");
