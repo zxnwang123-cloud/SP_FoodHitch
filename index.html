@@ -176,8 +176,8 @@
     @media(max-width:760px){
       #loginPage.hidden{display:none!important;visibility:hidden!important;pointer-events:none!important;height:0!important;min-height:0!important;padding:0!important;overflow:hidden!important}
       #appPage:not(.hidden){display:block!important;visibility:visible!important;position:relative!important;z-index:1!important}
-      body:has(#appPage:not(.hidden)) #loginPage{display:none!important}
-      body:has(#loginPage:not(.hidden)) #appPage{display:none!important}
+      body.app-mode #loginPage{display:none!important}
+      body.login-mode #appPage{display:none!important}
       .support-chat{position:fixed!important;left:auto!important;right:14px!important;bottom:14px!important;width:auto!important;z-index:11000!important}
       .support-chat-btn{width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important;border-radius:999px!important;padding:0!important;display:grid!important;place-items:center!important;box-shadow:0 12px 26px rgba(21,128,61,.32)!important}
       .support-chat-btn span{display:none!important}
@@ -199,6 +199,59 @@
       body.app-mode .panel,body.app-mode .card,body.app-mode .box,body.app-mode .head{overflow:visible!important}
       body.login-mode{overflow-y:auto!important}
       body.app-mode .support-chat{right:14px!important;left:auto!important;bottom:14px!important;width:auto!important}
+    }
+
+    /* Mobile web-app navigation redesign */
+    .mobile-bottom-nav{display:none}
+    @media(max-width:760px){
+      body.app-mode{background:#eef6f1!important}
+      body.app-mode nav{position:sticky!important;top:0!important;z-index:9000!important;background:rgba(255,255,255,.94)!important;border-bottom:1px solid #e2e8f0!important;box-shadow:0 8px 24px rgba(15,23,42,.06)!important}
+      body.app-mode .nav{padding:10px 12px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important}
+      body.app-mode .nav-left{margin:0!important;display:flex!important;align-items:center!important;gap:9px!important;min-width:0!important}
+      body.app-mode .nav-left .logo{width:38px!important;height:38px!important;font-size:20px!important;border-radius:14px!important}
+      body.app-mode .nav-left h2{font-size:17px!important;margin:0!important;line-height:1.1!important}
+      body.app-mode .nav-left p{display:none!important}
+      body.app-mode .nav-right{display:flex!important;align-items:center!important;justify-content:flex-end!important;width:auto!important;gap:7px!important;min-width:0!important}
+      body.app-mode .nav-right .user{grid-column:auto!important;text-align:right!important;background:transparent!important;border:0!important;border-radius:0!important;padding:0!important;max-width:120px!important;overflow:hidden!important}
+      body.app-mode .nav-right .user b{display:block!important;font-size:12px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+      body.app-mode .nav-right .user p{display:none!important}
+      body.app-mode #driverRatingHeader{display:none!important}
+      body.app-mode #bellWrap,body.app-mode #resetWrap,body.app-mode #allAccountsNavBtn,body.app-mode #approvalsNavBtn,body.app-mode #supportAdminNavBtn,body.app-mode #completedNavBtn{display:none!important}
+      body.app-mode #logoutBtn{width:40px!important;height:40px!important;min-height:40px!important;border-radius:14px!important;padding:0!important;display:grid!important;place-items:center!important;background:#fff!important;border:1px solid #e2e8f0!important}
+      body.app-mode #logoutBtn span{display:none!important}
+      body.app-mode #logoutBtn .btn-svg{width:19px!important;height:19px!important}
+      .mobile-bottom-nav{position:fixed!important;left:10px!important;right:10px!important;bottom:10px!important;z-index:12000!important;background:rgba(255,255,255,.96)!important;border:1px solid #e2e8f0!important;border-radius:24px!important;box-shadow:0 18px 48px rgba(15,23,42,.22)!important;padding:8px!important;display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:6px!important;backdrop-filter:blur(18px)!important}
+      .mobile-bottom-nav.hidden{display:none!important}
+      .mobile-bottom-nav button{min-height:54px!important;border-radius:18px!important;padding:6px 4px!important;background:transparent!important;border:0!important;color:#64748b!important;display:grid!important;place-items:center!important;gap:2px!important;font-size:11px!important;font-weight:900!important}
+      .mobile-bottom-nav button b{font-size:20px!important;line-height:1!important}.mobile-bottom-nav button span{font-size:10.5px!important;line-height:1!important}
+      .mobile-bottom-nav button.active-mobile-nav{background:#dcfce7!important;color:#166534!important;box-shadow:inset 0 0 0 1px #86efac!important}
+      body.app-mode main{padding:14px 12px 104px!important}
+      body.app-mode .head{border-radius:22px!important;padding:16px!important;margin-bottom:14px!important;background:linear-gradient(135deg,#fff,#f0fdf4)!important}
+      body.app-mode .head h2{font-size:23px!important;letter-spacing:-.4px!important}.head .muted{font-size:13px!important}
+      body.app-mode .panel{border-radius:22px!important;padding:16px!important;box-shadow:0 10px 28px rgba(15,23,42,.07)!important;margin-bottom:14px!important}
+      body.app-mode .card{border-radius:20px!important;padding:15px!important;box-shadow:0 8px 22px rgba(15,23,42,.06)!important}
+      body.app-mode .grid,body.app-mode .admin-grid,body.app-mode .support-inbox-grid{gap:14px!important}
+      body.app-mode .stats{grid-template-columns:repeat(2,1fr)!important;gap:10px!important}.stat h2{font-size:23px!important}
+      body.app-mode .tabs,body.app-mode .actions{grid-template-columns:1fr 1fr!important}.actions button{min-height:42px!important}
+      body.app-mode .food-search-row{position:sticky!important;top:61px!important;z-index:80!important;background:#eef6f1!important;padding:8px 0!important;margin:6px 0 12px!important}
+      body.app-mode .map{height:230px!important;border-radius:20px!important}
+      body.app-mode input,body.app-mode select,body.app-mode textarea{border-radius:16px!important;background:#fff!important}
+      body.app-mode .support-chat{right:14px!important;bottom:86px!important}.support-chat-panel{bottom:146px!important}
+      body.app-mode .notif-menu{position:fixed!important;left:10px!important;right:10px!important;bottom:84px!important;width:auto!important;max-height:58dvh!important;border-radius:22px!important;z-index:13000!important}
+      body.app-mode #toast{bottom:82px!important;left:12px!important;max-width:220px!important}
+    }
+
+    /* One-scrollbar mobile login fix */
+    @media(max-width:760px){
+      html:has(body.login-mode){height:100dvh!important;overflow:hidden!important}
+      body.login-mode{height:100dvh!important;width:100%!important;overflow:hidden!important;position:fixed!important;inset:0!important}
+      body.login-mode #loginPage{display:block!important;position:fixed!important;inset:0!important;height:100dvh!important;min-height:100dvh!important;max-height:100dvh!important;width:100%!important;overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch!important;padding:10px!important}
+      body.login-mode #loginPage::-webkit-scrollbar{width:0!important;height:0!important}
+      body.login-mode #loginPage{scrollbar-width:none!important}
+      body.login-mode .login-stage{height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important;width:100%!important;display:grid!important;grid-template-columns:1fr!important;gap:14px!important}
+      body.login-mode .login-hero-panel,body.login-mode .login-auth-card{height:auto!important;max-height:none!important;overflow:visible!important}
+      body.login-mode .login-auth-card{margin-bottom:24px!important}
+      body.app-mode{position:static!important;overflow-y:auto!important;height:auto!important}
     }
   </style>
 </head>
@@ -351,6 +404,8 @@
         </div>
       </div>
     </nav>
+
+    <div id="mobileBottomNav" class="mobile-bottom-nav hidden"></div>
 
     <main>
       <section id="adminPage" class="hidden">
@@ -944,6 +999,7 @@
       $("resetMenu").classList.add("hidden");
       $("notifMenu").classList.add("hidden");
       $("notifCount").classList.add("hidden");
+      $("mobileBottomNav").classList.add("hidden");
       $("loginForm").reset();
       $("appPage").classList.add("hidden");
       $("loginPage").classList.remove("hidden");
@@ -1321,7 +1377,53 @@
     function getCheckedRoles(){return Array.from(document.querySelectorAll("input[name='accountRoles']:checked")).map(box=>box.value);}
     function getSignupRoles(){return Array.from(document.querySelectorAll("input[name='signupRoles']:checked")).map(box=>box.value);}
     function setCheckedRoles(roles){document.querySelectorAll("input[name='accountRoles']").forEach(box=>box.checked=roles.includes(box.value));}
-    function showOnly(id){["adminPage","orderPage","deliveryPage","completedPage","supportAdminPage","approvalsPage","allAccountsPage"].forEach(p=>$(p).classList.add("hidden"));$(id).classList.remove("hidden");}
+    function showOnly(id){
+      ["adminPage","orderPage","deliveryPage","completedPage","supportAdminPage","approvalsPage","allAccountsPage"].forEach(p=>$(p).classList.add("hidden"));
+      $(id).classList.remove("hidden");
+      updateMobileNavActive(id);
+      if(isMobileView()) requestAnimationFrame(()=>window.scrollTo(0,0));
+    }
+    function mobileNavItems(){
+      if(!currentUser) return [];
+      if(hasRole(currentUser,"admin")) return [
+        {id:"adminPage",icon:"🏠",label:"Home"},
+        {id:"allAccountsPage",icon:"👥",label:"Accounts"},
+        {id:"approvalsPage",icon:"✅",label:"Approvals"},
+        {id:"supportAdminPage",icon:"💬",label:"Support"},
+        {action:"notifications",icon:"🔔",label:"Alerts"}
+      ];
+      if(loginType === "order") return [
+        {id:"orderPage",icon:"🍔",label:"Order"},
+        {id:"completedPage",icon:"✅",label:"Done"},
+        {action:"support",icon:"💬",label:"Help"},
+        {action:"notifications",icon:"🔔",label:"Alerts"}
+      ];
+      return [
+        {id:"deliveryPage",icon:"🚗",label:"Bids"},
+        {id:"completedPage",icon:"✅",label:"Done"},
+        {action:"support",icon:"💬",label:"Help"},
+        {action:"notifications",icon:"🔔",label:"Alerts"}
+      ];
+    }
+    function renderMobileNav(){
+      const nav=$("mobileBottomNav");
+      if(!nav || !currentUser){
+        if(nav) nav.classList.add("hidden");
+        return;
+      }
+      nav.innerHTML = mobileNavItems().map(item=>{
+        const attr = item.id ? 'data-mobile-page="' + esc(item.id) + '"' : 'data-mobile-action="' + esc(item.action) + '"';
+        return '<button type="button" ' + attr + '><b>' + esc(item.icon) + '</b><span>' + esc(item.label) + '</span></button>';
+      }).join("");
+      nav.classList.remove("hidden");
+      const activePage=["adminPage","orderPage","deliveryPage","completedPage","supportAdminPage","approvalsPage","allAccountsPage"].find(p=>!$(p).classList.contains("hidden"));
+      updateMobileNavActive(activePage);
+    }
+    function updateMobileNavActive(pageId){
+      const nav=$("mobileBottomNav");
+      if(!nav)return;
+      nav.querySelectorAll("button").forEach(btn=>btn.classList.toggle("active-mobile-nav",btn.dataset.mobilePage===pageId));
+    }
     function normalizeLiveData(){
       accounts = accounts.map(a => a.roles ? a : {...a, roles:[a.role]}).map(a => ({...a, password:a.studentId==="SPAdmin"?"Admin123":a.password, banned:a.banned||false, banReason:a.banReason||""}));
       if(!accounts.some(a=>a.studentId==="SPAdmin")) accounts.unshift(defaultAdmin);
@@ -1332,23 +1434,46 @@
       if(!currentUser) return;
       const keepMobileScroll = isMobileView() ? window.scrollY : null;
       const latestUser = accounts.find(a=>a.studentId===currentUser.studentId);
-      if(!latestUser){toast("Your account is no longer available.");$("logoutBtn").click();return;}
-      currentUser = latestUser;
-      if(currentUser.banned){forceLogoutWithBanPopup(currentUser.banReason);return;}
-      if(!$('adminPage').classList.contains('hidden')) renderAdmin();
-      if(!$('orderPage').classList.contains('hidden')){renderMyOrders();renderNotifications();showPendingRatingPopup(false);}
-      if(!$('deliveryPage').classList.contains('hidden')){renderDriver();renderNotifications();
-      if(keepMobileScroll !== null){
-        requestAnimationFrame(()=>window.scrollTo(0, keepMobileScroll));
+
+      if(!latestUser){
+        toast("Your account is no longer available.");
+        clearSessionAndShowLogin();
+        return;
       }
-    }
+
+      currentUser = latestUser;
+
+      if(currentUser.banned){
+        forceLogoutWithBanPopup(currentUser.banReason);
+        return;
+      }
+
+      if(!$('adminPage').classList.contains('hidden')) renderAdmin();
+      if(!$('orderPage').classList.contains('hidden')){
+        renderMyOrders();
+        renderNotifications();
+        showPendingRatingPopup(false);
+      }
+      if(!$('deliveryPage').classList.contains('hidden')){
+        renderDriver();
+        renderNotifications();
+      }
       if(!$('completedPage').classList.contains('hidden')) renderCompletedOrders();
-      if(!$('supportAdminPage').classList.contains('hidden')){renderAdminSupportInbox();renderAdminSupportThread();}
+      if(!$('supportAdminPage').classList.contains('hidden')){
+        renderAdminSupportInbox();
+        renderAdminSupportThread();
+      }
       if(!$('approvalsPage').classList.contains('hidden')) renderSignupApprovals();
       if(!$('allAccountsPage').classList.contains('hidden')) renderAllAccountsPage($("allAccountSearch").value);
       if(!$('supportChatPanel').classList.contains('hidden') && !hasRole(currentUser,"admin")) renderUserSupportMessages();
+
       updateDriverRatingHeader();
       renderNotifications();
+      renderMobileNav();
+
+      if(keepMobileScroll !== null){
+        requestAnimationFrame(()=>window.scrollTo(0, keepMobileScroll));
+      }
     }
     function syncLiveData(){
       if(supabaseReady) return;
@@ -1584,6 +1709,7 @@
         renderDriver();
       }
       renderNotifications();
+      renderMobileNav();
       if(showWelcome) toast("Welcome, " + user.studentId + "!");
       requestAnimationFrame(()=>window.scrollTo(0,0));
     }
@@ -1622,7 +1748,9 @@
       document.body.classList.remove("app-mode");
       document.body.classList.add("login-mode");
       $("driverRatingHeader").classList.add("hidden");
-      currentUser=null;selectedFood=null;activeSupportThreadId=null;
+      currentUser=null;
+      selectedFood=null;
+      activeSupportThreadId=null;
       $("allAccountsNavBtn").classList.add("hidden");
       $("approvalsNavBtn").classList.add("hidden");
       $("supportAdminNavBtn").classList.add("hidden");
@@ -1633,9 +1761,11 @@
       $("resetMenu").classList.add("hidden");
       $("notifMenu").classList.add("hidden");
       $("notifCount").classList.add("hidden");
+      $("mobileBottomNav").classList.add("hidden");
       $("loginForm").reset();
       $("appPage").classList.add("hidden");
       $("loginPage").classList.remove("hidden");
+      requestAnimationFrame(()=>window.scrollTo(0,0));
     }
 
     $("loginForm").onsubmit = e => {
@@ -2521,6 +2651,35 @@
       if(loginType === "delivery"){showOnly("deliveryPage");renderDriver();}
     };
 
+    $("mobileBottomNav").onclick = e => {
+      const btn = e.target.closest("button");
+      if(!btn) return;
+      const page = btn.dataset.mobilePage;
+      const action = btn.dataset.mobileAction;
+      if(page){
+        if(page === "adminPage") renderAdmin();
+        if(page === "allAccountsPage") renderAllAccountsPage();
+        if(page === "approvalsPage") renderSignupApprovals();
+        if(page === "supportAdminPage"){activeSupportThreadId=null;renderAdminSupportInbox();renderAdminSupportThread();}
+        if(page === "orderPage") renderMyOrders();
+        if(page === "deliveryPage") renderDriver();
+        if(page === "completedPage") renderCompletedOrders();
+        showOnly(page);
+        return;
+      }
+      if(action === "support"){
+        closeInactiveSupportChats();
+        renderUserSupportMessages();
+        $("supportChatPanel").classList.remove("hidden");
+        return;
+      }
+      if(action === "notifications"){
+        renderNotifications();
+        $("notifMenu").classList.remove("hidden");
+        $("resetMenu").classList.add("hidden");
+      }
+    };
+
     function orderBgClass(status){return status==="completed"?"status-completed":status==="declined"?"status-declined":status==="accepted"?"status-accepted":"status-ongoing";}
     function orderCard(o,btn,displayStatus=null){const shownStatus=displayStatus||o.status;const statusClass=shownStatus==="completed"?"green":shownStatus==="accepted"?"blue":shownStatus==="declined"?"red":"yellow";return `<div class="card ${orderBgClass(shownStatus)}"><div class="top"><div><h3>${esc(o.id)}</h3><p class="muted">${orderTimerLine(o)}
                 <b>Pickup:</b> ${esc(o.pickup)}<br>
@@ -2577,8 +2736,7 @@
 
     function initApp(){
       document.body.classList.add("login-mode");
-      localStorage.removeItem(SESSION_KEY);
-      localStorage.removeItem(ACTIVITY_KEY);
+      sessionStorage.removeItem(ACTIVITY_KEY);
       try{ populateStudentDropoffs(); }catch(e){ console.error("Startup drop-off setup error:", e); }
       try{ renderFood(foods); }catch(e){ console.error("Startup food list error:", e); }
       try{ renderNotifications(); }catch(e){ console.error("Startup notification error:", e); }
