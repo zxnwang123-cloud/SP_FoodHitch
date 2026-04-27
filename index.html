@@ -170,6 +170,22 @@
       .feature-orbit,.modern-feature-grid,.role-cards{overflow:visible!important}
       .login-auth-card{margin-bottom:28px!important}
     }
+
+    /* Fix mobile login overlay + support button */
+    #loginPage.hidden,#appPage.hidden,.hidden{display:none!important}
+    @media(max-width:760px){
+      #loginPage.hidden{display:none!important;visibility:hidden!important;pointer-events:none!important;height:0!important;min-height:0!important;padding:0!important;overflow:hidden!important}
+      #appPage:not(.hidden){display:block!important;visibility:visible!important;position:relative!important;z-index:1!important}
+      body:has(#appPage:not(.hidden)) #loginPage{display:none!important}
+      body:has(#loginPage:not(.hidden)) #appPage{display:none!important}
+      .support-chat{position:fixed!important;left:auto!important;right:14px!important;bottom:14px!important;width:auto!important;z-index:11000!important}
+      .support-chat-btn{width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important;border-radius:999px!important;padding:0!important;display:grid!important;place-items:center!important;box-shadow:0 12px 26px rgba(21,128,61,.32)!important}
+      .support-chat-btn span{display:none!important}
+      .support-chat-btn svg{width:22px!important;height:22px!important}
+      .support-chat-panel{position:fixed!important;left:12px!important;right:12px!important;bottom:72px!important;width:auto!important;max-height:72dvh!important;border-radius:22px!important;overflow:hidden!important}
+      .support-input-row{display:grid!important;grid-template-columns:1fr!important;gap:8px!important}
+      .support-input-row button{width:100%!important}
+    }
   </style>
 </head>
 
@@ -661,6 +677,7 @@
         </div>
         <div class="actions">
           <button id="accountDetailsBanBtn" type="button" class="red">Ban</button>
+          <button id="accountDetailsResetPasswordBtn" type="button" class="yellow">Reset Password</button>
           <button id="closeAccountDetailsBtn" type="button" class="white">Close</button>
         </div>
       </div>
@@ -725,6 +742,8 @@
     let lastSupabaseSnapshot = "";
     const ACC_KEY = "SPFH_accounts_bid_v1";
     const SESSION_KEY = "SPFH_current_session_v1";
+    const ACTIVITY_KEY = "SPFH_last_activity_v1";
+    const INACTIVITY_LIMIT_MS = 60 * 60 * 1000;
     const ORD_KEY = "SPFH_orders_bid_v1";
     const NOTIF_KEY = "SPFH_cleared_notifications_v1";
     const ORDER_SEQ_KEY = "SPFH_order_sequence_v1";
@@ -892,7 +911,8 @@
     }
     function orderTimerLine(order){return order.status==="completed" ? "" : `<b>Live Timer:</b> ${esc(orderAge(order))}<br>`;}
     function forceLogoutWithBanPopup(reason){
-      localStorage.removeItem(SESSION_KEY);
+      sessionStorage.removeItem(SESSION_KEY);
+      sessionStorage.removeItem(ACTIVITY_KEY);
       const message = "Your account has been banned and cannot access SP FoodHitch." + String.fromCharCode(10,10) + "Reason: " + (reason || "No reason provided.");
       currentUser=null;
       selectedFood=null;
@@ -1358,6 +1378,7 @@
         const data = await res.json();
         applySupabaseRows(data);
         supabaseReady = true;
+        saveSupabaseState("accounts", accounts);
         return true;
       }catch(err){
         console.error("Supabase load failed:", err);
@@ -1487,7 +1508,8 @@
     function enterApp(user,type=loginType,showWelcome=true){
       currentUser = user;
       loginType = type;
-      localStorage.setItem(SESSION_KEY, JSON.stringify({studentId:user.studentId, loginType:type}));
+      sessionStorage.setItem(SESSION_KEY, JSON.stringify({studentId:user.studentId, loginType:type}));
+      recordActivity();
       $("currentId").textContent = user.studentId;
       $("loginPage").classList.add("hidden");
       $("appPage").classList.remove("hidden");
@@ -1542,18 +1564,37 @@
       if(showWelcome) toast("Welcome, " + user.studentId + "!");
     }
 
+    function recordActivity(){
+      if(currentUser) sessionStorage.setItem(ACTIVITY_KEY, String(Date.now()));
+    }
+
+    function isSessionExpired(){
+      const last = Number(sessionStorage.getItem(ACTIVITY_KEY) || Date.now());
+      return Date.now() - last > INACTIVITY_LIMIT_MS;
+    }
+
+    function checkInactivity(){
+      if(!currentUser) return;
+      if(isSessionExpired()){
+        clearSessionAndShowLogin();
+        toast("Logged out due to 1 hour of inactivity.");
+      }
+    }
+
     function restoreSession(){
-      const saved = JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
+      const saved = JSON.parse(sessionStorage.getItem(SESSION_KEY) || "null");
       if(!saved || currentUser) return;
       const user = accounts.find(a=>a.studentId===saved.studentId);
-      if(!user){localStorage.removeItem(SESSION_KEY);return;}
+      if(!user){sessionStorage.removeItem(SESSION_KEY);sessionStorage.removeItem(ACTIVITY_KEY);return;}
       if(user.banned){forceLogoutWithBanPopup(user.banReason);return;}
-      if(!hasRole(user,saved.loginType) && !hasRole(user,"admin")){localStorage.removeItem(SESSION_KEY);return;}
+      if(!hasRole(user,saved.loginType) && !hasRole(user,"admin")){sessionStorage.removeItem(SESSION_KEY);sessionStorage.removeItem(ACTIVITY_KEY);return;}
+      if(isSessionExpired()){sessionStorage.removeItem(SESSION_KEY);sessionStorage.removeItem(ACTIVITY_KEY);toast("Session expired. Please log in again.");return;}
       enterApp(user,saved.loginType,false);
     }
 
     function clearSessionAndShowLogin(){
-      localStorage.removeItem(SESSION_KEY);
+      sessionStorage.removeItem(SESSION_KEY);
+      sessionStorage.removeItem(ACTIVITY_KEY);
       $("driverRatingHeader").classList.add("hidden");
       currentUser=null;selectedFood=null;activeSupportThreadId=null;
       $("allAccountsNavBtn").classList.add("hidden");
@@ -1686,6 +1727,13 @@
       renderAccountDetails(card.dataset.viewAccount);
     };
     $("closeAccountDetailsBtn").onclick=()=>$("accountDetailsModal").classList.add("hidden");
+    $("accountDetailsResetPasswordBtn").onclick=()=>{
+      const accountId=$("accountDetailsResetPasswordBtn").dataset.accountId;
+      handlePasswordReset(accountId,a=>{
+        renderAllAccountsPage($("allAccountSearch").value);
+        renderAccountDetails(a.id);
+      });
+    };
     $("accountDetailsBanBtn").onclick=async()=>{
       const accountId=$("accountDetailsBanBtn").dataset.accountId;
       const a=accounts.find(x=>String(x.id)===String(accountId));
@@ -1776,6 +1824,11 @@
 
       $("accountDetailsTitle").textContent=`${a.studentId} - Account Details`;
       $("accountDetailsBanBtn").dataset.accountId=a.id;
+      $("accountDetailsResetPasswordBtn").dataset.accountId=a.id;
+      const resettable=canResetPassword(a);
+      $("accountDetailsResetPasswordBtn").textContent=resettable?"Reset Password":"Protected";
+      $("accountDetailsResetPasswordBtn").disabled=!resettable;
+      $("accountDetailsResetPasswordBtn").className=resettable?"yellow":"white";
       const bannable=canBanAccount(a);
       $("accountDetailsBanBtn").textContent=!bannable?"Protected":a.banned?"Unban Account":"Ban Account";
       $("accountDetailsBanBtn").className=!bannable?"white":a.banned?"green":"red";
@@ -2497,9 +2550,16 @@
     };
 
     function initApp(){
+      localStorage.removeItem(SESSION_KEY);
+      localStorage.removeItem(ACTIVITY_KEY);
       try{ populateStudentDropoffs(); }catch(e){ console.error("Startup drop-off setup error:", e); }
       try{ renderFood(foods); }catch(e){ console.error("Startup food list error:", e); }
       try{ renderNotifications(); }catch(e){ console.error("Startup notification error:", e); }
+      ["click","keydown","touchstart","scroll","mousemove"].forEach(eventName=>{
+        window.addEventListener(eventName, recordActivity, {passive:true});
+      });
+      document.addEventListener("visibilitychange",()=>{ if(!document.hidden) checkInactivity(); });
+      setInterval(checkInactivity,60000);
       startLiveDatabase();
     }
 
