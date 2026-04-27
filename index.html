@@ -140,6 +140,24 @@
       .support-chat-panel{max-height:70dvh!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch}
       .notif-menu,.reset-menu{max-height:46dvh!important;overflow-y:auto!important}
     }
+
+    /* Stronger mobile scroll fix */
+    @media(max-width:760px){
+      html,body{height:auto!important;min-height:100%!important;overflow-x:hidden!important;overflow-y:auto!important;touch-action:auto!important}
+      body{position:relative!important;overscroll-behavior-y:auto!important}
+      #appPage,main{height:auto!important;min-height:100dvh!important;max-height:none!important;overflow-x:hidden!important;overflow-y:visible!important}
+      nav{position:relative!important;top:auto!important}
+      .grid,.admin-grid,.support-inbox-grid{display:grid!important;grid-template-columns:1fr!important;width:100%!important;overflow:visible!important}
+      .panel,.card,.box,.head{width:100%!important;max-width:100%!important;min-width:0!important;overflow:visible!important}
+      .scroll-list,.account-list-scroll,.admin-overview-list,#adminOrderList,.support-thread-list,.approval-list,.detail-section .list{max-height:none!important;overflow:visible!important;padding-right:0!important}
+      .store-modal-list,.support-messages,.support-admin-chat,.notif-menu,.reset-menu{overflow-y:auto!important;-webkit-overflow-scrolling:touch}
+      .store-modal-list{max-height:58dvh!important}
+      .support-messages{max-height:42dvh!important}
+      .support-admin-chat{max-height:52dvh!important}
+      .sg-clock{display:none!important}
+      #toast{bottom:86px!important}
+      select{height:auto!important;min-height:48px!important;overflow:visible!important}
+    }
   </style>
 </head>
 
