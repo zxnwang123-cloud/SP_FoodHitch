@@ -216,8 +216,11 @@
       body.app-mode .nav-right .user b{display:block!important;font-size:12px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
       body.app-mode .nav-right .user p{display:none!important}
       body.app-mode #driverRatingHeader{display:none!important}
-      body.app-mode #bellWrap,body.app-mode #resetWrap,body.app-mode #allAccountsNavBtn,body.app-mode #approvalsNavBtn,body.app-mode #supportAdminNavBtn,body.app-mode #completedNavBtn{display:none!important}
-      body.app-mode #logoutBtn{width:40px!important;height:40px!important;min-height:40px!important;border-radius:14px!important;padding:0!important;display:grid!important;place-items:center!important;background:#fff!important;border:1px solid #e2e8f0!important}
+      body.app-mode #resetWrap,body.app-mode #allAccountsNavBtn,body.app-mode #approvalsNavBtn,body.app-mode #supportAdminNavBtn,body.app-mode #completedNavBtn{display:none!important}
+      body.app-mode #bellWrap{display:block!important;position:relative!important}
+      body.app-mode #bellBtn{width:40px!important;height:40px!important;min-width:40px!important;min-height:40px!important;border-radius:14px!important;padding:0!important;display:grid!important;place-items:center!important;background:#fff!important;border:1px solid #e2e8f0!important}
+      body.app-mode #bellBtn .badge{right:-5px!important;top:-6px!important}
+      body.app-mode #logoutBtn{display:none!important}
       body.app-mode #logoutBtn span{display:none!important}
       body.app-mode #logoutBtn .btn-svg{width:19px!important;height:19px!important}
       .mobile-bottom-nav{position:fixed!important;left:10px!important;right:10px!important;bottom:10px!important;z-index:12000!important;background:rgba(255,255,255,.96)!important;border:1px solid #e2e8f0!important;border-radius:24px!important;box-shadow:0 18px 48px rgba(15,23,42,.22)!important;padding:8px!important;display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:6px!important;backdrop-filter:blur(18px)!important}
@@ -1390,19 +1393,19 @@
         {id:"allAccountsPage",icon:"👥",label:"Accounts"},
         {id:"approvalsPage",icon:"✅",label:"Approvals"},
         {id:"supportAdminPage",icon:"💬",label:"Support"},
-        {action:"notifications",icon:"🔔",label:"Alerts"}
+        {action:"logout",icon:"🚪",label:"Logout"}
       ];
       if(loginType === "order") return [
         {id:"orderPage",icon:"🍔",label:"Order"},
         {id:"completedPage",icon:"✅",label:"Done"},
         {action:"support",icon:"💬",label:"Help"},
-        {action:"notifications",icon:"🔔",label:"Alerts"}
+        {action:"logout",icon:"🚪",label:"Logout"}
       ];
       return [
         {id:"deliveryPage",icon:"🚗",label:"Bids"},
         {id:"completedPage",icon:"✅",label:"Done"},
         {action:"support",icon:"💬",label:"Help"},
-        {action:"notifications",icon:"🔔",label:"Alerts"}
+        {action:"logout",icon:"🚪",label:"Logout"}
       ];
     }
     function renderMobileNav(){
@@ -2677,6 +2680,9 @@
         renderNotifications();
         $("notifMenu").classList.remove("hidden");
         $("resetMenu").classList.add("hidden");
+      }
+      if(action === "logout"){
+        $("logoutBtn").click();
       }
     };
 
