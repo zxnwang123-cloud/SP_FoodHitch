@@ -159,6 +159,17 @@
       #toast{left:12px!important;right:auto!important;bottom:74px!important;max-width:220px!important;width:auto!important;text-align:left!important}
       select{height:auto!important;min-height:48px!important;overflow:visible!important}
     }
+
+    /* Final mobile login scroll fix: use only one page scroll */
+    @media(max-width:760px){
+      html{height:auto!important;min-height:100%!important;overflow-x:hidden!important;overflow-y:auto!important}
+      body{height:auto!important;min-height:100%!important;overflow-x:hidden!important;overflow-y:auto!important;position:static!important}
+      #loginPage,.login,.new-login{height:auto!important;min-height:100dvh!important;max-height:none!important;overflow:visible!important;display:block!important;padding:12px!important}
+      .login-stage{height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important;display:grid!important;grid-template-columns:1fr!important;gap:14px!important}
+      .login-hero-panel,.login-auth-card{height:auto!important;max-height:none!important;overflow:visible!important}
+      .feature-orbit,.modern-feature-grid,.role-cards{overflow:visible!important}
+      .login-auth-card{margin-bottom:28px!important}
+    }
   </style>
 </head>
 
