@@ -186,6 +186,20 @@
       .support-input-row{display:grid!important;grid-template-columns:1fr!important;gap:8px!important}
       .support-input-row button{width:100%!important}
     }
+
+    /* Final mobile app/login mode fix */
+    body.app-mode #loginPage{display:none!important;visibility:hidden!important;pointer-events:none!important;height:0!important;min-height:0!important;padding:0!important;overflow:hidden!important}
+    body.app-mode #appPage{display:block!important;visibility:visible!important;min-height:100dvh!important}
+    body.login-mode #appPage{display:none!important}
+    body.login-mode #loginPage{visibility:visible!important;pointer-events:auto!important}
+    @media(max-width:760px){
+      body.app-mode{height:auto!important;min-height:100dvh!important;overflow-x:hidden!important;overflow-y:auto!important;position:static!important}
+      body.app-mode main{display:block!important;height:auto!important;min-height:100dvh!important;overflow:visible!important;padding-bottom:86px!important}
+      body.app-mode nav{position:relative!important}
+      body.app-mode .panel,body.app-mode .card,body.app-mode .box,body.app-mode .head{overflow:visible!important}
+      body.login-mode{overflow-y:auto!important}
+      body.app-mode .support-chat{right:14px!important;left:auto!important;bottom:14px!important;width:auto!important}
+    }
   </style>
 </head>
 
@@ -913,6 +927,8 @@
     function forceLogoutWithBanPopup(reason){
       sessionStorage.removeItem(SESSION_KEY);
       sessionStorage.removeItem(ACTIVITY_KEY);
+      document.body.classList.remove("app-mode");
+      document.body.classList.add("login-mode");
       const message = "Your account has been banned and cannot access SP FoodHitch." + String.fromCharCode(10,10) + "Reason: " + (reason || "No reason provided.");
       currentUser=null;
       selectedFood=null;
@@ -1314,13 +1330,18 @@
     }
     function refreshVisiblePage(){
       if(!currentUser) return;
+      const keepMobileScroll = isMobileView() ? window.scrollY : null;
       const latestUser = accounts.find(a=>a.studentId===currentUser.studentId);
       if(!latestUser){toast("Your account is no longer available.");$("logoutBtn").click();return;}
       currentUser = latestUser;
       if(currentUser.banned){forceLogoutWithBanPopup(currentUser.banReason);return;}
       if(!$('adminPage').classList.contains('hidden')) renderAdmin();
       if(!$('orderPage').classList.contains('hidden')){renderMyOrders();renderNotifications();showPendingRatingPopup(false);}
-      if(!$('deliveryPage').classList.contains('hidden')){renderDriver();renderNotifications();}
+      if(!$('deliveryPage').classList.contains('hidden')){renderDriver();renderNotifications();
+      if(keepMobileScroll !== null){
+        requestAnimationFrame(()=>window.scrollTo(0, keepMobileScroll));
+      }
+    }
       if(!$('completedPage').classList.contains('hidden')) renderCompletedOrders();
       if(!$('supportAdminPage').classList.contains('hidden')){renderAdminSupportInbox();renderAdminSupportThread();}
       if(!$('approvalsPage').classList.contains('hidden')) renderSignupApprovals();
@@ -1507,6 +1528,8 @@
 
     function enterApp(user,type=loginType,showWelcome=true){
       currentUser = user;
+      document.body.classList.remove("login-mode");
+      document.body.classList.add("app-mode");
       loginType = type;
       sessionStorage.setItem(SESSION_KEY, JSON.stringify({studentId:user.studentId, loginType:type}));
       recordActivity();
@@ -1562,6 +1585,7 @@
       }
       renderNotifications();
       if(showWelcome) toast("Welcome, " + user.studentId + "!");
+      requestAnimationFrame(()=>window.scrollTo(0,0));
     }
 
     function recordActivity(){
@@ -1595,6 +1619,8 @@
     function clearSessionAndShowLogin(){
       sessionStorage.removeItem(SESSION_KEY);
       sessionStorage.removeItem(ACTIVITY_KEY);
+      document.body.classList.remove("app-mode");
+      document.body.classList.add("login-mode");
       $("driverRatingHeader").classList.add("hidden");
       currentUser=null;selectedFood=null;activeSupportThreadId=null;
       $("allAccountsNavBtn").classList.add("hidden");
@@ -2550,6 +2576,7 @@
     };
 
     function initApp(){
+      document.body.classList.add("login-mode");
       localStorage.removeItem(SESSION_KEY);
       localStorage.removeItem(ACTIVITY_KEY);
       try{ populateStudentDropoffs(); }catch(e){ console.error("Startup drop-off setup error:", e); }
