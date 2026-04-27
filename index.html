@@ -297,6 +297,20 @@
       .support-chat-panel{left:12px!important;right:12px!important;bottom:74px!important;width:auto!important;height:calc(100dvh - 154px)!important;max-height:calc(100dvh - 154px)!important;overflow:hidden!important}
       #supportMessages{min-height:120px!important;max-height:none!important}
     }
+
+    /* Mobile order details popup scroll fix */
+    #orderDetailsModal{overflow:hidden!important;align-items:center!important;justify-content:center!important;padding:18px!important}
+    #orderDetailsModal .modal{display:flex!important;flex-direction:column!important;width:min(720px,calc(100vw - 28px))!important;height:min(620px,calc(100dvh - 36px))!important;max-height:calc(100dvh - 36px)!important;overflow:hidden!important}
+    #orderDetailsModal .top{flex:0 0 auto!important}
+    #orderDetailsContent{flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch!important;padding-right:6px!important}
+    @media(max-width:760px){
+      #orderDetailsModal{align-items:flex-start!important;justify-content:center!important;padding:10px!important;overflow:hidden!important}
+      #orderDetailsModal .modal{width:100%!important;height:calc(100dvh - 112px)!important;max-height:calc(100dvh - 112px)!important;margin:0 0 88px!important;border-radius:22px!important;padding:14px!important;overflow:hidden!important}
+      #orderDetailsModal .top{display:flex!important;flex-direction:row!important;align-items:flex-start!important;justify-content:space-between!important;gap:10px!important}
+      #orderDetailsModal .top button{width:auto!important;min-width:78px!important}
+      #orderDetailsContent{overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;max-height:none!important;padding-bottom:12px!important}
+      #orderDetailsContent .detail-box{overflow:visible!important;width:100%!important;max-width:100%!important}
+    }
   </style>
 </head>
 
