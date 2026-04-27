@@ -311,6 +311,111 @@
       #orderDetailsContent{overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;max-height:none!important;padding-bottom:12px!important}
       #orderDetailsContent .detail-box{overflow:visible!important;width:100%!important;max-width:100%!important}
     }
+
+    /* Final fix: mobile order-details modal uses the modal itself as the scroll area */
+    @media(max-width:760px){
+      #orderDetailsModal:not(.hidden){
+        display:block!important;
+        position:fixed!important;
+        inset:0!important;
+        width:100vw!important;
+        height:100dvh!important;
+        overflow-y:auto!important;
+        overflow-x:hidden!important;
+        -webkit-overflow-scrolling:touch!important;
+        touch-action:pan-y!important;
+        padding:10px 10px 120px!important;
+        align-items:initial!important;
+        justify-content:initial!important;
+      }
+      #orderDetailsModal .modal{
+        display:block!important;
+        width:100%!important;
+        height:auto!important;
+        min-height:auto!important;
+        max-height:none!important;
+        overflow:visible!important;
+        margin:0!important;
+        border-radius:22px!important;
+        padding:14px!important;
+      }
+      #orderDetailsModal .top{
+        position:sticky!important;
+        top:0!important;
+        z-index:2!important;
+        background:#fff!important;
+        border-bottom:1px solid #e2e8f0!important;
+        padding-bottom:10px!important;
+        margin-bottom:12px!important;
+      }
+      #orderDetailsContent{
+        display:block!important;
+        height:auto!important;
+        min-height:0!important;
+        max-height:none!important;
+        overflow:visible!important;
+        padding-right:0!important;
+        padding-bottom:20px!important;
+        touch-action:pan-y!important;
+      }
+      #orderDetailsContent .detail-box,
+      #orderDetailsContent p{
+        overflow:visible!important;
+        height:auto!important;
+        max-height:none!important;
+        touch-action:pan-y!important;
+      }
+    }
+
+    /* Final fix: hitch request/order form popup scroll on mobile */
+    @media(max-width:760px){
+      #hitchRequestPanel.hitch-request-modal-panel:not(.hidden){
+        position:fixed!important;
+        left:0!important;
+        top:0!important;
+        right:0!important;
+        bottom:0!important;
+        transform:none!important;
+        width:100vw!important;
+        height:100dvh!important;
+        max-width:100vw!important;
+        max-height:100dvh!important;
+        overflow-y:auto!important;
+        overflow-x:hidden!important;
+        -webkit-overflow-scrolling:touch!important;
+        touch-action:pan-y!important;
+        z-index:30000!important;
+        border-radius:0!important;
+        padding:14px 12px 130px!important;
+        box-shadow:none!important;
+        background:#fff!important;
+      }
+      #hitchRequestPanel.hitch-request-modal-panel:not(.hidden) .top{
+        position:sticky!important;
+        top:0!important;
+        z-index:3!important;
+        background:#fff!important;
+        border-bottom:1px solid #e2e8f0!important;
+        margin:-14px -12px 14px!important;
+        padding:14px 12px!important;
+      }
+      #hitchRequestPanel.hitch-request-modal-panel:not(.hidden) #cart,
+      #hitchRequestPanel.hitch-request-modal-panel:not(.hidden) #emptyCart,
+      #hitchRequestPanel.hitch-request-modal-panel:not(.hidden) .row,
+      #hitchRequestPanel.hitch-request-modal-panel:not(.hidden) label,
+      #hitchRequestPanel.hitch-request-modal-panel:not(.hidden) input,
+      #hitchRequestPanel.hitch-request-modal-panel:not(.hidden) select,
+      #hitchRequestPanel.hitch-request-modal-panel:not(.hidden) textarea{
+        overflow:visible!important;
+        max-height:none!important;
+      }
+      #hitchRequestPanel.hitch-request-modal-panel:not(.hidden) textarea{
+        min-height:120px!important;
+      }
+      #hitchRequestPanel.hitch-request-modal-panel:not(.hidden) #placeOrderBtn{
+        margin-bottom:24px!important;
+      }
+    }
   </style>
 </head>
 
