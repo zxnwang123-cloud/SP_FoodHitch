@@ -117,6 +117,29 @@
     .auth-header{margin-bottom:14px}.auth-header h2{font-size:31px;letter-spacing:-.8px;margin-top:10px}.modern-tabs{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}.modern-tabs button{width:100%;padding:12px 10px}.role-cards{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0 14px}.role-cards div{background:#f8fafc;border:1px solid #e2e8f0;border-radius:16px;padding:11px}.role-cards b{display:block;margin-bottom:3px}.role-cards span{font-size:12px;color:#64748b;line-height:1.35}.primary-login-btn{box-shadow:0 16px 34px rgba(21,128,61,.28)}.create-account-btn{background:#f8fafc}.auth-footnote{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:13px}.auth-footnote span{font-size:11px;color:#64748b;background:#f8fafc;border:1px solid #e2e8f0;border-radius:999px;padding:6px 9px}
     @media(max-width:1050px){.new-login{height:auto;max-height:none;overflow-y:auto}.login-stage{height:auto;grid-template-columns:1fr;max-width:780px;overflow:visible}.login-auth-card{justify-self:stretch;max-width:none}.modern-feature-grid{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:640px){.new-login{padding:12px}.login-stage{gap:14px}.login-hero-panel,.login-auth-card{border-radius:24px;padding:17px}.modern-title{font-size:30px}.modern-subtitle{font-size:14px}.feature-orbit{grid-template-columns:1fr 1fr;padding:14px}.orbit-main-card{left:auto;right:auto}.floating-feature{position:relative;display:flex;justify-content:center;margin:0;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important}.modern-feature-grid,.role-cards{grid-template-columns:1fr}.auth-header h2{font-size:26px}.login-kicker span{width:100%;text-align:center}.auth-footnote{display:none}}
+
+    /* Mobile scroll and dropdown fixes */
+    html,body{width:100%;max-width:100%;overflow-x:hidden;-webkit-text-size-adjust:100%;touch-action:pan-y}
+    body{overscroll-behavior-x:none}
+    select,input,textarea,button{max-width:100%}
+    select{appearance:auto;-webkit-appearance:menulist;background:#fff;line-height:1.35}
+    .scroll-list,.store-modal-list,.account-list-scroll,.admin-overview-list,#adminOrderList,.support-messages,.support-thread-list,.support-admin-chat,.approval-list,.detail-section .list,.notif-menu,.reset-menu{overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+    .modal-bg{overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch;align-items:flex-start!important}
+    .modal{max-height:calc(100dvh - 28px)!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch}
+    @media(max-width:760px){
+      html,body{height:auto;min-height:100%;overflow-x:hidden!important;overflow-y:auto!important}
+      #appPage{min-height:100dvh;overflow-x:hidden}
+      .new-login,.login{height:auto!important;min-height:100dvh!important;max-height:none!important;overflow-x:hidden!important;overflow-y:auto!important;align-items:flex-start!important}
+      .login-stage,.login-shell{height:auto!important;max-height:none!important;overflow:visible!important}
+      .login-hero-panel,.login-auth-card{overflow:visible!important}
+      main{overflow-x:hidden}.panel,.card,.box{min-width:0}.grid,.admin-grid{min-width:0}
+      .scroll-list{max-height:48dvh!important}.store-modal-list{max-height:52dvh!important}.account-list-scroll,#adminOrderList,.admin-overview-list{max-height:55dvh!important}
+      .modal-bg{padding:10px!important;align-items:flex-start!important}.modal{margin:10px 0!important;width:100%!important;max-width:none!important;max-height:calc(100dvh - 20px)!important}
+      select{min-height:46px;font-size:16px;padding-right:34px}
+      .store-modal-controls{grid-template-columns:1fr!important}.store-modal-controls select,.store-modal-controls input{width:100%}
+      .support-chat-panel{max-height:70dvh!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch}
+      .notif-menu,.reset-menu{max-height:46dvh!important;overflow-y:auto!important}
+    }
   </style>
 </head>
 
@@ -299,7 +322,7 @@
               <input type="hidden" id="editAccountId">
               <label>Account ID / Student ID</label><input id="accountStudentId" required placeholder="Example: P2412345 or SPAdmin2">
               <label>Full Name</label><input id="accountFullName" required placeholder="Example: Tan Kai Jun">
-              <label>Password</label><input id="accountPassword" required placeholder="Example: password123">
+              <label>Password</label><input id="accountPassword" placeholder="Example: password123">
               <label>School</label>
               <select id="accountSchool" required>
                 <option value="">Choose school</option>
@@ -326,7 +349,7 @@
 
           <div class="panel">
             <div class="top"><h3>Manage Accounts</h3><span class="tag blue">Students & Drivers</span></div>
-            <input id="accountSearch" placeholder="Search account ID, role, or password..." style="margin:10px 0 14px">
+            <input id="accountSearch" placeholder="Search account ID, name, school, email, or role..." style="margin:10px 0 14px">
             <div id="accountFilters" class="account-filter-row">
               <button type="button" class="white active-filter" data-account-filter="all">All</button>
               <button type="button" class="white" data-account-filter="order">Student Order</button>
@@ -677,7 +700,7 @@
     const ORDER_SEQ_KEY = "SPFH_order_sequence_v1";
     const SUPPORT_KEY = "SPFH_support_threads_v1";
     const SIGNUP_KEY = "SPFH_signup_requests_v1";
-    const defaultAdmin = { id: 1, studentId: "SPAdmin", password: "Admin", roles: ["admin"], banned:false, banReason:"" };
+    const defaultAdmin = { id: 1, studentId: "SPAdmin", password: "Admin123", roles: ["admin"], banned:false, banReason:"" };
     const PLATFORM_FEE = 0.30;
     let loginType = "order", currentUser = null, selectedFood = null, leafletMap = null, mapMarkers = [];
     let clearedNotifications = JSON.parse(localStorage.getItem(NOTIF_KEY)) || [];
@@ -906,7 +929,7 @@
     function suggestedBid(){return selectedFood ? selectedFood.fee + getDropoffFee($("dropoff").value) : 0;}
     function updateBidDisplay(){if(!selectedFood)return;const bid=suggestedBid();$("dropoffFee").textContent=money(getDropoffFee($("dropoff").value));$("platformFee").textContent=money(PLATFORM_FEE);$("bidAmount").value=bid.toFixed(2);$("cartTotal").textContent=money(bid + PLATFORM_FEE);}
     function esc(s){return String(s).replace(/[&<>'"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));}
-    function toast(msg,duration=10000){
+    function toast(msg,duration=2000){
       const toastBox = $("toast");
       toastBox.textContent = msg;
       toastBox.classList.remove("hidden");
@@ -1201,7 +1224,28 @@
       renderNotifications();
       toast("Notifications cleared.");
     };
+    function canSeePasswords(){return currentUser && currentUser.studentId === "SPAdmin";}
+    function safePasswordText(a){return canSeePasswords() ? esc(a.password || "") : "Hidden";}
     function getRoles(a){return a.roles || [a.role];}
+    function canResetPassword(a){
+      if(!currentUser || !hasRole(currentUser,"admin")) return false;
+      if(a.studentId === "SPAdmin") return currentUser.studentId === "SPAdmin";
+      if(hasRole(a,"admin")) return currentUser.studentId === "SPAdmin";
+      return true;
+    }
+    function resetPasswordPopup(a){return showModal({title:"Reset Password",message:"Enter a new password for " + a.studentId + ".",input:true,inputType:"text",placeholder:"New password"});}
+    async function handlePasswordReset(accountId,afterReset=null){
+      const a=accounts.find(x=>String(x.id)===String(accountId));
+      if(!a)return toast("Account not found.");
+      if(!canResetPassword(a))return toast(a.studentId==="SPAdmin"?"Only SPAdmin can reset this password.":"Only SPAdmin can reset admin account passwords.");
+      const newPassword=(await resetPasswordPopup(a) || "").trim();
+      if(!newPassword)return toast("Password reset cancelled. New password is required.");
+      if(!await confirmChange("Reset password for " + a.studentId + "?"))return;
+      a.password=newPassword;
+      saveAccounts();
+      toast("Password reset for " + a.studentId + ".");
+      if(afterReset) afterReset(a);
+    }
     function hasRole(a,r){return getRoles(a).includes(r);}
     function roleName(r){return r==="admin"?"Admin Account":r==="order"?"Student Order Account":"Driver Account";}
     function roleTag(r){return r==="admin"?"purple":r==="order"?"green":"blue";}
@@ -1211,7 +1255,7 @@
     function setCheckedRoles(roles){document.querySelectorAll("input[name='accountRoles']").forEach(box=>box.checked=roles.includes(box.value));}
     function showOnly(id){["adminPage","orderPage","deliveryPage","completedPage","supportAdminPage","approvalsPage","allAccountsPage"].forEach(p=>$(p).classList.add("hidden"));$(id).classList.remove("hidden");}
     function normalizeLiveData(){
-      accounts = accounts.map(a => a.roles ? a : {...a, roles:[a.role]}).map(a => ({...a, banned:a.banned||false, banReason:a.banReason||""}));
+      accounts = accounts.map(a => a.roles ? a : {...a, roles:[a.role]}).map(a => ({...a, password:a.studentId==="SPAdmin"?"Admin123":a.password, banned:a.banned||false, banReason:a.banReason||""}));
       if(!accounts.some(a=>a.studentId==="SPAdmin")) accounts.unshift(defaultAdmin);
       orders = orders.map(o => ({...o, createdAt:o.createdAt||new Date().toISOString(), pickupCode:o.pickupCode||"", contactNumber:o.contactNumber||"", platformFee:o.platformFee===undefined?PLATFORM_FEE:o.platformFee, bids:o.bids||[], declinedBids:o.declinedBids||[], acceptedBid:o.acceptedBid||null, confirmedAt:o.confirmedAt||"", estimatedArrival:o.estimatedArrival||"", driverRating:o.driverRating||"", driverComment:o.driverComment||"", ratedAt:o.ratedAt||""}));
       supportThreads = supportThreads.map(t => ({...t, assignedAdmin:t.assignedAdmin||""}));
@@ -1329,7 +1373,7 @@
         return;
       }
       const connected = await loadSupabaseState();
-      if(connected){startSupabaseRealtime();startSupabasePolling();toast("Connected to live database.",5000);}else{toast("Fail to connect");}
+      if(connected){startSupabaseRealtime();startSupabasePolling();toast("Connected to live database.",2000);}else{toast("Fail to connect");}
       restoreSession();
     }
     window.addEventListener("storage",syncLiveData);
@@ -1366,7 +1410,7 @@
     function banReasonPopup(account){return showModal({title:"Ban Account",message:"Type the reason why " + account.studentId + " is being banned. This reason will be shown when they try to log in.",input:true,inputType:"text",placeholder:"Example: Misuse of platform / repeated fake orders"});}
 
     accounts = accounts.map(a => a.roles ? a : {...a, roles:[a.role]});
-    accounts = accounts.map(a => ({...a, banned:a.banned||false, banReason:a.banReason||""}));
+    accounts = accounts.map(a => ({...a, password:a.studentId==="SPAdmin"?"Admin123":a.password, banned:a.banned||false, banReason:a.banReason||""}));
     orders = orders
       .filter(o => !DEMO_ORDER_IDS.includes(o.id))
       .map(o => ({...o, createdAt:o.createdAt||new Date().toISOString(), pickupCode:o.pickupCode||"", contactNumber:o.contactNumber||"", platformFee:o.platformFee===undefined?PLATFORM_FEE:o.platformFee, bids:o.bids||[], declinedBids:o.declinedBids||[], acceptedBid:o.acceptedBid||null, confirmedAt:o.confirmedAt||"", estimatedArrival:o.estimatedArrival||"", driverRating:o.driverRating||"", driverComment:o.driverComment||"", ratedAt:o.ratedAt||""}));
@@ -1558,7 +1602,7 @@
     function renderAllAccountsPage(q=""){
       const search = (q || $("allAccountSearch").value || "").toLowerCase();
       const list = accounts.filter(a=>{
-        const text=(a.studentId+" "+a.password+" "+(a.fullName||"")+" "+(a.school||"")+" "+(a.email||"")+" "+accountRoleText(a)).toLowerCase();
+        const text=(a.studentId+" "+(canSeePasswords()?a.password:"")+" "+(a.fullName||"")+" "+(a.school||"")+" "+(a.email||"")+" "+accountRoleText(a)).toLowerCase();
         const matchesSearch=text.includes(search);
         const matchesFilter=allAccountFilter==="all" || hasRole(a,allAccountFilter);
         return matchesSearch && matchesFilter;
@@ -1576,7 +1620,9 @@
         const tagText = a.banned ? 'Banned' : accountRoleText(a);
         const editable = canEditAccount(a);
         const editLabel = editable ? "Edit Account" : "Protected";
-        return '<div class="card clickable-account '+cardClass+'" data-view-account="'+esc(a.id)+'"><div class="top"><div><h3>'+esc(a.studentId)+'</h3><p class="muted"><b>Full Name:</b> '+esc(a.fullName||"Not provided")+'<br><b>School:</b> '+esc(a.school||"Not provided")+'<br><b>ICHAT Email:</b> '+esc(a.email||"Not provided")+'<br><b>Password:</b> '+esc(a.password)+'<br><b>Status:</b> '+statusText+riderText+'</p></div><span class="tag '+tagClass+'">'+tagText+'</span></div><div class="actions"><button class="white" data-all-edit-account="'+esc(a.id)+'" '+(editable?'':'disabled')+'>'+editLabel+'</button><button class="blue" data-view-account-btn="'+esc(a.id)+'">View Details</button></div></div>';
+        const resettable = canResetPassword(a);
+        const resetButton = '<button class="yellow" data-all-reset-password="'+esc(a.id)+'" '+(resettable?'':'disabled')+'>'+(resettable?'Reset Password':'Protected')+'</button>';
+        return '<div class="card clickable-account '+cardClass+'" data-view-account="'+esc(a.id)+'"><div class="top"><div><h3>'+esc(a.studentId)+'</h3><p class="muted"><b>Full Name:</b> '+esc(a.fullName||"Not provided")+'<br><b>School:</b> '+esc(a.school||"Not provided")+'<br><b>ICHAT Email:</b> '+esc(a.email||"Not provided")+'<br><b>Password:</b> '+safePasswordText(a)+'<br><b>Status:</b> '+statusText+riderText+'</p></div><span class="tag '+tagClass+'">'+tagText+'</span></div><div class="actions"><button class="white" data-all-edit-account="'+esc(a.id)+'" '+(editable?'':'disabled')+'>'+editLabel+'</button><button class="blue" data-view-account-btn="'+esc(a.id)+'">View Details</button>'+resetButton+'</div></div>';
       }).join("") || '<div class="empty">No accounts found.</div>';
     }
     $("allAccountSearch").oninput=()=>renderAllAccountsPage($("allAccountSearch").value);
@@ -1588,6 +1634,11 @@
     };
 
     $("allAccountsList").onclick=e=>{
+      const resetId = e.target.dataset.allResetPassword;
+      if(resetId){
+        handlePasswordReset(resetId,()=>renderAllAccountsPage($("allAccountSearch").value));
+        return;
+      }
       const editId = e.target.dataset.allEditAccount;
       if(editId){
         startEditAccount(editId,true);
@@ -1707,7 +1758,7 @@
               <b>Roles:</b> ${esc(accountRoleText(a))}<br>
               <b>School:</b> ${esc(a.school||"Not provided")}<br>
               <b>ICHAT Email:</b> ${esc(a.email||"Not provided")}<br>
-              <b>Password:</b> ${esc(a.password)}<br>
+              <b>Password:</b> ${safePasswordText(a)}<br>
               <b>Status:</b> ${a.banned?"Banned - " + esc(a.banReason||"No reason provided."):"Active"}
             </p>
           </div>
@@ -1915,8 +1966,9 @@
         if(!canEditAccount(acc)) return toast(acc.studentId==="SPAdmin"?"SPAdmin cannot be edited.":"Only SPAdmin can edit other admin accounts.");
         if(!await confirmChange("Update account " + acc.studentId + "?")) return;
         if(accounts.some(a=>a.id!=editId && a.studentId.toLowerCase()===studentId.toLowerCase())) return toast("Student ID already exists.");
-        acc.studentId=studentId; acc.fullName=fullName; acc.password=password; acc.school=school; acc.email=email; acc.roles=roles; delete acc.role; toast("Account updated.");
+        acc.studentId=studentId; acc.fullName=fullName; acc.password=password || acc.password; acc.school=school; acc.email=email; acc.roles=roles; delete acc.role; toast("Account updated.");
       }else{
+        if(!password) return toast("Password is required for new accounts.");
         if(accounts.some(a=>a.studentId.toLowerCase()===studentId.toLowerCase())) return toast("Student ID already exists.");
         if(!await confirmChange("Add new account for " + studentId + "?")) return;
         accounts.push({id:Date.now(),studentId,fullName,password,school,email,roles}); toast("Account added.");
@@ -1924,7 +1976,7 @@
       saveAccounts(); resetAccountForm(); renderAdmin();
     };
     $("cancelAccountEdit").onclick = resetAccountForm;
-    function resetAccountForm(){$("accountForm").reset();setCheckedRoles(["order"]);$("editAccountId").value="";$("accountFormTitle").textContent="Add Account";$("saveAccountBtn").textContent="Add Account";$("cancelAccountEdit").classList.add("hidden");updateAdminRoleOption();}
+    function resetAccountForm(){$("accountForm").reset();$("accountPassword").placeholder="Example: password123";setCheckedRoles(["order"]);$("editAccountId").value="";$("accountFormTitle").textContent="Add Account";$("saveAccountBtn").textContent="Add Account";$("cancelAccountEdit").classList.add("hidden");updateAdminRoleOption();}
     function startEditAccount(accountId,fromAllAccounts=false){
       const a=accounts.find(x=>String(x.id)===String(accountId));
       if(!a)return toast("Account not found.");
@@ -1933,7 +1985,8 @@
       $("editAccountId").value=a.id;
       $("accountStudentId").value=a.studentId;
       $("accountFullName").value=a.fullName||"";
-      $("accountPassword").value=a.password;
+      $("accountPassword").value=canSeePasswords()?a.password:"";
+      $("accountPassword").placeholder=canSeePasswords()?"Example: password123":"Hidden - use Reset Password if needed";
       $("accountSchool").value=a.school||"";
       $("accountEmail").value=a.email||"";
       setCheckedRoles(getRoles(a));
@@ -1968,7 +2021,7 @@
     }
     function renderAccounts(q=""){
       const list=accounts.filter(a=>{
-        const text=(a.studentId+" "+a.password+" "+(a.fullName||"")+" "+(a.school||"")+" "+(a.email||"")+" "+accountRoleText(a)).toLowerCase();
+        const text=(a.studentId+" "+(canSeePasswords()?a.password:"")+" "+(a.fullName||"")+" "+(a.school||"")+" "+(a.email||"")+" "+accountRoleText(a)).toLowerCase();
         const matchesSearch=text.includes(q);
         const matchesFilter=accountFilter==="all" || hasRole(a,accountFilter);
         return matchesSearch && matchesFilter;
@@ -1982,13 +2035,16 @@
         const bannable = canBanAccount(a);
         const banLabel = !bannable ? "Protected" : a.banned ? "Unban" : "Ban";
         const banClass = !bannable ? "white" : a.banned ? "green" : "red";
+        const resettable = canResetPassword(a);
+        const resetButton = `<button class="yellow" data-reset-password="${a.id}" ${resettable?'':'disabled'}>${resettable?'Reset Password':'Protected'}</button>`;
         return `
-        <div class="card ${a.banned?'status-declined':''}"><div class="top"><div><h3>${esc(a.studentId)}</h3><p class="muted">Full Name: <b>${esc(a.fullName||"Not provided")}</b><br>School: <b>${esc(a.school||"Not provided")}</b><br>ICHAT Email: <b>${esc(a.email||"Not provided")}</b><br>Password: <b>${esc(a.password)}</b><br><b>Status:</b> ${a.banned?"Banned - " + esc(a.banReason||"No reason provided."):"Active"}</p></div><span class="tag ${a.banned?'red':hasRole(a,'admin')?'purple':hasRole(a,'delivery')&&hasRole(a,'order')?'yellow':roleTag(getRoles(a)[0])}">${a.banned?'Banned':accountRoleText(a)}</span></div>
-        <div class="actions"><button class="white" data-edit-account="${a.id}" ${editable?'':'disabled'}>${editLabel}</button><button class="${banClass}" data-ban-account="${a.id}" ${bannable?'':'disabled'}>${banLabel}</button><button class="${deleteClass}" data-delete-account="${a.id}">${deleteLabel}</button></div></div>`;
+        <div class="card ${a.banned?'status-declined':''}"><div class="top"><div><h3>${esc(a.studentId)}</h3><p class="muted">Full Name: <b>${esc(a.fullName||"Not provided")}</b><br>School: <b>${esc(a.school||"Not provided")}</b><br>ICHAT Email: <b>${esc(a.email||"Not provided")}</b><br>Password: <b>${safePasswordText(a)}</b><br><b>Status:</b> ${a.banned?"Banned - " + esc(a.banReason||"No reason provided."):"Active"}</p></div><span class="tag ${a.banned?'red':hasRole(a,'admin')?'purple':hasRole(a,'delivery')&&hasRole(a,'order')?'yellow':roleTag(getRoles(a)[0])}">${a.banned?'Banned':accountRoleText(a)}</span></div>
+        <div class="actions"><button class="white" data-edit-account="${a.id}" ${editable?'':'disabled'}>${editLabel}</button>${resetButton}<button class="${banClass}" data-ban-account="${a.id}" ${bannable?'':'disabled'}>${banLabel}</button><button class="${deleteClass}" data-delete-account="${a.id}">${deleteLabel}</button></div></div>`;
       }).join("") || `<div class="empty">No account found.</div>`;
     }
     $("accountList").onclick=async e=>{
-      const edit=e.target.dataset.editAccount, del=e.target.dataset.deleteAccount, ban=e.target.dataset.banAccount;
+      const edit=e.target.dataset.editAccount, del=e.target.dataset.deleteAccount, ban=e.target.dataset.banAccount, reset=e.target.dataset.resetPassword;
+      if(reset){await handlePasswordReset(reset,()=>renderAdmin());return;}
       if(edit){startEditAccount(edit,false);}
       if(ban){
         const a=accounts.find(x=>x.id==ban);
