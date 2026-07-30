@@ -1169,6 +1169,177 @@
   @media(max-width:640px){.admin-coverage-grid{grid-template-columns:76px repeat(5,minmax(88px,1fr));min-width:640px}.admin-coverage-grid .hcell,.admin-coverage-grid .ccell{font-size:12px}}
 </style>
 
+
+<style id="mobile-current-system-2026">
+  .mobile-quick-nav{display:none}
+  @media(max-width:760px){
+    :root{--mobile-header:58px;--mobile-bottom:76px;--mobile-gap:12px}
+    html{scroll-behavior:smooth!important;scroll-padding-top:118px!important}
+    body.app-mode{background:#f3f7f4!important;color:#0f172a!important}
+    body.app-mode #appPage{min-height:100dvh!important;background:#f3f7f4!important}
+
+    /* Compact app header */
+    body.app-mode nav{height:var(--mobile-header)!important;position:sticky!important;top:0!important;z-index:12000!important;background:rgba(255,255,255,.97)!important;border-bottom:1px solid #e5e7eb!important;box-shadow:0 5px 18px rgba(15,23,42,.07)!important}
+    body.app-mode .nav{height:100%!important;padding:7px 10px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:8px!important}
+    body.app-mode .nav-left{margin:0!important;display:flex!important;align-items:center!important;min-width:0!important;gap:7px!important}
+    body.app-mode .nav-left .logo.spfh-logo{width:92px!important;height:38px!important;flex:0 0 92px!important}
+    body.app-mode .nav-left>div:not(.logo){display:none!important}
+    body.app-mode .nav-right{display:flex!important;width:auto!important;min-width:0!important;gap:6px!important;align-items:center!important;justify-content:flex-end!important}
+    body.app-mode .nav-right .user{display:block!important;max-width:92px!important;padding:0!important;background:transparent!important;border:0!important;text-align:right!important}
+    body.app-mode .nav-right .user b{font-size:11px!important;line-height:1.2!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+    body.app-mode .nav-right .user p{display:none!important}
+    body.app-mode #bellBtn{width:38px!important;height:38px!important;min-width:38px!important;min-height:38px!important;border-radius:12px!important}
+    body.app-mode #deliveryChatTopBtn,body.app-mode #driverRatingHeader,body.app-mode #resetWrap,body.app-mode #allAccountsNavBtn,body.app-mode #approvalsNavBtn,body.app-mode #supportAdminNavBtn,body.app-mode #completedNavBtn,body.app-mode #timetableNavBtn,body.app-mode #logoutBtn{display:none!important}
+
+    /* Current-system quick navigation */
+    .mobile-quick-nav{display:flex!important;position:sticky!important;top:var(--mobile-header)!important;z-index:8000!important;gap:7px!important;overflow-x:auto!important;overflow-y:hidden!important;padding:8px 2px 10px!important;margin:-2px 0 10px!important;background:linear-gradient(180deg,#f3f7f4 76%,rgba(243,247,244,0))!important;scrollbar-width:none!important;-webkit-overflow-scrolling:touch!important}
+    .mobile-quick-nav::-webkit-scrollbar{display:none!important}
+    .mobile-quick-nav button{flex:0 0 auto!important;min-height:38px!important;padding:8px 13px!important;border-radius:999px!important;background:#fff!important;border:1px solid #dbe4de!important;color:#475569!important;font-size:12px!important;font-weight:900!important;box-shadow:0 5px 14px rgba(15,23,42,.05)!important}
+    .mobile-quick-nav button.active{background:#166534!important;border-color:#166534!important;color:#fff!important;outline:0!important}
+    [id$="Panel"],#adminStats,#restaurantMap,#foodSearch,#jobList,#acceptedList{scroll-margin-top:118px!important}
+
+    /* Bottom app navigation */
+    .mobile-bottom-nav{left:0!important;right:0!important;bottom:0!important;border-radius:22px 22px 0 0!important;border:1px solid #dfe7e1!important;border-bottom:0!important;padding:7px 7px calc(7px + env(safe-area-inset-bottom))!important;grid-template-columns:repeat(var(--mobile-nav-count,5),minmax(0,1fr))!important;gap:2px!important;background:rgba(255,255,255,.98)!important;box-shadow:0 -10px 30px rgba(15,23,42,.13)!important}
+    .mobile-bottom-nav button{min-width:0!important;min-height:58px!important;padding:6px 2px!important;border-radius:15px!important;gap:4px!important}
+    .mobile-bottom-nav button b{font-size:20px!important}
+    .mobile-bottom-nav button span{font-size:10px!important;max-width:100%!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+    .mobile-bottom-nav button.active-mobile-nav{background:#e8f7ed!important;color:#166534!important;box-shadow:none!important;transform:none!important}
+
+    /* Main mobile canvas */
+    body.app-mode main{padding:10px 10px calc(104px + env(safe-area-inset-bottom))!important;min-height:calc(100dvh - var(--mobile-header))!important}
+    body.app-mode main>section{width:100%!important;max-width:100%!important}
+    body.app-mode .head{padding:14px 15px!important;margin:0 0 10px!important;border-radius:18px!important;display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;gap:10px!important;background:#fff!important;border:1px solid #dfe8e2!important;box-shadow:0 7px 18px rgba(15,23,42,.05)!important}
+    body.app-mode .head h2{font-size:21px!important;line-height:1.15!important;margin:0 0 3px!important}
+    body.app-mode .head .muted{font-size:12px!important;line-height:1.35!important;display:-webkit-box!important;-webkit-line-clamp:2!important;-webkit-box-orient:vertical!important;overflow:hidden!important}
+    body.app-mode .head .tag{font-size:10px!important;padding:6px 8px!important;white-space:nowrap!important;align-self:center!important}
+    body.app-mode .panel,body.app-mode .box{padding:14px!important;border-radius:18px!important;margin-bottom:10px!important;border-color:#e0e7e2!important;box-shadow:0 6px 18px rgba(15,23,42,.055)!important;overflow:visible!important}
+    body.app-mode .card{padding:13px!important;border-radius:17px!important;box-shadow:none!important;border-color:#e2e8f0!important}
+    body.app-mode .top{display:flex!important;flex-direction:row!important;align-items:flex-start!important;justify-content:space-between!important;gap:8px!important}
+    body.app-mode .top h3{font-size:16px!important;line-height:1.25!important;margin-bottom:5px!important}
+    body.app-mode .top .muted{font-size:12px!important;line-height:1.4!important}
+    body.app-mode .note{font-size:12px!important;padding:11px 12px!important;margin:10px 0!important;border-radius:14px!important}
+    body.app-mode .section-gap{margin-top:10px!important}
+
+    /* Touch controls */
+    body.app-mode button,body.app-mode input,body.app-mode select,body.app-mode textarea{font-size:16px!important;min-height:46px!important}
+    body.app-mode button{touch-action:manipulation!important}
+    body.app-mode input,body.app-mode select,body.app-mode textarea{border-radius:14px!important;padding:12px!important}
+    body.app-mode textarea{min-height:110px!important;resize:vertical!important}
+    body.app-mode .actions{display:grid!important;grid-template-columns:1fr!important;gap:8px!important;width:100%!important}
+    body.app-mode .actions button{width:100%!important}
+    body.app-mode .row{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:start!important;gap:7px!important;padding:9px 0!important}
+    body.app-mode .row>span:first-child{min-width:0!important}
+
+    /* Student ordering: focus this page on finding and placing an order */
+    #orderPage #studentActiveOrdersPanel{display:none!important}
+    #orderPage .grid{display:block!important}
+    #studentDiscoveryPanel{padding:13px!important}
+    #studentDiscoveryPanel>.top{margin-bottom:4px!important}
+    #studentDiscoveryPanel>.top .tag{display:none!important}
+    #restaurantMap{height:225px!important;margin:9px 0 10px!important;border-radius:16px!important}
+    .map-combo-note{gap:6px!important;margin:5px 0 8px!important;overflow-x:auto!important;flex-wrap:nowrap!important;scrollbar-width:none!important}
+    .map-combo-note span{flex:0 0 auto!important;padding:6px 9px!important;font-size:10px!important}
+    .online-presence-wrap{padding:11px!important;border-radius:16px!important;margin:8px 0 10px!important}
+    .online-presence-head{margin-bottom:8px!important}.online-presence-head h4{font-size:14px!important}.live-presence-pill{font-size:10px!important;padding:5px 8px!important}
+    .online-presence-grid{display:grid!important;grid-auto-flow:column!important;grid-auto-columns:142px!important;grid-template-columns:none!important;gap:8px!important;overflow-x:auto!important;overscroll-behavior-x:contain!important;padding-bottom:4px!important;scroll-snap-type:x proximity!important;scrollbar-width:none!important}
+    .online-presence-grid::-webkit-scrollbar{display:none!important}
+    .online-presence-card{scroll-snap-align:start!important;padding:10px!important;border-radius:14px!important;display:block!important}
+    .online-presence-card strong{font-size:21px!important;margin-bottom:3px!important}.online-presence-card b{font-size:11px!important}.online-presence-card span{font-size:9px!important}
+    .online-presence-note{font-size:9.5px!important;margin-top:6px!important}
+    body.app-mode .food-search-row,body.app-mode .food-toolbar{position:static!important;top:auto!important;background:transparent!important;padding:0!important;margin:8px 0!important;z-index:auto!important}
+    .food-search-row{display:grid!important;grid-template-columns:1fr auto!important;gap:7px!important}
+    .view-all-btn{width:auto!important;min-width:92px!important;padding:8px 10px!important;font-size:12px!important}
+    .food-quick-filters{display:flex!important;flex-wrap:nowrap!important;overflow-x:auto!important;gap:6px!important;padding-bottom:3px!important;scrollbar-width:none!important}
+    .food-quick-filters::-webkit-scrollbar{display:none!important}
+    .food-quick-filters button{flex:0 0 auto!important;min-height:38px!important;padding:7px 11px!important;font-size:11px!important}
+    .food-list-summary{font-size:11px!important}
+    .food-list-grid{display:grid!important;grid-template-columns:1fr!important;gap:8px!important;max-height:52dvh!important;overflow-y:auto!important;overscroll-behavior:contain!important;padding-right:2px!important;-webkit-overflow-scrolling:touch!important}
+    .food-outlet-card{padding:12px!important;border-radius:16px!important}
+    .food-outlet-card .top{flex-direction:row!important;align-items:flex-start!important}
+    .food-outlet-card h3{font-size:16px!important}.food-outlet-sub{font-size:11px!important}
+    .food-outlet-metrics{gap:5px!important;margin:7px 0 9px!important}.food-metric-pill{padding:5px 8px!important;font-size:10px!important}
+    .food-outlet-footer{display:grid!important;grid-template-columns:1fr!important;gap:7px!important}.food-outlet-footer .green{width:100%!important}
+
+    /* Full-screen ordering sheet */
+    #hitchRequestPanel.hitch-request-modal-panel:not(.hidden){padding:0 12px calc(24px + env(safe-area-inset-bottom))!important;background:#f8fafc!important}
+    #hitchRequestPanel.hitch-request-modal-panel:not(.hidden)>.top{height:58px!important;margin:0 -12px 12px!important;padding:10px 12px!important;display:flex!important;flex-direction:row!important;align-items:center!important;background:#fff!important;box-shadow:0 5px 15px rgba(15,23,42,.07)!important}
+    #hitchRequestPanel #cart{background:#fff!important;border:1px solid #e2e8f0!important;border-radius:18px!important;padding:13px!important}
+    #hitchRequestPanel .bid-step-grid{grid-template-columns:1fr 1fr!important;gap:7px!important}
+    #hitchRequestPanel #placeOrderBtn{position:sticky!important;bottom:8px!important;z-index:5!important;min-height:52px!important;box-shadow:0 10px 25px rgba(21,128,61,.3)!important}
+
+    /* Hitcher service page */
+    #deliveryPage>.note{display:none!important}
+    #driverAvailabilityBanner{padding:12px!important;border-radius:16px!important;margin:0 0 10px!important}
+    #deliveryStats{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important;margin-bottom:10px!important}
+    #deliveryStats .card{min-height:78px!important;padding:11px!important}
+    #deliveryStats .card h2{font-size:21px!important}
+    #hitcherDemandPanel{padding:12px!important}
+    #hitcherStudentMap{height:225px!important;margin:8px 0 10px!important}
+    #hitcherStudentStats{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important;margin:0!important}
+    #hitcherStudentStats .card{padding:10px!important;min-height:75px!important}
+    #deliveryPage .grid{display:grid!important;grid-template-columns:1fr!important;gap:10px!important}
+    #hitcherOpenOrdersPanel,#hitcherMyBidsPanel{padding:13px!important}
+    #jobList,#acceptedList{max-height:58dvh!important;overflow-y:auto!important;overscroll-behavior:contain!important;-webkit-overflow-scrolling:touch!important;padding-right:2px!important}
+    #jobList .card,#acceptedList .card{margin-bottom:8px!important}
+    #jobList .card .muted,#acceptedList .card .muted,#myOrderList .card .muted{font-size:12px!important;line-height:1.5!important}
+
+    /* My Orders and completed history */
+    #myOrdersPage .panel,#completedPage .panel{padding:13px!important}
+    #myOrdersPage .panel>.top button,#completedPage .panel>.top button{width:auto!important;min-height:38px!important;font-size:12px!important}
+    #myOrdersHistoryList,#completedOrderList{max-height:none!important;overflow:visible!important}
+    #myOrdersHistoryList .card,#completedOrderList .card{margin-bottom:8px!important}
+
+    /* Timetable stays usable on a phone */
+    #hitcherTimetablePage .timetable-layout{display:block!important}
+    #hitcherTimetablePage .timetable-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}
+    #hitcherTimetablePage .gantt-week-grid{width:100%!important;overflow-x:auto!important;padding-bottom:8px!important;-webkit-overflow-scrolling:touch!important}
+    #hitcherTimetablePage .gantt-header,#hitcherTimetablePage .gantt-row{grid-template-columns:82px minmax(760px,1fr)!important;gap:7px!important}
+    #hitcherTimetablePage .gantt-day-label,#hitcherTimetablePage .gantt-header-label{position:sticky!important;left:0!important;z-index:7!important;padding:8px!important;background:#f8fafc!important}
+    #hitcherTimetablePage .gantt-help-strip{flex-wrap:nowrap!important;overflow-x:auto!important;scrollbar-width:none!important}
+    #hitcherTimetablePage .gantt-help-strip span{flex:0 0 auto!important;font-size:10px!important}
+
+    /* Admin mobile */
+    #adminPage .note{display:none!important}
+    #adminStats,.admin-analytics-summary,.admin-timetable-summary{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}
+    .admin-chart-grid{grid-template-columns:1fr!important;gap:9px!important}
+    .admin-chart-card{padding:12px!important;min-height:250px!important;border-radius:17px!important}
+    .admin-chart-canvas{min-height:180px!important}.admin-line-chart{height:185px!important}
+    .admin-donut-wrap{grid-template-columns:1fr!important;justify-items:center!important}.admin-donut{width:145px!important;height:145px!important}
+    .admin-driver-timetable-panel,.admin-analytics-panel{overflow:hidden!important}
+    .admin-timetable-view,.admin-coverage-heatmap{overflow-x:auto!important;-webkit-overflow-scrolling:touch!important}
+    #adminAccountsPanel{display:grid!important;grid-template-columns:1fr!important;gap:10px!important}
+    #accountList,#adminAllOrdersList,#adminOrderList{max-height:56dvh!important;overflow-y:auto!important;overscroll-behavior:contain!important;-webkit-overflow-scrolling:touch!important}
+    .account-filter-row,.admin-order-filters{display:flex!important;flex-wrap:nowrap!important;overflow-x:auto!important;gap:6px!important;scrollbar-width:none!important}
+    .account-filter-row button,.admin-order-filters button{flex:0 0 auto!important;min-height:38px!important;font-size:11px!important;padding:7px 10px!important}
+
+    /* Modal and chat service sheets */
+    .modal-bg:not(.hidden){padding:0!important;align-items:stretch!important;overflow:hidden!important}
+    .modal-bg:not(.hidden)>.modal{width:100%!important;height:100dvh!important;max-height:100dvh!important;margin:0!important;border-radius:0!important;padding:14px 12px calc(22px + env(safe-area-inset-bottom))!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important}
+    .modal-bg:not(.hidden)>.modal>.top{position:sticky!important;top:-14px!important;z-index:5!important;background:#fff!important;margin:-14px -12px 12px!important;padding:12px!important;border-bottom:1px solid #e2e8f0!important}
+    #deliveryChatModal .modal{display:flex!important;height:100dvh!important;max-height:100dvh!important;margin:0!important;border-radius:0!important;padding-bottom:calc(16px + env(safe-area-inset-bottom))!important}
+    #deliveryChatOrderList{max-height:115px!important}
+    #deliveryChatMessages{min-height:0!important;max-height:none!important}
+    .support-chat{right:12px!important;bottom:calc(var(--mobile-bottom) + 12px + env(safe-area-inset-bottom))!important}
+    .support-chat-panel{left:0!important;right:0!important;bottom:0!important;width:100%!important;height:100dvh!important;max-height:100dvh!important;border-radius:0!important;z-index:15000!important}
+    .support-chat-panel .support-head{padding-top:calc(14px + env(safe-area-inset-top))!important}
+    #supportMessages{max-height:none!important;min-height:0!important}
+    .support-chat-panel .support-input-row{padding-bottom:calc(12px + env(safe-area-inset-bottom))!important}
+    .notif-menu,.reset-menu{left:8px!important;right:8px!important;bottom:calc(var(--mobile-bottom) + 6px)!important;max-height:62dvh!important;border-radius:18px!important}
+    #toast{bottom:calc(var(--mobile-bottom) + 10px + env(safe-area-inset-bottom))!important}
+
+    /* Disable desktop hover motion on touch screens */
+    .card:hover,.panel:hover,.box:hover,.head:hover,button:hover{transform:none!important}
+  }
+
+  @media(max-width:390px){
+    body.app-mode .nav-left .logo.spfh-logo{width:82px!important;flex-basis:82px!important}
+    body.app-mode .nav-right .user{max-width:76px!important}
+    .mobile-bottom-nav button span{font-size:9px!important}
+    .food-search-row{grid-template-columns:1fr!important}.view-all-btn{width:100%!important}
+    #deliveryStats,#hitcherStudentStats,#adminStats,.admin-analytics-summary,.admin-timetable-summary{grid-template-columns:1fr 1fr!important}
+  }
+</style>
+
 </head>
 
 <body>
@@ -1320,10 +1491,11 @@
     <main>
       <section id="adminPage" class="hidden">
         <div class="head"><div><h2>Admin Dashboard</h2><p class="muted">Manage accounts, orders, and bids.</p></div><span class="tag purple">Admin Mode</span></div>
+        <div class="mobile-quick-nav" data-mobile-quick-nav="admin"><button type="button" class="active" data-mobile-scroll="adminStats">Overview</button><button type="button" data-mobile-scroll="adminAnalyticsPanel">Trends</button><button type="button" data-mobile-scroll="adminOrdersPanel">Orders</button><button type="button" data-mobile-scroll="adminAccountsPanel">Accounts</button></div>
         <div class="note">All add, edit, and delete actions ask for confirmation before changes are saved.</div>
         <div id="adminStats" class="stats"></div>
 
-        <div class="panel admin-analytics-panel" style="margin-top:0;margin-bottom:18px">
+        <div id="adminAnalyticsPanel" class="panel admin-analytics-panel" style="margin-top:0;margin-bottom:18px">
           <div class="top admin-analytics-head">
             <div>
               <h3>Analytics & Trends</h3>
@@ -1371,7 +1543,7 @@
           <div id="adminDriverTimetableView" class="admin-timetable-view"></div>
         </div>
 
-        <div class="panel section-gap" style="margin-top:0;margin-bottom:18px">
+        <div id="adminOrdersPanel" class="panel section-gap" style="margin-top:0;margin-bottom:18px">
           <div class="top">
             <div>
               <h3>View All Orders</h3>
@@ -1388,7 +1560,7 @@
           <div id="adminAllOrdersList" class="list admin-overview-list"></div>
         </div>
 
-        <div class="admin-grid">
+        <div id="adminAccountsPanel" class="admin-grid">
           <div class="panel">
             <h3 id="accountFormTitle">Add Account</h3>
             <form id="accountForm">
@@ -1470,13 +1642,14 @@
 
       <section id="orderPage" class="hidden">
         <div class="head"><div><h2>Student Order Page</h2><p class="muted">Choose an outlet, set a starting bid, and negotiate with hitchers using $0.50 or $1.00 steps.</p></div><span class="tag green">Order Mode</span></div>
-        <div class="panel section-gap" style="margin-top:0;margin-bottom:18px">
-          <div class="top"><h3>My Orders & Driver Bids</h3><span class="tag yellow">Choose a Bid</span></div>
+        <div class="mobile-quick-nav" data-mobile-quick-nav="student"><button type="button" class="active" data-mobile-scroll="studentDiscoveryPanel">Find Food</button><button type="button" data-mobile-scroll="restaurantMap">Heat Map</button><button type="button" data-mobile-shortcut="myOrders">My Orders</button><button type="button" data-mobile-shortcut="deliveryChat">Chat</button></div>
+        <div id="studentActiveOrdersPanel" class="panel section-gap" style="margin-top:0;margin-bottom:18px">
+          <div class="top"><h3>My Orders & Hitcher Bids</h3><span class="tag yellow">Choose a Bid</span></div>
           <div id="myOrderList" class="list"></div>
         </div>
         
         <div class="grid">
-          <div class="panel"><div class="top"><div><h3>Choose Restaurant + Live Hitcher Map</h3><p class="muted">Use one map for both restaurant selection and nearby hitcher activity.</p></div><span class="tag yellow">Around SP</span></div><p class="map-help">Tap a restaurant marker to select an outlet. Blue heat zones show where more hitchers are currently active in each area.</p><div class="map-combo-note"><span><i class="marker-dot"></i> Restaurant markers</span><span><i class="heat-dot"></i> Hitcher heat activity</span></div><div id="mapWarning" class="map-warning hidden">Map library could not load. Check your internet connection because Leaflet is loaded from a CDN.</div><div id="restaurantMap" class="map"></div><div class="online-presence-wrap"><div class="online-presence-head"><h4>Hitcher Availability</h4><span class="live-presence-pill"><i></i> Live activity</span></div><div id="studentHitcherPresenceStats" class="online-presence-grid"><div class="online-presence-card"><strong>0</strong><b>Online Now</b><span>Active within 2 minutes</span></div><div class="online-presence-card"><strong>0</strong><b>Past 15 Minutes</b><span>Recently active hitchers</span></div><div class="online-presence-card"><strong>0</strong><b>Past 30 Minutes</b><span>Recently active hitchers</span></div><div class="online-presence-card"><strong>0</strong><b>Scheduled Now</b><span>Planned pickup availability</span></div><div class="online-presence-card"><strong>0</strong><b>Next 30 Minutes</b><span>Planned pickup capacity</span></div></div><p class="online-presence-note">Live counts use recent app activity. Scheduled counts come from hitchers' weekly timetables.</p></div><div class="food-search-row"><div class="food-search-wrap"><input id="foodSearch" placeholder="Search food, area, or cuisine..."></div><button id="viewAllStoresBtn" type="button" class="view-all-btn">View All Stores</button></div><div class="food-toolbar"><div id="foodQuickFilters" class="food-quick-filters"><button type="button" class="white active-filter" data-food-area="all">All</button><button type="button" class="white" data-food-area="campus">SP Campus</button><button type="button" class="white" data-food-area="clementi">Clementi</button><button type="button" class="white" data-food-area="starvista">Star Vista</button><button type="button" class="white" data-food-area="holland">Holland</button></div><div id="foodListSummary" class="food-list-summary"></div></div><div id="foodList" class="food-list-grid"></div></div>
+          <div id="studentDiscoveryPanel" class="panel"><div class="top"><div><h3>Choose Restaurant + Live Hitcher Map</h3><p class="muted">Use one map for both restaurant selection and nearby hitcher activity.</p></div><span class="tag yellow">Around SP</span></div><p class="map-help">Tap a restaurant marker to select an outlet. Blue heat zones show where more hitchers are currently active in each area.</p><div class="map-combo-note"><span><i class="marker-dot"></i> Restaurant markers</span><span><i class="heat-dot"></i> Hitcher heat activity</span></div><div id="mapWarning" class="map-warning hidden">Map library could not load. Check your internet connection because Leaflet is loaded from a CDN.</div><div id="restaurantMap" class="map"></div><div class="online-presence-wrap"><div class="online-presence-head"><h4>Hitcher Availability</h4><span class="live-presence-pill"><i></i> Live activity</span></div><div id="studentHitcherPresenceStats" class="online-presence-grid"><div class="online-presence-card"><strong>0</strong><b>Online Now</b><span>Active within 2 minutes</span></div><div class="online-presence-card"><strong>0</strong><b>Past 15 Minutes</b><span>Recently active hitchers</span></div><div class="online-presence-card"><strong>0</strong><b>Past 30 Minutes</b><span>Recently active hitchers</span></div><div class="online-presence-card"><strong>0</strong><b>Scheduled Now</b><span>Planned pickup availability</span></div><div class="online-presence-card"><strong>0</strong><b>Next 30 Minutes</b><span>Planned pickup capacity</span></div></div><p class="online-presence-note">Live counts use recent app activity. Scheduled counts come from hitchers' weekly timetables.</p></div><div class="food-search-row"><div class="food-search-wrap"><input id="foodSearch" placeholder="Search food, area, or cuisine..."></div><button id="viewAllStoresBtn" type="button" class="view-all-btn">View All Stores</button></div><div class="food-toolbar"><div id="foodQuickFilters" class="food-quick-filters"><button type="button" class="white active-filter" data-food-area="all">All</button><button type="button" class="white" data-food-area="campus">SP Campus</button><button type="button" class="white" data-food-area="clementi">Clementi</button><button type="button" class="white" data-food-area="starvista">Star Vista</button><button type="button" class="white" data-food-area="holland">Holland</button></div><div id="foodListSummary" class="food-list-summary"></div></div><div id="foodList" class="food-list-grid"></div></div>
           <div id="hitchRequestPanel" class="panel hitch-request-modal-panel hidden">
             <div class="top"><h3>Order Details</h3><button id="closeHitchRequestBtn" type="button" class="white">Close</button></div>
             <div id="emptyCart" class="empty">Select an outlet to start.</div>
@@ -1509,7 +1682,7 @@
               <label>Order Items & Instructions <span style="color:#dc2626">*</span></label><p class="muted small">List every item, quantity, customisation, and instruction. Hitchers will see these details before placing a bid.</p><textarea id="orderNotes" rows="4" required placeholder="Example: 1 McSpicy Meal, medium fries, Coke, no chilli sauce. Please call me when reaching."></textarea>
               <div class="row total"><span>Estimated Total</span><span id="cartTotal"></span></div>
               <button id="placeOrderBtn" class="green full">Post Order for Bidding</button>
-              <div id="orderSuccess" class="success hidden">Your order has been posted for driver bidding.</div>
+              <div id="orderSuccess" class="success hidden">Your order has been posted for hitcher bidding.</div>
             </div>
           </div>
         </div>
@@ -1517,17 +1690,18 @@
 
       <section id="deliveryPage" class="hidden">
         <div class="head"><div><h2>Hitcher Page</h2><p class="muted">Accept, counter, and negotiate open student orders.</p></div><span class="tag blue">Hitcher Mode</span></div>
+        <div class="mobile-quick-nav" data-mobile-quick-nav="hitcher"><button type="button" class="active" data-mobile-scroll="hitcherDemandPanel">Demand</button><button type="button" data-mobile-scroll="hitcherOpenOrdersPanel">Available</button><button type="button" data-mobile-scroll="hitcherMyBidsPanel">My Bids</button><button type="button" data-mobile-shortcut="timetable">Timetable</button></div>
         <div class="note"><b>How bidding works:</b> Review the listed food items first. Accept the student offer, or counter using only +/− $0.50 or +/− $1.00. Pickup code and screenshot are shared only after the order is accepted.</div>
         <div id="driverAvailabilityBanner" class="availability-banner"></div>
         <div id="deliveryStats" class="stats"></div>
-        <div class="panel section-gap" style="margin-top:0;margin-bottom:18px">
+        <div id="hitcherDemandPanel" class="panel section-gap" style="margin-top:0;margin-bottom:18px">
           <div class="top"><div><h3>Live Student Demand Map</h3><p class="muted">See live student request counts around each pickup zone before choosing your next order.</p></div><span class="tag green">Live Students</span></div>
           <div id="hitcherStudentMap" class="map"></div>
           <div id="hitcherStudentStats" class="stats"></div>
         </div>
         <div class="grid">
-          <div class="panel"><div class="top"><h3>Available Orders for Bidding</h3><span class="tag green">Open</span></div><div id="jobList" class="list"></div></div>
-          <div class="panel"><h3>My Bids / Accepted Orders</h3><br><div id="acceptedList" class="list"></div></div>
+          <div id="hitcherOpenOrdersPanel" class="panel"><div class="top"><h3>Available Orders for Bidding</h3><span class="tag green">Open</span></div><div id="jobList" class="list"></div></div>
+          <div id="hitcherMyBidsPanel" class="panel"><h3>My Bids / Accepted Orders</h3><br><div id="acceptedList" class="list"></div></div>
         </div>
       </section>
 
@@ -1705,7 +1879,7 @@
           <button id="uploadOrderScreenshotBtn" type="button" class="blue">Upload Another Screenshot</button>
         </div>
         <div class="support-input-row">
-          <input id="deliveryChatInput" placeholder="Type message to student/driver...">
+          <input id="deliveryChatInput" placeholder="Type message to student/hitcher...">
           <button id="sendDeliveryChatMsg" type="button" class="green">Send</button>
         </div>
       </div>
@@ -1877,7 +2051,7 @@
 
   <div id="ratingModal" class="modal-bg hidden">
     <div class="modal" style="max-width:520px">
-      <h3>Rate Your Driver</h3>
+      <h3>Rate Your Hitcher</h3>
       <p class="muted">Please rate your completed delivery before continuing.</p>
       <div id="ratingOrderInfo" class="rating-modal-order"></div>
       <div id="starRating" class="star-rating" data-rating="0">
@@ -3713,7 +3887,7 @@
       const orderCount=accounts.filter(a=>hasRole(a,"order")).length;
       const driverCount=accounts.filter(a=>hasRole(a,"delivery")).length;
       const adminCount=accounts.filter(a=>hasRole(a,"admin")).length;
-      $("allAccountStats").innerHTML='<div class="card stat"><span class="muted">All Accounts</span><h2>'+accounts.length+'</h2></div><div class="card stat"><span class="muted">Student Order</span><h2>'+orderCount+'</h2></div><div class="card stat"><span class="muted">Drivers</span><h2>'+driverCount+'</h2></div><div class="card stat"><span class="muted">Admins</span><h2>'+adminCount+'</h2></div>';
+      $("allAccountStats").innerHTML='<div class="card stat"><span class="muted">All Accounts</span><h2>'+accounts.length+'</h2></div><div class="card stat"><span class="muted">Student Order</span><h2>'+orderCount+'</h2></div><div class="card stat"><span class="muted">Hitchers</span><h2>'+driverCount+'</h2></div><div class="card stat"><span class="muted">Admins</span><h2>'+adminCount+'</h2></div>';
       $("allAccountsList").innerHTML=list.map(a=>{
         const statusText = a.banned ? "Banned - " + esc(a.banReason || "No reason provided.") : "Active";
         const riderText = hasRole(a,"delivery") ? '<br><b>Hitcher Rating:</b> ' + esc(accountRatingText(a)) : '';
@@ -3815,7 +3989,7 @@
               <b>Pickup:</b> ${esc(o.pickup)}<br>
               <b>Drop-off:</b> ${esc(o.dropoff)}<br>
               <b>Requester:</b> ${esc(o.requester)}<br>
-              <b>Driver:</b> ${esc(o.driver||"Not assigned")}<br>
+              <b>Hitcher:</b> ${esc(o.driver||"Not assigned")}<br>
               <b>Order Items & Instructions:</b> ${esc(o.item)}<br>
               ${pickupDetailsLines(o)}
               <b>Contact:</b> ${esc(o.contactNumber||"Not provided")}<br>
@@ -3825,7 +3999,7 @@
               <b>All Bids:</b> ${esc(bidsText)}<br>
               <b>Time:</b> ${esc(o.time)}<br>
               <b>Estimated Arrival:</b> ${esc(o.estimatedArrival||"Shown once order is confirmed")}<br>
-              <b>Driver Rating:</b> ${o.driverRating?`${o.driverRating}/5 - ${esc(o.driverComment||"No comment")}`:"Not rated yet"}
+              <b>Hitcher Rating:</b> ${o.driverRating?`${o.driverRating}/5 - ${esc(o.driverComment||"No comment")}`:"Not rated yet"}
             </p>
           </div>
           <span class="tag ${o.status==="completed"?"green":o.status==="accepted"?"blue":"yellow"}">${esc(adminStatusLabel(o.status))}</span>
@@ -3883,9 +4057,9 @@
               <b>Current Related Orders:</b> ${activeCount}<br>
               <b>Completed Related Orders:</b> ${completedCount}<br>
               <b>Student Orders Created:</b> ${studentOrders.length}<br>
-              <b>Driver Related Orders:</b> ${driverRelated.length}<br>
+              <b>Hitcher Related Orders:</b> ${driverRelated.length}<br>
               <b>Total Active Bids:</b> ${totalBids}<br>
-              <b>Completed Driver Earnings:</b> ${money(earnings)}
+              <b>Completed Hitcher Earnings:</b> ${money(earnings)}
             </p>
           </div>
         </div>
@@ -4337,7 +4511,7 @@
                 <b>Pickup:</b> ${esc(o.pickup)}<br>
                 <b>Drop-off:</b> ${esc(o.dropoff)}<br>
                 <b>Requester:</b> ${esc(o.requester)}<br>
-                <b>Driver:</b> ${esc(o.driver || "Not assigned")}<br>
+                <b>Hitcher:</b> ${esc(o.driver || "Not assigned")}<br>
                 <b>Starting Bid:</b> ${money(o.reward)}<br><b>Platform Fee:</b> ${money(platformFee(o))}<br><b>Estimated Total:</b> ${money(orderTotal(o))}<br>
                 <b>Total Bids:</b> ${(o.bids||[]).length}<br>
                 <b>Accepted Bid:</b> ${o.acceptedBid ? money(o.acceptedBid) : "None"}<br>
@@ -4546,7 +4720,7 @@
       $("adminOrderList").innerHTML=list.map(o=>`
         <div class="card ${orderBgClass(o.status)}"><div class="top"><div><h3>${esc(o.id)} - ${esc(o.status)}</h3><p class="muted">${orderTimerLine(o)}
                 <b>Pickup:</b> ${esc(o.pickup)}<br>
-                <b>Drop-off:</b> ${esc(o.dropoff)}<br><b>Requester:</b> ${esc(o.requester)}<br><b>Driver:</b> ${esc(o.driver||"Not assigned")}<br><b>Order Items & Instructions:</b> ${esc(o.item)}<br>${pickupDetailsLines(o)}<b>Contact:</b> ${esc(o.contactNumber || "Not provided")}<br><b>Starting Bid:</b> ${money(o.reward)}<br><b>Platform Fee:</b> ${money(platformFee(o))}<br><b>Estimated Total:</b> ${money(orderTotal(o))}<br><b>Total Bids:</b> ${(o.bids||[]).length}<br><b>Accepted Bid:</b> ${o.acceptedBid?money(o.acceptedBid):"None"}<br><b>Time:</b> ${esc(o.time)}<br><b>Estimated Arrival:</b> ${esc(o.estimatedArrival || "Shown once order is confirmed")}</p></div></div>
+                <b>Drop-off:</b> ${esc(o.dropoff)}<br><b>Requester:</b> ${esc(o.requester)}<br><b>Hitcher:</b> ${esc(o.driver||"Not assigned")}<br><b>Order Items & Instructions:</b> ${esc(o.item)}<br>${pickupDetailsLines(o)}<b>Contact:</b> ${esc(o.contactNumber || "Not provided")}<br><b>Starting Bid:</b> ${money(o.reward)}<br><b>Platform Fee:</b> ${money(platformFee(o))}<br><b>Estimated Total:</b> ${money(orderTotal(o))}<br><b>Total Bids:</b> ${(o.bids||[]).length}<br><b>Accepted Bid:</b> ${o.acceptedBid?money(o.acceptedBid):"None"}<br><b>Time:</b> ${esc(o.time)}<br><b>Estimated Arrival:</b> ${esc(o.estimatedArrival || "Shown once order is confirmed")}</p></div></div>
         <div class="actions"><button class="white" data-edit-order="${o.id}">Edit</button><button class="red" data-delete-order="${o.id}">Delete</button></div></div>`).join("") || `<div class="empty">No order found.</div>`;
     }
     $("adminOrderList").onclick=async e=>{
@@ -4703,7 +4877,7 @@
     function driverReviews(driverId){return orders.filter(o=>o.driver===driverId && o.driverRating).map(o=>({rating:Number(o.driverRating),comment:o.driverComment||"",orderId:o.id,date:o.ratedAt||""}));}
     function driverReviewSummary(driverId){
       const reviews=driverReviews(driverId);
-      if(!reviews.length) return `<div class="rating-summary"><b>Driver Rating:</b> No ratings yet.</div>`;
+      if(!reviews.length) return `<div class="rating-summary"><b>Hitcher Rating:</b> No ratings yet.</div>`;
       const avg=reviews.reduce((s,r)=>s+r.rating,0)/reviews.length;
       const recent=reviews.slice(0,3);
       const lastRatings=recent.map(r=>r.rating).join(", ");
@@ -5196,14 +5370,14 @@
     function completedReviewBlock(o){
       if(loginType === "order" && o.requester === currentUser.studentId && o.driver){
         if(o.driverRating){
-          return `<div class="rating-summary"><b>Your Driver Rating:</b> ${o.driverRating}/5<br><b>Comment:</b> ${esc(o.driverComment||"No comment")}</div>`;
+          return `<div class="rating-summary"><b>Your Hitcher Rating:</b> ${o.driverRating}/5<br><b>Comment:</b> ${esc(o.driverComment||"No comment")}</div>`;
         }
-        return `<div class="rating-box"><b>Driver rating pending</b><p class="muted small">A rating popup will appear when you log in. You can also rate this order now.</p><button class="green full" data-open-rating="${o.id}">Rate Driver</button></div>`;
+        return `<div class="rating-box"><b>Hitcher rating pending</b><p class="muted small">A rating popup will appear when you log in. You can also rate this order now.</p><button class="green full" data-open-rating="${o.id}">Rate Hitcher</button></div>`;
       }
       if(o.driverRating){
-        return `<div class="rating-summary"><b>Driver Rating:</b> ${o.driverRating}/5<br><b>Student Comment:</b> ${esc(o.driverComment||"No comment")}</div>`;
+        return `<div class="rating-summary"><b>Hitcher Rating:</b> ${o.driverRating}/5<br><b>Student Comment:</b> ${esc(o.driverComment||"No comment")}</div>`;
       }
-      return `<div class="rating-summary"><b>Driver Rating:</b> Waiting for student review.</div>`;
+      return `<div class="rating-summary"><b>Hitcher Rating:</b> Waiting for student review.</div>`;
     }
 
     function renderCompletedOrders(){
@@ -5230,8 +5404,8 @@
                 ${pickupDetailsLines(o)}
                 <b>Contact:</b> ${esc(o.contactNumber || "Not provided")}<br>
                 <b>Requester:</b> ${esc(o.requester)}<br>
-                <b>Driver:</b> ${esc(o.driver || "Not assigned")}<br>
-                <b>Driver Delivery Fee:</b> ${money(o.acceptedBid || o.reward)}<br><b>Platform Fee:</b> ${money(platformFee(o))}<br><b>Final Total:</b> ${money(orderTotal(o))}<br>
+                <b>Hitcher:</b> ${esc(o.driver || "Not assigned")}<br>
+                <b>Hitcher Delivery Fee:</b> ${money(o.acceptedBid || o.reward)}<br><b>Platform Fee:</b> ${money(platformFee(o))}<br><b>Final Total:</b> ${money(orderTotal(o))}<br>
                 <b>Time:</b> ${esc(o.time)}<br>
                 <b>Estimated Arrival:</b> ${esc(o.estimatedArrival || "Not recorded")}</p>${completedReviewBlock(o)}
             </div>
@@ -5276,7 +5450,7 @@
           <b>Pickup:</b> ${esc(o.pickup)}<br>
           <b>Drop-off:</b> ${esc(o.dropoff)}<br>
           <b>Requester:</b> ${esc(o.requester)}<br>
-          <b>Driver:</b> ${esc(o.driver||"Not assigned")}<br>
+          <b>Hitcher:</b> ${esc(o.driver||"Not assigned")}<br>
           <b>Order Items & Instructions:</b> ${esc(o.item)}<br>
           ${pickupDetailsLines(o)}
           <b>Contact:</b> ${esc(o.contactNumber||"Not provided")}<br>
@@ -5287,7 +5461,7 @@
           <b>All Bids:</b> ${esc(bidsText)}<br>
           <b>Time:</b> ${esc(o.time)}<br>
           <b>Estimated Arrival:</b> ${esc(o.estimatedArrival||"Shown once order is confirmed")}<br>
-          <b>Driver Rating:</b> ${o.driverRating?`${o.driverRating}/5 - ${esc(o.driverComment||"No comment")}`:"Not rated yet"}
+          <b>Hitcher Rating:</b> ${o.driverRating?`${o.driverRating}/5 - ${esc(o.driverComment||"No comment")}`:"Not rated yet"}
         </p>
       </div>`;
     }
@@ -5364,7 +5538,7 @@
       $("ratingModal").classList.add("hidden");
       renderCompletedOrders();
       renderMyOrders();
-      toast("Driver rating submitted.");
+      toast("Hitcher rating submitted.");
       setTimeout(()=>showPendingRatingPopup(true),300);
     };
     $("backToMainBtn").onclick = () => {
@@ -5516,5 +5690,116 @@
 
     initApp();
   </script>
+
+<script id="mobile-current-system-js">
+(function(){
+  const mobile = () => window.matchMedia('(max-width:760px)').matches;
+  const $m = id => document.getElementById(id);
+
+  function setMobileNavColumns(){
+    const nav = $m('mobileBottomNav');
+    if(!nav) return;
+    const count = Math.max(1, nav.querySelectorAll('button').length);
+    nav.style.setProperty('--mobile-nav-count', String(count));
+  }
+
+  function mobileScrollTo(targetId){
+    if(!mobile()) return;
+    const el = $m(targetId);
+    if(!el) return;
+    const offset = 116;
+    const top = Math.max(0, el.getBoundingClientRect().top + window.scrollY - offset);
+    window.scrollTo({top, behavior:'smooth'});
+  }
+
+  function markQuickButton(btn){
+    const wrap = btn && btn.closest('.mobile-quick-nav');
+    if(!wrap) return;
+    wrap.querySelectorAll('button').forEach(item => item.classList.toggle('active', item === btn));
+  }
+
+  function refreshVisibleMaps(){
+    try{
+      if(window.leafletMap && typeof window.leafletMap.invalidateSize === 'function'){
+        window.leafletMap.invalidateSize();
+        if(typeof window.renderRestaurantHeatOverlay === 'function') window.renderRestaurantHeatOverlay();
+      }
+      if(window.activityMaps){
+        Object.values(window.activityMaps).forEach(map => {
+          if(map && typeof map.invalidateSize === 'function') map.invalidateSize();
+        });
+      }
+    }catch(_e){}
+  }
+
+  document.addEventListener('click', function(event){
+    const scrollBtn = event.target.closest('[data-mobile-scroll]');
+    if(scrollBtn && mobile()){
+      event.preventDefault();
+      markQuickButton(scrollBtn);
+      mobileScrollTo(scrollBtn.dataset.mobileScroll);
+      return;
+    }
+
+    const shortcut = event.target.closest('[data-mobile-shortcut]');
+    if(shortcut && mobile()){
+      event.preventDefault();
+      markQuickButton(shortcut);
+      const action = shortcut.dataset.mobileShortcut;
+      if(action === 'myOrders' && typeof window.renderMyOrdersHistory === 'function' && typeof window.showOnly === 'function'){
+        window.renderMyOrdersHistory();
+        window.showOnly('myOrdersPage');
+        if(typeof window.renderMobileNav === 'function') window.renderMobileNav();
+        window.scrollTo(0,0);
+      }else if(action === 'deliveryChat' && typeof window.openDeliveryChatModal === 'function'){
+        window.openDeliveryChatModal();
+      }else if(action === 'timetable' && typeof window.renderHitcherTimetable === 'function' && typeof window.showOnly === 'function'){
+        window.renderHitcherTimetable();
+        window.showOnly('hitcherTimetablePage');
+        if(typeof window.renderMobileNav === 'function') window.renderMobileNav();
+        window.scrollTo(0,0);
+      }
+      return;
+    }
+
+    const bottomBtn = event.target.closest('#mobileBottomNav button');
+    if(bottomBtn && mobile()){
+      const nav = $m('mobileBottomNav');
+      if(nav && bottomBtn.dataset.mobileAction !== 'deliveryChat' && bottomBtn.dataset.mobileAction !== 'logout'){
+        nav.querySelectorAll('button').forEach(item => item.classList.toggle('active-mobile-nav', item === bottomBtn));
+      }
+      setTimeout(function(){
+        if(bottomBtn.dataset.mobileAction !== 'deliveryChat') window.scrollTo(0,0);
+        setMobileNavColumns();
+        refreshVisibleMaps();
+      },80);
+    }
+
+    const backButton = event.target.closest('#backToMainBtn,#backFromMyOrdersBtn,#backFromTimetableBtn,#backToAdminBtn,#backToAdminFromAccountsBtn,#backToAdminFromApprovalsBtn');
+    if(backButton && mobile()) setTimeout(() => window.scrollTo(0,0), 60);
+  });
+
+  const nav = $m('mobileBottomNav');
+  if(nav){
+    new MutationObserver(setMobileNavColumns).observe(nav,{childList:true,subtree:true});
+    setMobileNavColumns();
+  }
+
+  window.addEventListener('resize', function(){
+    setMobileNavColumns();
+    if(mobile()) setTimeout(refreshVisibleMaps,100);
+  }, {passive:true});
+
+  document.addEventListener('visibilitychange', function(){
+    if(!document.hidden && mobile()) setTimeout(refreshVisibleMaps,120);
+  });
+
+  setTimeout(function(){
+    setMobileNavColumns();
+    refreshVisibleMaps();
+  },500);
+})();
+</script>
+
 </body>
 </html>
