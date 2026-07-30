@@ -1417,6 +1417,145 @@
   }
 </style>
 
+
+<style id="mobile-login-single-scroll-container-fix">
+  /* Safari/iOS-safe login scrolling: the login page itself is the only scroll container. */
+  @media (max-width: 900px), (max-height: 720px) {
+    html,
+    body {
+      width: 100% !important;
+      height: 100% !important;
+      min-height: 100% !important;
+      max-height: 100% !important;
+      overflow: hidden !important;
+      position: relative !important;
+    }
+
+    body.login-mode {
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100dvh !important;
+      min-height: 100dvh !important;
+      max-height: 100dvh !important;
+      overflow: hidden !important;
+      overscroll-behavior: none !important;
+    }
+
+    body.login-mode #loginPage {
+      position: fixed !important;
+      inset: 0 !important;
+      display: block !important;
+      width: 100% !important;
+      height: 100dvh !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      overflow-x: hidden !important;
+      overflow-y: scroll !important;
+      -webkit-overflow-scrolling: touch !important;
+      overscroll-behavior-y: contain !important;
+      touch-action: pan-y !important;
+      padding: max(10px, env(safe-area-inset-top)) 10px calc(30px + env(safe-area-inset-bottom)) !important;
+      scrollbar-width: none !important;
+    }
+
+    body.login-mode #loginPage::-webkit-scrollbar {
+      width: 0 !important;
+      height: 0 !important;
+    }
+
+    body.login-mode .refined-login-stage,
+    body.login-mode .login-stage,
+    body.login-mode .login-shell {
+      display: block !important;
+      width: 100% !important;
+      height: auto !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      overflow: visible !important;
+      margin: 0 auto !important;
+    }
+
+    body.login-mode .v2-hero,
+    body.login-mode .refined-login-hero,
+    body.login-mode .login-hero-panel {
+      display: none !important;
+    }
+
+    body.login-mode .refined-login-card,
+    body.login-mode .login-auth-card,
+    body.login-mode .modern-login-card {
+      display: block !important;
+      width: 100% !important;
+      height: auto !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      overflow: visible !important;
+      margin: 0 !important;
+      padding: 22px 18px calc(26px + env(safe-area-inset-bottom)) !important;
+      flex: none !important;
+      justify-content: flex-start !important;
+    }
+
+    body.login-mode .refined-mobile-logo {
+      display: flex !important;
+      width: 178px !important;
+      height: 72px !important;
+      margin: 0 auto 18px !important;
+    }
+
+    body.login-mode .refined-auth-header,
+    body.login-mode .refined-role-tabs,
+    body.login-mode .refined-field-group,
+    body.login-mode .v2-login-note,
+    body.login-mode .refined-divider,
+    body.login-mode .login-approval-note {
+      position: static !important;
+      flex: none !important;
+    }
+
+    body.login-mode input,
+    body.login-mode select,
+    body.login-mode textarea,
+    body.login-mode button {
+      touch-action: manipulation !important;
+    }
+  }
+</style>
+
+<script id="mobile-login-scroll-guard">
+(function(){
+  const loginPage = document.getElementById("loginPage");
+  if(!loginPage) return;
+
+  function refreshLoginScroller(){
+    if(document.body.classList.contains("login-mode")){
+      loginPage.style.overflowY = "scroll";
+      loginPage.style.webkitOverflowScrolling = "touch";
+      loginPage.style.touchAction = "pan-y";
+    }else{
+      loginPage.style.removeProperty("overflow-y");
+      loginPage.style.removeProperty("-webkit-overflow-scrolling");
+      loginPage.style.removeProperty("touch-action");
+    }
+  }
+
+  new MutationObserver(refreshLoginScroller).observe(
+    document.body,
+    {attributes:true, attributeFilter:["class"]}
+  );
+
+  window.addEventListener(
+    "orientationchange",
+    () => setTimeout(refreshLoginScroller, 100),
+    {passive:true}
+  );
+
+  window.addEventListener("resize", refreshLoginScroller, {passive:true});
+  refreshLoginScroller();
+})();
+</script>
+
 </head>
 
 <body>
