@@ -1340,6 +1340,83 @@
   }
 </style>
 
+
+<style id="mobile-login-scroll-final-fix">
+  /* Final override: allow the login screen to scroll on phones and short screens */
+  @media (max-width: 760px), (max-height: 720px) {
+    html {
+      height: auto !important;
+      min-height: 100% !important;
+      overflow-x: hidden !important;
+      overflow-y: auto !important;
+      scroll-behavior: auto !important;
+    }
+
+    body.login-mode {
+      position: static !important;
+      inset: auto !important;
+      width: 100% !important;
+      height: auto !important;
+      min-height: 100dvh !important;
+      max-height: none !important;
+      overflow-x: hidden !important;
+      overflow-y: auto !important;
+      touch-action: pan-y !important;
+      overscroll-behavior-y: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
+
+    body.login-mode #loginPage {
+      position: relative !important;
+      inset: auto !important;
+      display: flex !important;
+      align-items: flex-start !important;
+      justify-content: center !important;
+      width: 100% !important;
+      height: auto !important;
+      min-height: 100dvh !important;
+      max-height: none !important;
+      overflow: visible !important;
+      padding: 10px !important;
+      touch-action: pan-y !important;
+    }
+
+    body.login-mode .refined-login-stage,
+    body.login-mode .login-stage,
+    body.login-mode .login-shell {
+      width: 100% !important;
+      height: auto !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      overflow: visible !important;
+      margin: 0 auto !important;
+    }
+
+    body.login-mode .refined-login-card,
+    body.login-mode .login-auth-card,
+    body.login-mode .modern-login-card {
+      width: 100% !important;
+      height: auto !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      overflow: visible !important;
+      justify-content: flex-start !important;
+      margin-bottom: 28px !important;
+      flex: none !important;
+    }
+
+    body.login-mode .refined-mobile-logo {
+      flex: 0 0 auto !important;
+    }
+
+    body.login-mode input,
+    body.login-mode button,
+    body.login-mode select {
+      flex-shrink: 0 !important;
+    }
+  }
+</style>
+
 </head>
 
 <body>
