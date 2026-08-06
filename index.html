@@ -2464,6 +2464,38 @@
   }
 </style>
 
+
+<style id="dropoff-location-guide-style">
+  .dropoff-location-guide{
+    display:grid;
+    gap:6px;
+    margin:9px 0 12px;
+    padding:11px 12px;
+    border:1px solid #dbe7d7;
+    border-radius:14px;
+    background:#f6faf3;
+    color:#40504a;
+    font-size:11px;
+    line-height:1.4;
+  }
+  .dropoff-location-guide>strong{
+    color:#155f34;
+    font-size:12px;
+  }
+  .dropoff-location-guide span{
+    display:block;
+  }
+  .dropoff-location-guide span b{
+    color:#17733d;
+  }
+  @media(max-width:760px){
+    .dropoff-location-guide{
+      padding:10px;
+      font-size:10.5px;
+    }
+  }
+</style>
+
 </head>
 
 <body>
@@ -2821,6 +2853,13 @@
               <div class="row"><span>Drop-off Surcharge</span><b id="dropoffFee">$0.00</b></div>
               <div class="row"><span>Platform Fee</span><b id="platformFee">$0.50</b></div>
               <label>Drop-off Location</label><select id="dropoff"></select>
+              <div class="dropoff-location-guide">
+                <strong>Available drop-off points</strong>
+                <span><b>Free:</b> One Stop Center @ T16 Level 2</span>
+                <span><b>+$0.50:</b> Food Court 2 @ T1A Level 1</span>
+                <span><b>+$0.50:</b> BETA Wall @ T18B Level 5</span>
+              </div>
+
               <label>Delivery Timing</label>
               <select id="deliveryTiming">
                 <option value="now">Deliver Now - based on restaurant ETA + 15 mins</option>
@@ -3349,14 +3388,9 @@
     let orders = loadArrayStorage(ORD_KEY, []);
     const DEMO_ORDER_IDS = ["FH-201","FH-202","FH-203"];
     const dropoffOptions = [
-      { name: "SP One Stop Centre", fee: 0 },
-      { name: "School of Business", fee: 0.50 },
-      { name: "School of Computing", fee: 0.50 },
-      { name: "School of Electrical & Electronic Engineering", fee: 0.50 },
-      { name: "School of Mechanical & Aeronautical Engineering", fee: 0.50 },
-      { name: "School of Architecture & the Built Environment", fee: 0.50 },
-      { name: "School of Chemical & Life Sciences", fee: 0.50 },
-      { name: "Media, Arts & Design School", fee: 0.50 }
+      { name: "One Stop Center @ T16 Level 2", fee: 0 },
+      { name: "Food Court 2 @ T1A Level 1", fee: 0.50 },
+      { name: "BETA Wall @ T18B Level 5", fee: 0.50 }
     ];
 
     const foodRows = [
